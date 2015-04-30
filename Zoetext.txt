@@ -1,5 +1,1 @@
 This is my text file upload for the GitHub lab in class.
-
-/*
-* THIS IS THE NEW BRANCH!
-*/
