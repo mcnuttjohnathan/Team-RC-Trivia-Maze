@@ -1,9 +1,8 @@
 ﻿using System;
 
-public class Room
-{
+public class Room{
     char[][] r;
-    int[] exits;
+    int exits;
 
     //DVC
 	public void Room(){
@@ -15,7 +14,7 @@ public class Room
 	}
 
     //EVC
-    public void Room(int[] e){
+    public void Room(int e){
         this.r = new char[5,5]{{'X','X','X','X','X'},
                                {'X','O','O','O','X'},
                                {'X','O','O','O','X'},
@@ -45,5 +44,7 @@ public class Room
         return result;
     }
 
-    public 
+    public {
+
+    }
 }
