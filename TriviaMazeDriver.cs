@@ -22,7 +22,7 @@ namespace TriviaMaze {
         private void button1_Click(object sender, EventArgs e) {
             Gameplay demo = new Gameplay();
             demo.Show();
-            this.Close();
+            //this.Close();
         }
 
         private void button2_Click(object sender, EventArgs e) {
