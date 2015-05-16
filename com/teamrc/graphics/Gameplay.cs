@@ -92,5 +92,9 @@ namespace TriviaMaze.com.teamrc.graphics {
             if (e.KeyCode.Equals(Keys.D))
                 this.player.resetRightFlag();
         }
+
+        private void Gameplay_FormClosed(object sender, FormClosedEventArgs e) {
+            t.Stop();
+        }
     }
 }

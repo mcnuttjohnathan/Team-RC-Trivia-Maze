@@ -31,7 +31,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 261);
             this.Name = "Gameplay";
-            this.Text = "Form1";
+            this.Text = "Game Demo";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Gameplay_FormClosed);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Gameplay_KeyDown_1);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Gameplay_KeyUp_1);
             this.ResumeLayout(false);
