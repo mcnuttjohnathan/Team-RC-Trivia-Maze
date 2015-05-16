@@ -10,6 +10,10 @@ using System.Windows.Forms;
 
 using TriviaMaze.com.teamrc.gameobjects;
 
+/**
+ * Opens a window where the user can control a player.
+ * used to demonstrate graphics and basic movement.
+ */
 namespace TriviaMaze.com.teamrc.graphics {
     public partial class Gameplay : Form {
         Player player = new Player();
@@ -22,6 +26,9 @@ namespace TriviaMaze.com.teamrc.graphics {
             {new Floor (96, 32), new Floor (96, 64), new Floor (96, 96)}
         };
 
+        /**
+         * Constructs the gameplay window.
+         */
         public Gameplay() {
             InitializeComponent();
 
@@ -32,6 +39,9 @@ namespace TriviaMaze.com.teamrc.graphics {
             t.Start();
         }
 
+        /**
+         * draws the windows graphics approximately 60 times per second
+         */
         private void update(object sender, EventArgs e) {
             g.Clear(Color.Black);
             for (int i = 0; i < 3; i++)
@@ -41,6 +51,11 @@ namespace TriviaMaze.com.teamrc.graphics {
             g.FillRectangle(player.playerColor, player.playerImage);
         }
 
+        /**
+         * Activates whenever the user presses a key.
+         * Checks to see if the key is WASD and if the
+         * player can move in that direction.
+         */
         private void Gameplay_KeyDown_1(object sender, KeyEventArgs e) {
             if (e.KeyCode.Equals(Keys.W)) {
                 int move = this.player.playerImage.Y - 32;
@@ -79,6 +94,10 @@ namespace TriviaMaze.com.teamrc.graphics {
             }
         }
 
+        /**
+         * Checks if a key is released, if WASD is released
+         * the player flag in the same direction is reset.
+         */
         private void Gameplay_KeyUp_1(object sender, KeyEventArgs e) {
             if (e.KeyCode.Equals(Keys.W))
                 this.player.resetUpFlag();
@@ -93,6 +112,9 @@ namespace TriviaMaze.com.teamrc.graphics {
                 this.player.resetRightFlag();
         }
 
+        /**
+         * stops update from being called once the window is closed.
+         */
         private void Gameplay_FormClosed(object sender, FormClosedEventArgs e) {
             t.Stop();
         }
