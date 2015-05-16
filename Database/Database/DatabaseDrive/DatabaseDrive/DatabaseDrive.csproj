@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{B4C3EA71-6920-4814-9CF8-0C28A5074761}</ProjectGuid>
+    <ProjectGuid>{415E3893-8377-44C9-9D49-7B654EF2DDD5}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TriviaMaze</RootNamespace>
-    <AssemblyName>TriviaMaze</AssemblyName>
+    <RootNamespace>DatabaseDrive</RootNamespace>
+    <AssemblyName>DatabaseDrive</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -33,9 +33,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Database">
-      <HintPath>Database\Database\bin\Debug\Database.dll</HintPath>
+      <HintPath>..\..\bin\Debug\Database.dll</HintPath>
     </Reference>
-    <Reference Include="SQLite.NET">
+    <Reference Include="SQLite.NET, Version=0.21.1869.3794, Culture=neutral, PublicKeyToken=c273bd375e695f9c">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\Debug\SQLite.NET.dll</HintPath>
     </Reference>
     <Reference Include="System" />
@@ -50,41 +51,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="com\teamrc\gameobjects\Floor.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="com\teamrc\gameobjects\Floor.Designer.cs">
-      <DependentUpon>Floor.cs</DependentUpon>
-    </Compile>
-    <Compile Include="com\teamrc\gameobjects\Player.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="com\teamrc\gameobjects\Player.Designer.cs">
-      <DependentUpon>Player.cs</DependentUpon>
-    </Compile>
-    <Compile Include="com\teamrc\graphics\Gameplay.cs">
+    <Compile Include="Tester.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="com\teamrc\graphics\Gameplay.Designer.cs">
-      <DependentUpon>Gameplay.cs</DependentUpon>
-    </Compile>
-    <Compile Include="com\teamrc\MazeGen\Map.cs" />
-    <Compile Include="com\teamrc\MazeGen\MazeGenerator.cs" />
-    <Compile Include="com\teamrc\MazeGen\Room.cs" />
-    <Compile Include="TriviaMazeDriver.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="TriviaMazeDriver.Designer.cs">
-      <DependentUpon>TriviaMazeDriver.cs</DependentUpon>
+    <Compile Include="Tester.Designer.cs">
+      <DependentUpon>Tester.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="com\teamrc\gameobjects\Player.resx">
-      <DependentUpon>Player.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="com\teamrc\graphics\Gameplay.resx">
-      <DependentUpon>Gameplay.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -94,8 +68,8 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="TriviaMazeDriver.resx">
-      <DependentUpon>TriviaMazeDriver.cs</DependentUpon>
+    <EmbeddedResource Include="Tester.resx">
+      <DependentUpon>Tester.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -110,7 +84,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
