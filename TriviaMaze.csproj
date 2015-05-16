@@ -65,6 +65,9 @@
     <Compile Include="com\teamrc\graphics\Gameplay.Designer.cs">
       <DependentUpon>Gameplay.cs</DependentUpon>
     </Compile>
+    <Compile Include="com\teamrc\MazeGen\Map.cs" />
+    <Compile Include="com\teamrc\MazeGen\MazeGenerator.cs" />
+    <Compile Include="com\teamrc\MazeGen\Room.cs" />
     <Compile Include="TriviaMazeDriver.cs">
       <SubType>Form</SubType>
     </Compile>
