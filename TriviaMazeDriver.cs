@@ -10,6 +10,9 @@ using System.Windows.Forms;
 
 using Finisar.SQLite;
 
+using TriviaMaze.com.teamrc.gameobjects;
+using TriviaMaze.com.teamrc.graphics;
+
 namespace TriviaMaze {
     public partial class TriviaMazeDriver : Form {
         public TriviaMazeDriver() {
@@ -17,7 +20,9 @@ namespace TriviaMaze {
         }
 
         private void button1_Click(object sender, EventArgs e) {
-            //Code for Graphics/Movement goes here
+            Gameplay demo = new Gameplay();
+            demo.Show();
+            this.Close();
         }
 
         private void button2_Click(object sender, EventArgs e) {
