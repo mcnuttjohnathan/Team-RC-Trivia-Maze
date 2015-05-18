@@ -72,13 +72,13 @@
     <Compile Include="com\teamrc\MazeGen\Map.cs" />
     <Compile Include="com\teamrc\MazeGen\MazeGenerator.cs" />
     <Compile Include="com\teamrc\MazeGen\Room.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="TriviaMazeDriver.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="TriviaMazeDriver.Designer.cs">
       <DependentUpon>TriviaMazeDriver.cs</DependentUpon>
     </Compile>
-    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="com\teamrc\gameobjects\Player.resx">
       <DependentUpon>Player.cs</DependentUpon>
