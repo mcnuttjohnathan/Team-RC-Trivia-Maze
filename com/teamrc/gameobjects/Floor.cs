@@ -49,5 +49,14 @@ namespace TriviaMaze.com.teamrc.gameobjects {
 
             floorImage = new Rectangle(x, y, 32, 32);
         }
+
+        /**
+         * returns a string denoting the O for simple printing for testing
+         * 
+         * @returns string - an O for open floor
+         **/
+        public string toString(){
+            return "O";
+        }
     }
 }

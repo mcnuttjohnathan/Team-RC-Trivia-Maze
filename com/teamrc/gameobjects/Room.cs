@@ -1,102 +1,75 @@
-﻿/** Room.cs is a room object that stores a char 2d array representation 
- * of the room layout, with X being walls and O being traversable floors
- * 
- * @author Zoe Baker
- **/
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-using System;
+namespace TriviaMaze.com.teamrc.gameobjects{
+    public partial class Room : Component{
 
+        Component[,] r;
+        int exits;
+        Floor f = new Floor(32, 32);
+        Empty e = new Empty();
 
-public class Room
-{
-    char[,] r;
-    int[] exits;
+        public Room(){
+            InitializeComponent();
+            r = new Component[4, 4]{{f,f,f,e},
+                                    {f,f,f,e},
+                                    {f,f,f,e},
+                                    {e,e,e,e}};
+            exits = 0;
+        }
 
-    /** This is the default constructor for Room
-     **/
-    public Room()
-    {
-        this.r = new char[5, 5]{{'X','X','X','X','X'},
-                                   {'X','O','O','O','X'},
-                                   {'X','O','O','O','X'},
-                                   {'X','O','O','O','X'},
-                                   {'X','X','X','X','X'}};
-    }
+        public Room(int x, IContainer container){
+            container.Add(this);
 
-    /**This is the explicit value constructor for Room
-     * @param e     This parameter is the array that contains what exits exist
-     **/
-    public Room(int[] e)
-    {
-        this.r = new char[5, 5]{{'X','X','X','X','X'},
-                                   {'X','O','O','O','X'},
-                                   {'X','O','O','O','X'},
-                                   {'X','O','O','O','X'},
-                                   {'X','X','X','X','X'}};
+            InitializeComponent();
+            r = new Component[4, 4]{{f,f,f,e},
+                                    {f,f,f,e},
+                                    {f,f,f,e},
+                                    {e,e,e,e}};
 
-        this.exits = e;
-        makeExits();
-    }
+            exits = x;
+            makeExits();
+        }
 
-    /** getExits returns the array of exits
-     * @return      The array containing the exits existing in the room
-     **/
-    public int[] getExits()
-    {
-        return this.exits;
-    }
+        public int exit{
+            get { return exits; } 
+            set { exits = value; }  
+        }
 
-    /** setExits sets the exits in the room
-    * @param e     The array containing the exits existing in the room
-    **/
-    public void setExits(int[] e)
-    {
-        this.exits = e;
-        makeExits();
-    }
+        public string toString(){
+            string result = "";
 
-    /** toString
-    * @return      the room 2d array in a string format
-    **/
-    public string toString()
-    {
-        string result = "";
-
-        for (int i = 0; i < r.GetLength(0); i++)
-        {
-            for (int j = 0; j < r.GetLength(1); j++)
-            {
-                result += r[i, j];
+            for (int i = 0; i < r.GetLength(0); i++){
+                for (int j = 0; j < r.GetLength(1); j++){
+                    result += r[i, j].toString();
+                }
+                result += "\n";
             }
-            result += "\n";
+
+            return result;
         }
 
-        return result;
-    }
-
-    /** makeExits uses the 2d array of exits to go through the room 
-     * and make sure that the chars reflected the open paths.
-     **/
-    public void makeExits()
-    {
-        if (this.exits[0] == 1)
-        {
-            this.r[0, 2] = 'O';
+        public void makeExits(){
+            if (exits == 1)
+            {
+                r[1, 3] = f;
+            }
+            else if (exits == 2)
+            {
+                r[3, 1] = f;
+            }
+            else if (exits == 3)
+            {
+                r[1, 3] = f;
+                r[3, 1] = f;
+            }
+            else { }
         }
 
-        if (this.exits[1] == 1)
-        {
-            this.r[2, 4] = 'O';
-        }
-
-        if (this.exits[2] == 1)
-        {
-            this.r[4, 2] = 'O';
-        }
-
-        if (this.exits[3] == 1)
-        {
-            this.r[2, 0] = 'O';
-        }
     }
 }
