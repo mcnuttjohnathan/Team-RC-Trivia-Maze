@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace DatabaseDrive
 {
-    static class Program
+    static class DDriver
     {
         /// <summary>
         /// The main entry point for the application.

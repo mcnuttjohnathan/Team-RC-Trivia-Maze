@@ -95,6 +95,11 @@ namespace DatabaseSystem
             get { return this._tables.Count; }
         }
 
+        public QuestionAnswer randomQuestion(Random rng)
+        {
+            return this._tables[rng.Next(this._tables.Count)].randomQuestion(rng);
+        }
+
         public Table AddNewTable(String tableName)
         {
             Table t = new Table(this, tableName);
