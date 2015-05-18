@@ -83,6 +83,11 @@ namespace DatabaseSystem
             get { return this._table.Count; }
         }
 
+        public QuestionAnswer randomQuestion(Random rng)
+        {
+            return this._table[rng.Next(this._table.Count)];
+        }
+
         public QuestionAnswer AddNewQuestion()
         {
             QuestionAnswer qA = new QuestionAnswer(this);
