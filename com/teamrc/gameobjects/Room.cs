@@ -55,20 +55,16 @@ namespace TriviaMaze.com.teamrc.gameobjects{
         }
 
         public void makeExits(){
-            if (exits == 1)
-            {
+            if (exits == 1){
                 r[1, 3] = f;
             }
-            else if (exits == 2)
-            {
+            if (exits == 2){
                 r[3, 1] = f;
             }
-            else if (exits == 3)
-            {
+            if (exits == 3){
                 r[1, 3] = f;
                 r[3, 1] = f;
             }
-            else { }
         }
 
     }
