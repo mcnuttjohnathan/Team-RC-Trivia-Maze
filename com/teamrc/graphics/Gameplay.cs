@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 using TriviaMaze.com.teamrc.gameobjects;
+using TriviaMaze.com.teamrc.util;
 
 /**
  * Opens a window where the user can control a player.
@@ -58,39 +59,35 @@ namespace TriviaMaze.com.teamrc.graphics {
          */
         private void Gameplay_KeyDown_1(object sender, KeyEventArgs e) {
             if (e.KeyCode.Equals(Keys.W)) {
-                int move = this.player.playerImage.Y - 32;
+                I_Collidable collider = 
+                    CollisionManager.testPlayerCollision(new Point(this.player.playerImage.X, this.player.playerImage.Y - 32), this.player);
 
-                for (int i = 0; i < 3; i++)
-                    for (int j = 0; j < 3; j++)
-                        if (this.flooring[i, j].floorImage.Y == move)
-                            player.moveUp();
+                if(collider.getType().Equals(CollisionManager.FLOOR))
+                    player.moveUp();
             }
 
             else if (e.KeyCode.Equals(Keys.S)) {
-                int move = this.player.playerImage.Y + 32;
+                I_Collidable collider =
+                    CollisionManager.testPlayerCollision(new Point(this.player.playerImage.X, this.player.playerImage.Y + 32), this.player);
 
-                for (int i = 0; i < 3; i++)
-                    for (int j = 0; j < 3; j++)
-                        if (this.flooring[i, j].floorImage.Y == move)
-                            player.moveDown();
+                if (collider.getType().Equals(CollisionManager.FLOOR))
+                    player.moveDown();
             }
 
             else if (e.KeyCode.Equals(Keys.A)) {
-                int move = this.player.playerImage.X - 32;
+                I_Collidable collider =
+                    CollisionManager.testPlayerCollision(new Point(this.player.playerImage.X - 32, this.player.playerImage.Y), this.player);
 
-                for (int i = 0; i < 3; i++)
-                    for (int j = 0; j < 3; j++)
-                        if (this.flooring[i, j].floorImage.X == move)
-                            player.moveLeft();
+                if (collider.getType().Equals(CollisionManager.FLOOR))
+                    player.moveLeft();
             }
 
             else if (e.KeyCode.Equals(Keys.D)) {
-                int move = this.player.playerImage.X + 32;
+                I_Collidable collider =
+                    CollisionManager.testPlayerCollision(new Point(this.player.playerImage.X + 32, this.player.playerImage.Y), this.player);
 
-                for (int i = 0; i < 3; i++)
-                    for (int j = 0; j < 3; j++)
-                        if (this.flooring[i, j].floorImage.X == move)
-                            player.moveRight();
+                if (collider.getType().Equals(CollisionManager.FLOOR))
+                    player.moveRight();
             }
         }
 

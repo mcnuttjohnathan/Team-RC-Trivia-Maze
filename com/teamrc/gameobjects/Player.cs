@@ -7,13 +7,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using TriviaMaze.com.teamrc.util;
+
 /**
  * Controls the player object in the game
  */
 namespace TriviaMaze.com.teamrc.gameobjects {
-    public partial class Player : Component {
+    public partial class Player : Component, I_Collidable {
         public Rectangle playerImage = new Rectangle(64, 64, 32, 32);
         public Brush playerColor = Brushes.Blue;
+
+        public String type = CollisionManager.PLAYER;
+
+        public String[] collisionTypes = { CollisionManager.DOOR, CollisionManager.FINISH, CollisionManager.FLOOR };
 
         private Boolean upFlag = false;
         private Boolean downFlag = false;
@@ -27,6 +33,8 @@ namespace TriviaMaze.com.teamrc.gameobjects {
          */
         public Player() {
             InitializeComponent();
+
+            //CollisionManager.add(this);
         }
 
         /**
@@ -108,6 +116,16 @@ namespace TriviaMaze.com.teamrc.gameobjects {
          */
         public void resetRightFlag() {
             this.rightFlag = false;
+        }
+
+        public string getType() { return this.type; }
+
+        public String[] getCollisionTypes() { return this.collisionTypes; }
+
+        public Point getPosition() { return new Point(this.playerImage.X, this.playerImage.Y); }
+
+        public void collidedWith(I_Collidable c) {
+            //TODO: fill stub
         }
     }
 }

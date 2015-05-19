@@ -72,6 +72,11 @@
     <Compile Include="com\teamrc\MazeGen\Map.cs" />
     <Compile Include="com\teamrc\MazeGen\MazeGenerator.cs" />
     <Compile Include="com\teamrc\MazeGen\Room.cs" />
+    <Compile Include="com\teamrc\util\I_Collidable.cs" />
+    <Compile Include="com\teamrc\util\CollisionManager.cs" />
+    <Compile Include="com\teamrc\util\CollisionManager.Designer.cs">
+      <DependentUpon>CollisionManager.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="TriviaMazeDriver.cs">
       <SubType>Form</SubType>

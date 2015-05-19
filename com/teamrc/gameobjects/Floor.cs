@@ -7,13 +7,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using TriviaMaze.com.teamrc.util;
+
 /**
  * Controls the floor objects in game.
  */
 namespace TriviaMaze.com.teamrc.gameobjects {
-    public partial class Floor : Component {
+    public partial class Floor : Component, I_Collidable {
         public Rectangle floorImage;
         public Brush floorColor = Brushes.BurlyWood;
+
+        public String type = CollisionManager.FLOOR;
+
+        public String[] collisionTypes = {CollisionManager.NONE};
 
         /**
          * constructs the floor object. Floor position must
@@ -29,6 +35,8 @@ namespace TriviaMaze.com.teamrc.gameobjects {
                 throw new Exception();
 
             floorImage = new Rectangle(x, y, 32, 32);
+
+            CollisionManager.add(this);
         }
 
         /**
@@ -48,6 +56,18 @@ namespace TriviaMaze.com.teamrc.gameobjects {
                 throw new Exception();
 
             floorImage = new Rectangle(x, y, 32, 32);
+
+            CollisionManager.add(this);
+        }
+
+        public string getType() { return this.type; }
+
+        public String[] getCollisionTypes() { return this.collisionTypes; }
+
+        public Point getPosition() { return new Point(this.floorImage.X, this.floorImage.Y); }
+
+        public void collidedWith(I_Collidable c) {
+            //TODO unstub
         }
     }
 }
