@@ -127,5 +127,9 @@ namespace TriviaMaze.com.teamrc.gameobjects {
         public void collidedWith(I_Collidable c) {
             //TODO: fill stub
         }
+
+        public String toString() {
+            return "p";
+        }
     }
 }

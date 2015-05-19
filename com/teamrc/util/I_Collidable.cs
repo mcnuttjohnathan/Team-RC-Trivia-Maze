@@ -15,5 +15,7 @@ namespace TriviaMaze.com.teamrc.util {
         Point getPosition();
 
         void collidedWith(I_Collidable c);
+
+        String toString();
     }
 }

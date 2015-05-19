@@ -69,5 +69,9 @@ namespace TriviaMaze.com.teamrc.gameobjects {
         public void collidedWith(I_Collidable c) {
             //TODO unstub
         }
+
+        public String toString() {
+            return "o";
+        }
     }
 }
