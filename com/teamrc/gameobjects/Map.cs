@@ -40,6 +40,11 @@ namespace TriviaMaze.com.teamrc.gameobjects
             return map[i, j];
         }
 
+        public void setRoom(int i, int j, Room r)
+        {
+            this.map[i, j] = r;
+        }
+
         public void setStart(Point i)
         {
             this.start = i;
