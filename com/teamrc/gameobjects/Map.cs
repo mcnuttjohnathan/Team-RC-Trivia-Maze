@@ -85,14 +85,14 @@ namespace TriviaMaze.com.teamrc.gameobjects
                     }
 
 
-                    if (e == 1){
+                    if (e > 1){
                         res += '-';
                     }else{
                         res += ' ';
                     }
 
 
-                    if (e > 1){
+                    if (e == 1){
                         nextRow += "| ";
                     }else{
                         nextRow += "  ";
