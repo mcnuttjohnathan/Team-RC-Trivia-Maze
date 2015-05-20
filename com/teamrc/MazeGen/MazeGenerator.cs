@@ -20,9 +20,9 @@ public class MazeGenerator{
 
         for (int i = 0; i < mazeSize; i++){
             for (int j = 0; j < mazeSize; j++){
-                int curExit = calcExits(i, j, mazeSize);
+                int curExit = calcExits(j, i, mazeSize);
                 Room r = new Room(curExit, loc);
-                m.setRoom(i, j, r);
+                m.setRoom(j, i, r);
                 loc.X += 128;
             }
             loc.X = 0;
