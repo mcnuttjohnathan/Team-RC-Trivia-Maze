@@ -1,4 +1,10 @@
-﻿using System;
+﻿/**
+ * Room is a component that stores floor and empty components to make up the room, as well as the overall location of the room in relation to the map.
+ * 
+ * @author Zoe Baker
+ **/
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -16,13 +22,22 @@ namespace TriviaMaze.com.teamrc.gameobjects{
         private int exits;
         private Point location; 
 
+        /**
+         * This is the main constructor for room, taking in the exits and the locaiton
+         * 
+         * @param e - the int signifying which exits exist
+         * @param l - a Point displaying where the tiles absolute position is
+         * */
         public Room(int e, Point l){
             InitializeComponent();
             this.exits = e;
+
             if (l.X % 128 != 0 || l.Y % 128 != 0){
                 throw new Exception();
             }
+
             this.location = l;
+
             makeRoom();
             makeExits();
         }
@@ -33,6 +48,9 @@ namespace TriviaMaze.com.teamrc.gameobjects{
             InitializeComponent();
         }
 
+        /**
+         * This initializes the array of the room using the default size hardcoded, and fills it will floors and a surrounding of emptyness
+         **/
         private void makeRoom(){
             this.room = new I_Collidable[4,4];
             
@@ -51,6 +69,9 @@ namespace TriviaMaze.com.teamrc.gameobjects{
             }
         }
 
+        /**
+         * This takes the int exits and calculates and places paths for the room exits
+         **/
         private void makeExits(){
             if (this.exits == 1){
                 this.room[3, 1] = new Floor(location.X + 32, location.Y + 96);
@@ -66,23 +87,47 @@ namespace TriviaMaze.com.teamrc.gameobjects{
             }
         }
 
+        /**
+         * This returns the array of the room
+         * 
+         * @return room - I_Collidable 2D array of room
+         **/
         public I_Collidable[,] getRoom(){
             return this.room;
         }
 
+        /**
+         * This returns the location of the room
+         * 
+         * @returns location - the Point location
+         **/
         public Point getLocation(){
             return this.location;
         }
 
+        /**
+         * This sets a new exitnumber and calls the method to remake the exits of the room
+         * @param i - new int signifying which exits exist
+         **/
         public void setExits(int i){
             this.exits = i;
             makeExits();
         }
 
+        /**
+         * This returns the int signifying the exits existing
+         * 
+         * @returns exits - an int ranging from 1-3 for the exits the room holds
+         **/
         public int getExits(){
             return this.exits;
         }
 
+        /**
+         * This returns a String the can be printed out to show room layout
+         * 
+         * @returns res - a String representation of room
+         **/
         public String toString(){
             String res = "";
 
