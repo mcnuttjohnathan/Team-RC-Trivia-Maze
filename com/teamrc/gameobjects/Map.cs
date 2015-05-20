@@ -92,7 +92,7 @@ namespace TriviaMaze.com.teamrc.gameobjects
                     }
 
 
-                    if (e == 1){
+                    if (e % 2 == 1){
                         nextRow += "| ";
                     }else{
                         nextRow += "  ";
