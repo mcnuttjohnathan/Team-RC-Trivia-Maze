@@ -51,6 +51,36 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="com\teamrc\gameobjects\A_Door.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="com\teamrc\gameobjects\A_Door.Designer.cs">
+      <DependentUpon>A_Door.cs</DependentUpon>
+    </Compile>
+    <Compile Include="com\teamrc\gameobjects\DoorLocked.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="com\teamrc\gameobjects\DoorLocked.Designer.cs">
+      <DependentUpon>DoorLocked.cs</DependentUpon>
+    </Compile>
+    <Compile Include="com\teamrc\gameobjects\DoorNew.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="com\teamrc\gameobjects\DoorNew.Designer.cs">
+      <DependentUpon>DoorNew.cs</DependentUpon>
+    </Compile>
+    <Compile Include="com\teamrc\gameobjects\DoorUnlocked.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="com\teamrc\gameobjects\DoorUnlocked.Designer.cs">
+      <DependentUpon>DoorUnlocked.cs</DependentUpon>
+    </Compile>
+    <Compile Include="com\teamrc\gameobjects\DoorUsed.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="com\teamrc\gameobjects\DoorUsed.Designer.cs">
+      <DependentUpon>DoorUsed.cs</DependentUpon>
+    </Compile>
     <Compile Include="com\teamrc\gameobjects\Floor.cs">
       <SubType>Component</SubType>
     </Compile>

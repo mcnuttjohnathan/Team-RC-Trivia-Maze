@@ -19,7 +19,7 @@ namespace TriviaMaze.com.teamrc.gameobjects {
 
         public String type = CollisionManager.PLAYER;
 
-        public String[] collisionTypes = { CollisionManager.DOOR, CollisionManager.FINISH, CollisionManager.FLOOR };
+        public String[] collisionTypes = { CollisionManager.NEW_DOOR, CollisionManager.USED_DOOR, CollisionManager.FINISH, CollisionManager.FLOOR };
 
         private Boolean upFlag = false;
         private Boolean downFlag = false;

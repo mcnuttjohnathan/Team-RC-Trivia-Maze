@@ -13,7 +13,10 @@ namespace TriviaMaze.com.teamrc.util {
     public static partial class CollisionManager : Object {
         public const String PLAYER = "PLAYER";
         public const String FLOOR = "FLOOR";
-        public const String DOOR = "DOOR";
+        public const String UNLOCKED_DOOR = "UNLOCKED_DOOR";
+        public const String LOCKED_DOOR = "LOCKED_DOOR";
+        public const String NEW_DOOR = "NEW_DOOR";
+        public const String USED_DOOR = "USED_DOOR";
         public const String FINISH = "FINISH";
         public const String NONE = "NONE";
 
