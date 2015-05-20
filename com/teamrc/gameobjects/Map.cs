@@ -1,4 +1,10 @@
-﻿using System;
+﻿/*
+ * Map stores an array of rooms and keeps track of the start and exit of the maze
+ * 
+ * @author Zoe Baker
+ **/
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -9,71 +15,107 @@ using System.Threading.Tasks;
 using System.Windows.Forms.VisualStyles;
 using TriviaMaze.com.teamrc.util;
 
-namespace TriviaMaze.com.teamrc.gameobjects
-{
-    public partial class Map : Component
-    {
+namespace TriviaMaze.com.teamrc.gameobjects{
+    public partial class Map : Component{
 
         private Room[,] map;
         int size;
         Point start;
         Point finish;
 
-        public Map(int s)
-        {
+
+        /**
+         * This is the main constructor from map, initializes array
+         * 
+         * @param s - an int with the size of the array that the map should be (square)
+         **/
+        public Map(int s){
             InitializeComponent();
+
             this.map = new Room[s, s];
             this.size = s;
             this.start = new Point(0, 0);
             this.finish = new Point(s - 1, s - 1);
         }
 
-        public Map(IContainer container)
-        {
+        public Map(IContainer container){
             container.Add(this);
 
             InitializeComponent();
         }
 
-        public Room getRoom(int i, int j)
-        {
-            return map[i, j];
+        /**
+         * getRoom returns the room at the specified coords
+         * 
+         * @param i - the i index which the room lies on
+         * @param j - the j index which the room lies on
+         * @returns Room - the room component at that index
+         **/
+        public Room getRoom(int i, int j){
+            return this.map[i, j];
         }
 
-        public void setRoom(int i, int j, Room r)
-        {
+        /**
+         * setRoom sets the room at this coords with the passed in room
+         * 
+         * @param i - the i index of the room to replace
+         * @param j - the j index of the room to replace
+         * @param r - the new room to set
+         **/
+        public void setRoom(int i, int j, Room r){
             this.map[i, j] = r;
         }
 
-        public void setStart(Point i)
-        {
+        /**
+         * Sets the coords of the start
+         * 
+         * @param i - the Point the start should be set to
+         **/
+        public void setStart(Point i){
             this.start = i;
         }
 
-        public Point getStart()
-        {
+        /**
+         * Returns the Point that Start exists on
+         * 
+         * @returns start - the Point that represents Start
+         **/
+        public Point getStart(){
             return this.start;
         }
 
-        public void setFinish(Point i)
-        {
+        /**
+         * Sets the coords of the finish
+         * 
+         * @param i - the Point the finish should be set to
+         **/
+        public void setFinish(Point i){
             this.finish = i;
         }
 
-        public Point getFinish()
-        {
+        /**
+         * Returns the Point that finish exists on
+         * 
+         * @returns finish - the Point that represents finsih
+         **/
+        public Point getFinish(){
             return this.finish;
         }
 
-        public String toString()
-        {
+        /**
+         * Returns the String that represents the map and the existing pathways between the rooms, and the start and finish
+         * 
+         * @returns res - String representing the map
+         **/
+        public String toString(){
             String res = "";
 
-            for (int i = 0; i < this.size; i++)
-            {
+            for (int i = 0; i < this.size; i++){
+
                 String nextRow ="";
-                for (int j = 0; j < this.size; j++)
-                {
+
+                for (int j = 0; j < this.size; j++){
+
                     int e = map[i, j].getExits();
 
                     if (start.X == i && start.Y == j){
@@ -84,13 +126,11 @@ namespace TriviaMaze.com.teamrc.gameobjects
                         res += 'O';
                     }
 
-
                     if (e > 1){
                         res += '-';
                     }else{
                         res += ' ';
                     }
-
 
                     if (e % 2 == 1){
                         nextRow += "| ";
@@ -98,8 +138,10 @@ namespace TriviaMaze.com.teamrc.gameobjects
                         nextRow += "  ";
                     }
                 }
+
                 res = res + "\n" + nextRow + "\n";
             }
+
             return res;
         }
 
