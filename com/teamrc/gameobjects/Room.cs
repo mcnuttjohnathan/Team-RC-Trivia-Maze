@@ -20,7 +20,8 @@ namespace TriviaMaze.com.teamrc.gameobjects{
 
         private I_Collidable[,] room;
         private int exits;
-        private Point location; 
+        private Point location;
+        private Boolean connected;
 
         /**
          * This is the main constructor for room, taking in the exits and the locaiton
@@ -121,6 +122,27 @@ namespace TriviaMaze.com.teamrc.gameobjects{
          **/
         public int getExits(){
             return this.exits;
+        }
+
+
+        /**
+         * This is called to see if the room is connected to any other rooms in the map
+         * 
+         * @returns connected - the boolean saying if the room is connected or not
+         **/
+        public Boolean isConnected()
+        {
+            return this.connected;
+        }
+
+        /**
+         * This is called to set to room to a connected or unconnected state
+         * 
+         * @param v - the boolean saying if the room is connected to another room or not
+         **/
+        public void setConnected(Boolean v)
+        {
+            this.connected = v;
         }
 
         /**
