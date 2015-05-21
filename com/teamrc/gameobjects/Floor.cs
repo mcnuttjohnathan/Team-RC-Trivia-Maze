@@ -30,6 +30,8 @@ namespace TriviaMaze.com.teamrc.gameobjects {
          */
         public Floor(int x, int y) {
             InitializeComponent();
+
+            this.init(x, y);
         }
 
         /**
@@ -44,9 +46,11 @@ namespace TriviaMaze.com.teamrc.gameobjects {
             container.Add(this);
 
             InitializeComponent();
+
+            this.init(x, y);
         }
 
-        private void init() {
+        private void init(int x, int y) {
             if (x % 32 != 0 || x % 32 != 0)
                 throw new Exception();
 
