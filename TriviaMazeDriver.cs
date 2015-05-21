@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-//using Finisar.SQLite;
+using Finisar.SQLite;
 
 using TriviaMaze.com.teamrc.gameobjects;
 using TriviaMaze.com.teamrc.graphics;
-//using DatabaseSystem;
+using DatabaseSystem;
 
 
 /**
@@ -71,7 +71,7 @@ namespace TriviaMaze {
         }
 
         private void button3_Click(object sender, EventArgs e) {
-            /*Database db = new Database("TestDatabase");
+            Database db = new Database("TestDatabase");
             Table t = null;
 
             if (db.Count < 1){
@@ -87,7 +87,7 @@ namespace TriviaMaze {
             }
 
             Console.WriteLine(db.SaveDatabase());
-             */
+             
         }
     }
 }
