@@ -5,6 +5,7 @@
  **/
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -144,6 +145,102 @@ namespace TriviaMaze.com.teamrc.gameobjects{
 
             return res;
         }
+
+        public void createMaze(){
+            Point p = new Point(0, 0);
+            for (int i = 0; i < size; i++){
+                for (int j = 0; j < size; j++){
+                    Room r = new Room(0, p);
+                    this.map[i, j] = r;
+                    p.Y = p.Y + 128;
+                }
+                p.X = p.X + 128;
+                p.Y = 0;
+            }
+            generateMaze(start, start, false);
+        }
+
+        public void generateMaze(Point prev, Point cur, Boolean makeDoor)
+        {
+            //Start by initial cell as current cell, set to visited if new or return false
+            this.map[cur.X, cur.Y].setConnected(true);
+            
+            //If makeDoor is true, find the door it must make and set it to open to connect it to the previous room
+            if (makeDoor && prev.X == cur.X)
+            {
+                int e = map[cur.X, cur.Y].getExits();
+                e += 2;
+                this.map[cur.X, cur.Y].setExits(e);
+            }
+            else
+            {
+                int e = map[cur.X, cur.Y].getExits();
+                e += 1;
+                this.map[cur.X, cur.Y].setExits(e);
+            }
+
+            //determine which exits are available
+            ArrayList possible = new ArrayList();
+            if (cur.X - 1 >= 0 && !map[cur.X - 1, cur.Y].isConnected())
+            {
+                Point n = new Point(cur.X-1, cur.Y);
+                possible.Add(n);
+            }
+
+            if (cur.Y + 1 < this.size && !map[cur.X, cur.Y + 1].isConnected())
+            {
+                Point n = new Point(cur.X, cur.Y + 1);
+                possible.Add(n);
+            }
+
+
+            if (cur.X + 1 < this.size && !map[cur.X + 1, cur.Y].isConnected())
+            {
+                Point n = new Point(cur.X+1, cur.Y);
+                possible.Add(n);
+            }
+
+            if (cur.Y - 1 >= 0 && !map[cur.X, cur.Y - 1].isConnected())
+            {
+                Point n = new Point(cur.X, cur.Y - 1);
+                possible.Add(n);
+            }
+
+            if (possible.Count == 0)
+            {
+                return;
+            }
+
+            while (possible.Count != 0)
+            {
+                Random rnd = new Random();
+                rnd.Next(0, possible.Count);
+                Point p = possible;
+            }
+
+            //pick one
+            //for(int i = 0; )
+            //generateMaze(cur, next, d);
+            
+
+
+
+
+
+            //While their are unvisited cells
+            //If the current cell has any neightbors which have not been visited
+            //Choose randomly one of the unvisited neighbors
+            //Push current cell the the stack
+            //Remove the wall between the current cell and the chosen cell
+            // Make the chosen cell the current cell and mark it as visited
+
+            //else if stack is not empty
+            //pop a cell from the stack
+            //make it the current cell
+            //else 
+            //Pick a random unvisited cell, make it the current cell and mark it as visited
+        }
+
 
     }
 }

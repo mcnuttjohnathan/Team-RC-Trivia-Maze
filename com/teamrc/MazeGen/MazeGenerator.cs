@@ -4,7 +4,9 @@
  **/
 
 using System;
+using System.Configuration;
 using System.Drawing;
+using System.Xml;
 using TriviaMaze.com.teamrc.gameobjects;
 
 public class MazeGenerator{
@@ -51,5 +53,6 @@ public class MazeGenerator{
 
         return exits;
     }
+
 
 }
