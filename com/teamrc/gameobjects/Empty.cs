@@ -16,6 +16,8 @@ using TriviaMaze.com.teamrc.util;
 
 namespace TriviaMaze.com.teamrc.gameobjects{
     public partial class Empty : Component, I_Collidable{
+        private Rectangle emptyImage = new Rectangle(-32, -32, 32, 32);
+        private Brush emptyColor = Brushes.Black;
 
         private String type = CollisionManager.NONE;
         private String[] collisionTypes = {CollisionManager.NONE};
@@ -46,6 +48,14 @@ namespace TriviaMaze.com.teamrc.gameobjects{
             return "X";
         }
 
+        public Rectangle getImage() {
+            return this.emptyImage;
+        }
+
+        public Brush getColor() {
+            return this.emptyColor;
+        }
+
         /**
          * The overrided get type method
          * 
@@ -71,14 +81,6 @@ namespace TriviaMaze.com.teamrc.gameobjects{
          **/
         public Point getPosition(){
             return new Point(-1, -1);
-        }
-
-        /** The overriden colllided with method
-         * 
-         * @param c - the I_Collidable object it could be colliding with
-         **/
-        public void collidedWith(I_Collidable c){
-            
         }
     }
 }

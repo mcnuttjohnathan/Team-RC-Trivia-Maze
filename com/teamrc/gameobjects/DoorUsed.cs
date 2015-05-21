@@ -8,14 +8,34 @@ using System.Text;
 using System.Threading.Tasks;
 using TriviaMaze.com.teamrc.util;
 
+/**
+ * Controls the Used Door component.
+ * Used doors can become either locked or unlocked doors
+ * depending on if the player answers right.
+ * 
+ * @author Johnathan McNutt
+ */
 namespace TriviaMaze.com.teamrc.gameobjects {
     public partial class DoorUsed : A_Door {
+        /**
+         * Constructs the Used Door Component
+         * 
+         * @param x - the door's x position.
+         * @param y - the door's y position.
+         */
         public DoorUsed(int x, int y) : base(x, y) {
             InitializeComponent();
 
             this.init();
         }
 
+        /**
+         * Constructs the Used Door Component
+         * 
+         * @param x - the door's x position.
+         * @param y - the door's y position.
+         * @param container - a parent container for the door.
+         */
         public DoorUsed(int x, int y, IContainer container) : base(x, y, container) {
             container.Add(this);
 
@@ -24,6 +44,9 @@ namespace TriviaMaze.com.teamrc.gameobjects {
             this.init();
         }
 
+        /**
+         * Initializes the Used Door Component.
+         */
         public void init() {
             this.doorColor = Brushes.DarkOrange;
 
@@ -32,14 +55,31 @@ namespace TriviaMaze.com.teamrc.gameobjects {
             CollisionManager.add(this);
         }
 
+        /**
+         * Returns a Unlocked Door state if the player
+         * answered correctly.
+         * 
+         * @returns unlockedDoor - a new door state.
+         */
         public DoorUnlocked unlockDoor() {
             return new DoorUnlocked(this.doorImage.X, this.doorImage.Y);
         }
 
+        /**
+         * Returns a Locked Door state if the player
+         * answered wrong.
+         * 
+         * @returns lockedDoor - a new door state.
+         */
         public DoorLocked lockDoor() {
             return new DoorLocked(this.doorImage.X, this.doorImage.Y);
         }
 
+        /**
+         * Returns a character representation of the door.
+         * 
+         * @returns U - representation of the door.
+         */
         public override String toString() {
             return "U";
         }

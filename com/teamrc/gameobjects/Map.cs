@@ -67,6 +67,15 @@ namespace TriviaMaze.com.teamrc.gameobjects{
         }
 
         /**
+         * getRooms gives the array of room components
+         * 
+         * @returns rooms - the array of rooms.
+         **/
+        public Room[,] getRooms() { 
+            return map; 
+        }
+
+        /**
          * Sets the coords of the start
          * 
          * @param i - the Point the start should be set to

@@ -50,6 +50,12 @@ namespace TriviaMaze.com.teamrc.gameobjects {
             this.init(x, y);
         }
 
+        /**
+         * Initializes the Floor component.
+         * 
+         * @param x - starting x coordinate
+         * @param y - starting y coordinate
+         */
         private void init(int x, int y) {
             if (x % 32 != 0 || x % 32 != 0)
                 throw new Exception();
@@ -59,18 +65,48 @@ namespace TriviaMaze.com.teamrc.gameobjects {
             CollisionManager.add(this);
         }
 
+        /**
+         * Returns the floors Rectangle image.
+         * 
+         * @returns image - the floor's Rectangle.
+         */
+        public Rectangle getImage() { return this.floorImage; }
+
+        /**
+         * Returns the floors Brush color.
+         * 
+         * @returns color - the floor's Brush color.
+         */
+        public Brush getColor() { return this.floorColor; }
+
+        /**
+         * Returns a String representing the floors type.
+         * 
+         * @returns type - the floors type.
+         */
         public string getType() { return this.type; }
 
+        /**
+         * Returns a list of types the floor can collide with.
+         * 
+         * @returns collisionTypes - an array of Strings representing the types the floor can collide with.
+         */
         public String[] getCollisionTypes() { return this.collisionTypes; }
 
+        /**
+         * Returns the floor's current position.
+         * 
+         * @returns position - A Point representing the floor's position.
+         */
         public Point getPosition() { return new Point(this.floorImage.X, this.floorImage.Y); }
 
-        public void collidedWith(I_Collidable c) {
-            //TODO unstub
-        }
-
+        /**
+         * Returns a character representing the Component.
+         * 
+         * @returns O
+         */
         public String toString() {
-            return "o";
+            return "O";
         }
     }
 }

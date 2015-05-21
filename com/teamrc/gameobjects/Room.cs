@@ -75,11 +75,11 @@ namespace TriviaMaze.com.teamrc.gameobjects{
          **/
         private void makeExits(){
             if (this.exits == 1){
-                this.room[3, 1] = new Floor(location.X + 32, location.Y + 96);
+                this.room[1, 3] = new Floor(location.X + 96, location.Y + 32);
             }
 
-            if (this.exits == 2){
-                this.room[1, 3] = new Floor(location.X + 96, location.Y + 32);
+            if (this.exits == 2) {
+                this.room[3, 1] = new Floor(location.X + 32, location.Y + 96);
             }
 
             if (this.exits == 3){

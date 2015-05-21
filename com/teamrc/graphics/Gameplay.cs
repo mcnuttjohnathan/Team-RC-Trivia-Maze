@@ -14,18 +14,16 @@ using TriviaMaze.com.teamrc.util;
 /**
  * Opens a window where the user can control a player.
  * used to demonstrate graphics and basic movement.
+ * 
+ * @author Johnathan McNutt
  */
 namespace TriviaMaze.com.teamrc.graphics {
     public partial class Gameplay : Form {
-        Player player = new Player(64, 64);
-        Graphics g;
+        Player player = new Player(32, 32);
+        Graphics graphics;
+        Map map;
+        MazeGenerator mazeGenerator = new MazeGenerator();
         Timer t = new Timer();
-
-        Floor[,] flooring = new Floor[,]{
-            {new Floor(32, 32), new Floor (32, 64), new Floor(32, 96)},
-            {new Floor (64, 32), new Floor(64, 64), new Floor (64, 96)},
-            {new Floor (96, 32), new Floor (96, 64), new Floor (96, 96)}
-        };
 
         /**
          * Constructs the gameplay window.
@@ -33,7 +31,8 @@ namespace TriviaMaze.com.teamrc.graphics {
         public Gameplay() {
             InitializeComponent();
 
-            g = this.CreateGraphics();
+            this.graphics = this.CreateGraphics();
+            this.map = mazeGenerator.generate();
 
             t.Interval = 17;
             t.Tick += new EventHandler(update);
@@ -44,12 +43,23 @@ namespace TriviaMaze.com.teamrc.graphics {
          * draws the windows graphics approximately 60 times per second
          */
         private void update(object sender, EventArgs e) {
-            g.Clear(Color.Black);
-            for (int i = 0; i < 3; i++)
-                for (int j = 0; j < 3; j++)
-                    g.FillRectangle(flooring[i,j].floorColor, flooring[i, j].floorImage);
+            graphics.Clear(Color.Black);
 
-            g.FillRectangle(player.playerColor, player.playerImage);
+            Room[,] rooms = map.getRooms();
+
+            for (int i = 0; i < rooms.GetLength(0); i++) {
+                for (int j = 0; j < rooms.GetLength(1); j++) {
+                    I_Collidable[,] tiles = rooms[i, j].getRoom();
+
+                    for (int k = 0; k < tiles.GetLength(0); k++) {
+                        for (int l = 0; l < tiles.GetLength(1); l++) {
+                            graphics.FillRectangle(tiles[k,l].getColor(), tiles[k,l].getImage());
+                        }
+                    }
+                }
+            }
+
+            graphics.FillRectangle(player.playerColor, player.playerImage);
         }
 
         /**

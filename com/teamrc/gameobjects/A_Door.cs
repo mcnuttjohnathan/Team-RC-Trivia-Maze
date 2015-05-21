@@ -38,15 +38,15 @@ namespace TriviaMaze.com.teamrc.gameobjects {
             this.doorImage = new Rectangle(x, y, 32, 32);
         }
 
+        public Rectangle getImage() { return this.doorImage; }
+
+        public Brush getColor() { return this.doorColor; }
+
         public String getType() { return type; }
 
         public String[] getCollisionTypes() { return collisionTypes; }
 
         public Point getPosition() { return new Point(this.doorImage.X, this.doorImage.Y); }
-
-        public void collidedWith(I_Collidable c) {
-            //TODO unstub
-        }
 
         public abstract String toString();
     }

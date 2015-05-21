@@ -11,6 +11,8 @@ using TriviaMaze.com.teamrc.util;
 
 /**
  * Controls the player object in the game
+ * 
+ * @author Johnathan McNutt
  */
 namespace TriviaMaze.com.teamrc.gameobjects {
     public partial class Player : Component, I_Collidable {
@@ -48,6 +50,9 @@ namespace TriviaMaze.com.teamrc.gameobjects {
             this.init(x, y);
         }
 
+        /**
+         * initializes the player component
+         */
         private void init(int x, int y) {
             this.playerImage = new Rectangle(x, y, 32, 32);
 
@@ -126,16 +131,48 @@ namespace TriviaMaze.com.teamrc.gameobjects {
             this.rightFlag = false;
         }
 
+        /**
+         * Returns the players Rectangle object
+         * 
+         * @returns image - player Rectangle
+         */
+        public Rectangle getImage() { return this.playerImage; }
+
+
+        /**
+         * Returns the player Brush color.
+         * 
+         * @returns color - the Brush color.
+         */
+        public Brush getColor() { return this.playerColor; }
+
+        /**
+         * Returns the players type.
+         * 
+         * @returns type - a String reperesenting the type.
+         */
         public string getType() { return this.type; }
 
+        /**
+         * Returns a list of types the player can collide with.
+         * 
+         * @returns collisionTypes - an array of Strings representing the types the player can collide with.
+         */
         public String[] getCollisionTypes() { return this.collisionTypes; }
 
+
+        /**
+         * Returns the players current position.
+         * 
+         * @returns position - A Point representing the players position.
+         */
         public Point getPosition() { return new Point(this.playerImage.X, this.playerImage.Y); }
 
-        public void collidedWith(I_Collidable c) {
-            //TODO: fill stub
-        }
-
+        /**
+         * Returns a character representing the component.
+         * 
+         * @returns p
+         */
         public String toString() {
             return "p";
         }

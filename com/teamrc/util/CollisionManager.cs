@@ -9,6 +9,12 @@ using System.Threading.Tasks;
 using System.Drawing;
 using TriviaMaze.com.teamrc.gameobjects;
 
+/**
+ * A Collision Manager that tests collisions between the player and
+ * other objects. Stores Objects for comparison.
+ * 
+ * @author Johnathan McNutt
+ */
 namespace TriviaMaze.com.teamrc.util {
     public static partial class CollisionManager : Object {
         public const String PLAYER = "PLAYER";
@@ -22,24 +28,57 @@ namespace TriviaMaze.com.teamrc.util {
 
         private static Dictionary<String, ArrayList> collidableTypes = new Dictionary<String, ArrayList>();
 
+        /**
+         * Creates a new array to empty the Collision Manager.
+         */
         public static void reset() {
             collidableTypes = new Dictionary<string, ArrayList>();
         }
 
-        public static void add(I_Collidable o) {
-            if (!collidableTypes.ContainsKey(o.getType()))
-                collidableTypes.Add(o.getType(), new ArrayList());
+        /**
+         * Adds a new collidable component to the array.
+         * 
+         * @param c - the component to add.
+         */
+        public static void add(I_Collidable c) {
+            if (!collidableTypes.ContainsKey(c.getType()))
+                collidableTypes.Add(c.getType(), new ArrayList());
 
-            collidableTypes[o.getType()].Add(o);
+            collidableTypes[c.getType()].Add(c);
         }
 
-        public static void remove(I_Collidable o) {
-            if (collidableTypes.ContainsKey(o.getType())) {
-                collidableTypes[o.getType()].Remove(o);
+        /**
+         * Removes a collidable component to the array.
+         * 
+         * @param c - the component to remove.
+         */
+        public static void remove(I_Collidable c) {
+            if (collidableTypes.ContainsKey(c.getType())) {
+                collidableTypes[c.getType()].Remove(c);
 
-                if (collidableTypes[o.getType()].Count == 0)
-                    collidableTypes.Remove(o.getType());
+                if (collidableTypes[c.getType()].Count == 0)
+                    collidableTypes.Remove(c.getType());
             }
+        }
+
+        /**
+         * Tests all objects in the collidable array against the player object and returns
+         * any object that is detected to collide.
+         * 
+         * @param newPlayerPosition - the position the player is attempting to move too.
+         * @param player - the player component.
+         */
+        public static I_Collidable testPlayerCollision(Point newPlayerPosition, Player player) {
+            foreach (var c in collidableTypes) {
+                for (int i = 0; i < c.Value.Count; i++ ) {
+                    I_Collidable collidedObject = (I_Collidable)c.Value[i];
+
+                    if (collidedObject.getPosition().Equals(newPlayerPosition))
+                        return collidedObject;
+                }
+            }
+            
+            return player;
         }
 
         /*
@@ -58,22 +97,5 @@ namespace TriviaMaze.com.teamrc.util {
             }
         }
         */
-
-        public static void testSingleCollison(I_Collidable headObject, I_Collidable collidedObject) {
-            //
-        }
-
-        public static I_Collidable testPlayerCollision(Point newPlayerPosition, Player player) {
-            foreach (var c in collidableTypes) {
-                for (int i = 0; i < c.Value.Count; i++ ) {
-                    I_Collidable collidedObject = (I_Collidable)c.Value[i];
-
-                    if (collidedObject.getPosition().Equals(newPlayerPosition))
-                        return collidedObject;
-                }
-            }
-            
-            return player;
-        }
     }
 }
