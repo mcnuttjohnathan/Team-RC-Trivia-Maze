@@ -5,6 +5,7 @@
 
 using System;
 
+using TriviaMaze.com.teamrc.gameobjects;
 
 public class MazeGenerator{
 

@@ -81,17 +81,31 @@
     <Compile Include="com\teamrc\gameobjects\DoorUsed.Designer.cs">
       <DependentUpon>DoorUsed.cs</DependentUpon>
     </Compile>
+    <Compile Include="com\teamrc\gameobjects\Empty.cs" />
+    <Compile Include="com\teamrc\gameobjects\Empty.Designer.cs">
+      <DependentUpon>Empty.cs</DependentUpon>
+    </Compile>
     <Compile Include="com\teamrc\gameobjects\Floor.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="com\teamrc\gameobjects\Floor.Designer.cs">
       <DependentUpon>Floor.cs</DependentUpon>
     </Compile>
+    <Compile Include="com\teamrc\gameobjects\Map.cs" />
+    <Compile Include="com\teamrc\gameobjects\Map.Designer.cs">
+      <DependentUpon>Map.cs</DependentUpon>
+    </Compile>
     <Compile Include="com\teamrc\gameobjects\Player.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="com\teamrc\gameobjects\Player.Designer.cs">
       <DependentUpon>Player.cs</DependentUpon>
+    </Compile>
+    <Compile Include="com\teamrc\gameobjects\Room.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="com\teamrc\gameobjects\Room.Designer.cs">
+      <DependentUpon>Room.cs</DependentUpon>
     </Compile>
     <Compile Include="com\teamrc\graphics\Gameplay.cs">
       <SubType>Form</SubType>
