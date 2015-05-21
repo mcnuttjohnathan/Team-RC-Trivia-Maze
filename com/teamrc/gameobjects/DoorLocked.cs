@@ -28,6 +28,8 @@ namespace TriviaMaze.com.teamrc.gameobjects {
             this.doorColor = Brushes.Red;
 
             this.type = CollisionManager.LOCKED_DOOR;
+
+            //CollisionManager.add(this);
         }
 
         public override String toString() {
