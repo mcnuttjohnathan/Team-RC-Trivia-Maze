@@ -14,7 +14,7 @@ using TriviaMaze.com.teamrc.util;
  */
 namespace TriviaMaze.com.teamrc.gameobjects {
     public partial class Player : Component, I_Collidable {
-        public Rectangle playerImage = new Rectangle(64, 64, 32, 32);
+        public Rectangle playerImage;
         public Brush playerColor = Brushes.Blue;
 
         public String type = CollisionManager.PLAYER;
