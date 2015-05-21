@@ -30,13 +30,6 @@ namespace TriviaMaze.com.teamrc.gameobjects {
          */
         public Floor(int x, int y) {
             InitializeComponent();
-
-            if (x % 32 != 0 || x % 32 != 0)
-                throw new Exception();
-
-            floorImage = new Rectangle(x, y, 32, 32);
-
-            CollisionManager.add(this);
         }
 
         /**
@@ -51,7 +44,9 @@ namespace TriviaMaze.com.teamrc.gameobjects {
             container.Add(this);
 
             InitializeComponent();
+        }
 
+        private void init() {
             if (x % 32 != 0 || x % 32 != 0)
                 throw new Exception();
 
