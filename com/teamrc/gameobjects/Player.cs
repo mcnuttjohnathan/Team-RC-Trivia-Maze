@@ -31,19 +31,27 @@ namespace TriviaMaze.com.teamrc.gameobjects {
         /**
          * constructs the player object
          */
-        public Player() {
+        public Player(int x, int y) {
             InitializeComponent();
 
-            //CollisionManager.add(this);
+            this.init(x, y);
         }
 
         /**
          * Constructs the player object with a container
          */
-        public Player(IContainer container) {
+        public Player(int x, int y, IContainer container) {
             container.Add(this);
 
             InitializeComponent();
+
+            this.init(x, y);
+        }
+
+        private void init(int x, int y) {
+            this.playerImage = new Rectangle(x, y, 32, 32);
+
+            //CollisionManager.add(this);
         }
 
         /**

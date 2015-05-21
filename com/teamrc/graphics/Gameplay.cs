@@ -17,7 +17,7 @@ using TriviaMaze.com.teamrc.util;
  */
 namespace TriviaMaze.com.teamrc.graphics {
     public partial class Gameplay : Form {
-        Player player = new Player();
+        Player player = new Player(64, 64);
         Graphics g;
         Timer t = new Timer();
 

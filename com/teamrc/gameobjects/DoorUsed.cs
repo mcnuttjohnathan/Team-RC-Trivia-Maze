@@ -28,6 +28,8 @@ namespace TriviaMaze.com.teamrc.gameobjects {
             this.doorColor = Brushes.DarkOrange;
 
             this.type = CollisionManager.USED_DOOR;
+
+            CollisionManager.add(this);
         }
 
         public DoorUnlocked unlockDoor() {

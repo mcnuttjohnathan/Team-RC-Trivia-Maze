@@ -28,6 +28,8 @@ namespace TriviaMaze.com.teamrc.gameobjects {
             this.doorColor = Brushes.BurlyWood;
 
             this.type = CollisionManager.FLOOR;
+
+            CollisionManager.add(this);
         }
 
         public override String toString() {
