@@ -91,7 +91,9 @@
     <Compile Include="com\teamrc\gameobjects\Floor.Designer.cs">
       <DependentUpon>Floor.cs</DependentUpon>
     </Compile>
-    <Compile Include="com\teamrc\gameobjects\Map.cs" />
+    <Compile Include="com\teamrc\gameobjects\Map.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="com\teamrc\gameobjects\Map.Designer.cs">
       <DependentUpon>Map.cs</DependentUpon>
     </Compile>
@@ -113,9 +115,7 @@
     <Compile Include="com\teamrc\graphics\Gameplay.Designer.cs">
       <DependentUpon>Gameplay.cs</DependentUpon>
     </Compile>
-    <Compile Include="com\teamrc\MazeGen\Map.cs" />
     <Compile Include="com\teamrc\MazeGen\MazeGenerator.cs" />
-    <Compile Include="com\teamrc\MazeGen\Room.cs" />
     <Compile Include="com\teamrc\util\I_Collidable.cs" />
     <Compile Include="com\teamrc\util\CollisionManager.cs" />
     <Compile Include="com\teamrc\util\CollisionManager.Designer.cs">

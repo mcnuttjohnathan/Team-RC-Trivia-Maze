@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-using Finisar.SQLite;
+//using Finisar.SQLite;
 
 using TriviaMaze.com.teamrc.gameobjects;
 using TriviaMaze.com.teamrc.graphics;
-using DatabaseSystem;
+//using DatabaseSystem;
 
 
 /**
@@ -45,34 +45,22 @@ namespace TriviaMaze {
 
         private void button2_Click(object sender, EventArgs e) {
             //Code for Maze Generation goes here
-            Room testRoom = new Room();
+            Point p = new Point(0,0);
+            Room testRoom = new Room(0, p);
             string testRoomStr = testRoom.toString();
             Console.WriteLine(testRoomStr);
 
-            int[] a = { 1, 0, 0, 0 };
-            Room testRoom2 = new Room(a);
+            Room testRoom2 = new Room(1, p);
             string testRoomStr2 = testRoom2.toString();
             Console.WriteLine(testRoomStr2);
 
-            int[] b = { 1, 1, 0, 0 };
-            Room testRoom3 = new Room(b);
+            Room testRoom3 = new Room(2, p);
             string testRoomStr3 = testRoom3.toString();
             Console.WriteLine(testRoomStr3);
 
-            int[] c = { 1, 1, 1, 0 };
-            Room testRoom4 = new Room(c);
+            Room testRoom4 = new Room(3, p);
             string testRoomStr4 = testRoom4.toString();
             Console.WriteLine(testRoomStr4);
-
-            int[] d = { 1, 1, 1, 1 };
-            Room testRoom5 = new Room(d);
-            string testRoomStr5 = testRoom5.toString();
-            Console.WriteLine(testRoomStr5);
-
-            int[] f = { 1, 0, 0, 1 };
-            Room testRoom6 = new Room(f);
-            string testRoomStr6 = testRoom6.toString();
-            Console.WriteLine(testRoomStr6);
 
             MazeGenerator mg = new MazeGenerator();
             Map m = mg.generate();
@@ -83,7 +71,7 @@ namespace TriviaMaze {
         }
 
         private void button3_Click(object sender, EventArgs e) {
-            Database db = new Database("TestDatabase");
+            /*Database db = new Database("TestDatabase");
             Table t = null;
 
             if (db.Count < 1){
@@ -99,6 +87,7 @@ namespace TriviaMaze {
             }
 
             Console.WriteLine(db.SaveDatabase());
+             */
         }
     }
 }
