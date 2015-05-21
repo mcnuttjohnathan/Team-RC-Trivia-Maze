@@ -31,7 +31,7 @@ namespace TriviaMaze.com.teamrc.gameobjects {
         }
 
         public override String toString() {
-            return "D";
+            return "O";
         }
     }
 }
