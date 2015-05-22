@@ -167,7 +167,6 @@ namespace TriviaMaze.com.teamrc.gameobjects{
         {
             //Start by initial cell as current cell, set to visited if new or return false
             this.map[cur.X, cur.Y].setConnected(true);
-
             //If makeDoor is true, find the door it must make and set it to open to connect it to the previous room
             if (makeDoor && prev.X == cur.X)
             {
@@ -184,7 +183,6 @@ namespace TriviaMaze.com.teamrc.gameobjects{
 
             //determine which exits are available
             ArrayList possible = new ArrayList();
-            Console.Write(possible.Count);
             if (cur.X - 1 >= 0 && !map[cur.X - 1, cur.Y].isConnected())
             {
                 Point n = new Point(cur.X - 1, cur.Y);
@@ -215,36 +213,34 @@ namespace TriviaMaze.com.teamrc.gameobjects{
                 return;
             }
 
-            while (possible.Count != 0)
+            while (possible.Count > 0)
             {
-                Console.Write(possible.Count);
                 int r = rnd.Next(0, possible.Count);
-                Console.WriteLine(r);
                 Point next = (Point)possible[r];
                 possible.RemoveAt(r);
                 Boolean d = false;
+                if (this.map[next.X, next.Y].isConnected() == false)
+                {
+                    if ((cur.X == next.X && cur.Y - 1 == next.Y) || (cur.X - 1 == next.X && cur.Y == next.Y))
+                    {
+                        d = true;
+                    }
 
-                if ((cur.X == next.X && cur.Y - 1 == next.Y) || (cur.X - 1 == next.X && cur.Y == next.Y))
-                {
-                    d = true;
-                }
+                    if (d == false && next.X == cur.X)
+                    {
+                        int e = map[cur.X, cur.Y].getExits();
+                        e += 2;
+                        this.map[cur.X, cur.Y].setExits(e);
+                    }
+                    if (d == false && next.Y == cur.Y)
+                    {
+                        int e = map[cur.X, cur.Y].getExits();
+                        e += 1;
+                        this.map[cur.X, cur.Y].setExits(e);
+                    }
 
-                if (d == false && next.X == cur.X)
-                {
-                    int e = map[cur.X, cur.Y].getExits();
-                    e += 2;
-                    this.map[cur.X, cur.Y].setExits(e);
-                }
-                if (d == false && next.Y == cur.Y)
-                {
-                    int e = map[cur.X, cur.Y].getExits();
-                    e += 1;
-                    this.map[cur.X, cur.Y].setExits(e);
-                }
-
-                if (!map[next.X, next.Y].isConnected())
-                {
-                    generateMaze(cur, next, d);
+                        generateMaze(cur, next, d);
+                    
                 }
             }
         }
