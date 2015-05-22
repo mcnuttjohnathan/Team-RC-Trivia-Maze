@@ -40,6 +40,7 @@ namespace TriviaMaze.com.teamrc.gameobjects{
             this.finish = new Point(s - 1, s - 1);
             this.rnd = new Random();
             createMaze();
+            addDoors();
         }
 
         public Map(IContainer container){
@@ -149,8 +150,14 @@ namespace TriviaMaze.com.teamrc.gameobjects{
             return res;
         }
 
+
+        /**
+         * createMaze fills the map array of empty rooms, and gives those rooms the 
+         * coords of each for GUI purposes, then calls the recursive mazegeneration
+         **/
         public void createMaze(){
             Point p = new Point(0, 0);
+
             for (int i = 0; i < size; i++){
                 for (int j = 0; j < size; j++){
                     Room r = new Room(0, p);
@@ -160,89 +167,135 @@ namespace TriviaMaze.com.teamrc.gameobjects{
                 p.X = p.X + 128;
                 p.Y = 0;
             }
+
             generateMaze(start, start, false);
         }
 
-        public void generateMaze(Point prev, Point cur, Boolean makeDoor)
-        {
-            //Start by initial cell as current cell, set to visited if new or return false
+        /**
+         * generate maze goes through and using the perfect maze backtracking
+         * recursion algoritm, it generates a maze with randomized connections 
+         * between rooms
+         * 
+         * @param prev - the Point representation of the room you came from
+         * @param cur - the Point representation of the current room you are in
+         * @param makeDoor - the boolean value representing if you need to make an exit to connect cur to prev
+         **/
+        public void generateMaze(Point prev, Point cur, Boolean makeDoor){
             this.map[cur.X, cur.Y].setConnected(true);
-            //If makeDoor is true, find the door it must make and set it to open to connect it to the previous room
-            if (makeDoor && prev.X == cur.X)
-            {
+            
+            if (makeDoor && prev.X == cur.X){
                 int e = map[cur.X, cur.Y].getExits();
                 e += 2;
                 this.map[cur.X, cur.Y].setExits(e);
             }
-            if (makeDoor && prev.Y == cur.Y)
-            {
+
+            if (makeDoor && prev.Y == cur.Y){
                 int e = map[cur.X, cur.Y].getExits();
                 e += 1;
                 this.map[cur.X, cur.Y].setExits(e);
             }
 
-            //determine which exits are available
+            
             ArrayList possible = new ArrayList();
-            if (cur.X - 1 >= 0 && !map[cur.X - 1, cur.Y].isConnected())
-            {
+
+            if (cur.X - 1 >= 0 && !map[cur.X - 1, cur.Y].isConnected()){
                 Point n = new Point(cur.X - 1, cur.Y);
                 possible.Add(n);
             }
 
-            if (cur.Y + 1 < this.size && !map[cur.X, cur.Y + 1].isConnected())
-            {
+            if (cur.Y + 1 < this.size && !map[cur.X, cur.Y + 1].isConnected()){
                 Point n = new Point(cur.X, cur.Y + 1);
                 possible.Add(n);
             }
 
 
-            if (cur.X + 1 < this.size && !map[cur.X + 1, cur.Y].isConnected())
-            {
+            if (cur.X + 1 < this.size && !map[cur.X + 1, cur.Y].isConnected()){
                 Point n = new Point(cur.X + 1, cur.Y);
                 possible.Add(n);
             }
 
-            if (cur.Y - 1 >= 0 && !map[cur.X, cur.Y - 1].isConnected())
-            {
+            if (cur.Y - 1 >= 0 && !map[cur.X, cur.Y - 1].isConnected()){
                 Point n = new Point(cur.X, cur.Y - 1);
                 possible.Add(n);
             }
 
-            if (possible.Count == 0)
-            {
+            if (possible.Count == 0){
                 return;
             }
 
-            while (possible.Count > 0)
-            {
+            while (possible.Count > 0){
+
                 int r = rnd.Next(0, possible.Count);
                 Point next = (Point)possible[r];
                 possible.RemoveAt(r);
                 Boolean d = false;
-                if (this.map[next.X, next.Y].isConnected() == false)
-                {
-                    if ((cur.X == next.X && cur.Y - 1 == next.Y) || (cur.X - 1 == next.X && cur.Y == next.Y))
-                    {
+
+                if (this.map[next.X, next.Y].isConnected() == false){
+                    if ((cur.X == next.X && cur.Y - 1 == next.Y) || (cur.X - 1 == next.X && cur.Y == next.Y)){
                         d = true;
                     }
 
-                    if (d == false && next.X == cur.X)
-                    {
+                    if (d == false && next.X == cur.X){
                         int e = map[cur.X, cur.Y].getExits();
                         e += 2;
                         this.map[cur.X, cur.Y].setExits(e);
                     }
-                    if (d == false && next.Y == cur.Y)
-                    {
+
+                    if (d == false && next.Y == cur.Y){
                         int e = map[cur.X, cur.Y].getExits();
                         e += 1;
                         this.map[cur.X, cur.Y].setExits(e);
                     }
 
-                        generateMaze(cur, next, d);
+                    generateMaze(cur, next, d);
                     
                 }
             }
         }
+
+
+        /**
+         * addDoors goes through and randomly opens new doors throughout the maze
+         * to make it easier for the player to get to the exit
+         **/
+        public void addDoors(){
+            double chance = .1;
+
+            for (int i = 0; i < this.size; i++){
+                for (int j = 0; j < this.size; j++){
+                    double c = rnd.NextDouble();
+
+                    if (c <= chance){
+                        addOneDoor(i, j);
+                    }
+                }
+            }
+        }
+
+        /**
+         * addOneDoor is called when a door should be opened in a room
+         * and determines where, if any, a door can be opened.
+         * 
+         * @param i - the i index that the room is on
+         * @param j - the j index that the room is on
+         **/
+        public void addOneDoor(int i, int j){
+            int exits = this.map[i, j].getExits();
+
+            if (exits != 3){
+
+                if (i != this.size - 1 && exits != 1){
+                    exits += 1;
+                }
+
+                if (j != this.size - 1 && exits != 2){
+                    exits += 2;
+                }
+
+            }
+
+            this.map[i,j].setExits(exits);
+        }
+
     }
 }
