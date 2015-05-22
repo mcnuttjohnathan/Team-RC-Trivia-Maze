@@ -45,25 +45,7 @@ namespace TriviaMaze {
 
         private void button2_Click(object sender, EventArgs e) {
             //Code for Maze Generation goes here
-            /*
-            Point p = new Point(0,0);
-            Room testRoom = new Room(0, p);
-            string testRoomStr = testRoom.toString();
-            Console.WriteLine(testRoomStr);
-
-            Room testRoom2 = new Room(1, p);
-            string testRoomStr2 = testRoom2.toString();
-            Console.WriteLine(testRoomStr2);
-
-            Room testRoom3 = new Room(2, p);
-            string testRoomStr3 = testRoom3.toString();
-            Console.WriteLine(testRoomStr3);
-
-            Room testRoom4 = new Room(3, p);
-            string testRoomStr4 = testRoom4.toString();
-            Console.WriteLine(testRoomStr4);
-            
-             */
+            Console.WriteLine("Generating a 4X4 Maze with a 10% chance of opening more doors.");
 
             MazeGenerator mg = new MazeGenerator();
             Map m = mg.generate();
