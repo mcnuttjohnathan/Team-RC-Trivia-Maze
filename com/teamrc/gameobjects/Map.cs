@@ -23,6 +23,7 @@ namespace TriviaMaze.com.teamrc.gameobjects{
         int size;
         Point start;
         Point finish;
+        Random rnd;
 
 
         /**
@@ -37,6 +38,8 @@ namespace TriviaMaze.com.teamrc.gameobjects{
             this.size = s;
             this.start = new Point(0, 0);
             this.finish = new Point(s - 1, s - 1);
+            this.rnd = new Random();
+            createMaze();
         }
 
         public Map(IContainer container){
@@ -164,7 +167,7 @@ namespace TriviaMaze.com.teamrc.gameobjects{
         {
             //Start by initial cell as current cell, set to visited if new or return false
             this.map[cur.X, cur.Y].setConnected(true);
-            
+
             //If makeDoor is true, find the door it must make and set it to open to connect it to the previous room
             if (makeDoor && prev.X == cur.X)
             {
@@ -172,7 +175,7 @@ namespace TriviaMaze.com.teamrc.gameobjects{
                 e += 2;
                 this.map[cur.X, cur.Y].setExits(e);
             }
-            else
+            if (makeDoor && prev.Y == cur.Y)
             {
                 int e = map[cur.X, cur.Y].getExits();
                 e += 1;
@@ -181,9 +184,10 @@ namespace TriviaMaze.com.teamrc.gameobjects{
 
             //determine which exits are available
             ArrayList possible = new ArrayList();
+            Console.Write(possible.Count);
             if (cur.X - 1 >= 0 && !map[cur.X - 1, cur.Y].isConnected())
             {
-                Point n = new Point(cur.X-1, cur.Y);
+                Point n = new Point(cur.X - 1, cur.Y);
                 possible.Add(n);
             }
 
@@ -196,7 +200,7 @@ namespace TriviaMaze.com.teamrc.gameobjects{
 
             if (cur.X + 1 < this.size && !map[cur.X + 1, cur.Y].isConnected())
             {
-                Point n = new Point(cur.X+1, cur.Y);
+                Point n = new Point(cur.X + 1, cur.Y);
                 possible.Add(n);
             }
 
@@ -213,34 +217,36 @@ namespace TriviaMaze.com.teamrc.gameobjects{
 
             while (possible.Count != 0)
             {
-                Random rnd = new Random();
-                rnd.Next(0, possible.Count);
-                Point p = possible;
+                Console.Write(possible.Count);
+                int r = rnd.Next(0, possible.Count);
+                Console.WriteLine(r);
+                Point next = (Point)possible[r];
+                possible.RemoveAt(r);
+                Boolean d = false;
+
+                if ((cur.X == next.X && cur.Y - 1 == next.Y) || (cur.X - 1 == next.X && cur.Y == next.Y))
+                {
+                    d = true;
+                }
+
+                if (d == false && next.X == cur.X)
+                {
+                    int e = map[cur.X, cur.Y].getExits();
+                    e += 2;
+                    this.map[cur.X, cur.Y].setExits(e);
+                }
+                if (d == false && next.Y == cur.Y)
+                {
+                    int e = map[cur.X, cur.Y].getExits();
+                    e += 1;
+                    this.map[cur.X, cur.Y].setExits(e);
+                }
+
+                if (!map[next.X, next.Y].isConnected())
+                {
+                    generateMaze(cur, next, d);
+                }
             }
-
-            //pick one
-            //for(int i = 0; )
-            //generateMaze(cur, next, d);
-            
-
-
-
-
-
-            //While their are unvisited cells
-            //If the current cell has any neightbors which have not been visited
-            //Choose randomly one of the unvisited neighbors
-            //Push current cell the the stack
-            //Remove the wall between the current cell and the chosen cell
-            // Make the chosen cell the current cell and mark it as visited
-
-            //else if stack is not empty
-            //pop a cell from the stack
-            //make it the current cell
-            //else 
-            //Pick a random unvisited cell, make it the current cell and mark it as visited
         }
-
-
     }
 }
