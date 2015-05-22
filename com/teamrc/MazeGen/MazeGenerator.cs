@@ -4,7 +4,9 @@
  **/
 
 using System;
+using System.Configuration;
 using System.Drawing;
+using System.Xml;
 using TriviaMaze.com.teamrc.gameobjects;
 
 public class MazeGenerator{
@@ -13,6 +15,7 @@ public class MazeGenerator{
      * @return      a fully filled map with rooms all interconnected
      **/
     public Map generate(){
+        /*
         int mazeSize = 4;
         Map m = new Map(mazeSize);
         Point p = new Point(0, 0);
@@ -27,6 +30,9 @@ public class MazeGenerator{
             p.X = p.X + 128;
             p.Y = 0;
         }
+        */
+
+        Map m = new Map(4);
 
         return m;
     }
@@ -51,5 +57,6 @@ public class MazeGenerator{
 
         return exits;
     }
+
 
 }

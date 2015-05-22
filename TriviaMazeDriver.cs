@@ -45,6 +45,7 @@ namespace TriviaMaze {
 
         private void button2_Click(object sender, EventArgs e) {
             //Code for Maze Generation goes here
+            /*
             Point p = new Point(0,0);
             Room testRoom = new Room(0, p);
             string testRoomStr = testRoom.toString();
@@ -61,6 +62,8 @@ namespace TriviaMaze {
             Room testRoom4 = new Room(3, p);
             string testRoomStr4 = testRoom4.toString();
             Console.WriteLine(testRoomStr4);
+            
+             */
 
             MazeGenerator mg = new MazeGenerator();
             Map m = mg.generate();
