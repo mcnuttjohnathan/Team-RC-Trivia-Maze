@@ -72,7 +72,7 @@ namespace TriviaMaze.com.teamrc.graphics {
                 I_Collidable collider = 
                     CollisionManager.testPlayerCollision(new Point(this.player.playerImage.X, this.player.playerImage.Y - 32), this.player);
 
-                if(collider.getType().Equals(CollisionManager.FLOOR))
+                if (collider.getType().Equals(CollisionManager.FLOOR) || collider.getType().Equals(CollisionManager.NEW_DOOR))
                     player.moveUp();
             }
 
@@ -80,7 +80,7 @@ namespace TriviaMaze.com.teamrc.graphics {
                 I_Collidable collider =
                     CollisionManager.testPlayerCollision(new Point(this.player.playerImage.X, this.player.playerImage.Y + 32), this.player);
 
-                if (collider.getType().Equals(CollisionManager.FLOOR))
+                if (collider.getType().Equals(CollisionManager.FLOOR) || collider.getType().Equals(CollisionManager.NEW_DOOR))
                     player.moveDown();
             }
 
@@ -88,7 +88,7 @@ namespace TriviaMaze.com.teamrc.graphics {
                 I_Collidable collider =
                     CollisionManager.testPlayerCollision(new Point(this.player.playerImage.X - 32, this.player.playerImage.Y), this.player);
 
-                if (collider.getType().Equals(CollisionManager.FLOOR))
+                if (collider.getType().Equals(CollisionManager.FLOOR) || collider.getType().Equals(CollisionManager.NEW_DOOR))
                     player.moveLeft();
             }
 
@@ -96,7 +96,7 @@ namespace TriviaMaze.com.teamrc.graphics {
                 I_Collidable collider =
                     CollisionManager.testPlayerCollision(new Point(this.player.playerImage.X + 32, this.player.playerImage.Y), this.player);
 
-                if (collider.getType().Equals(CollisionManager.FLOOR))
+                if (collider.getType().Equals(CollisionManager.FLOOR) || collider.getType().Equals(CollisionManager.NEW_DOOR))
                     player.moveRight();
             }
         }
