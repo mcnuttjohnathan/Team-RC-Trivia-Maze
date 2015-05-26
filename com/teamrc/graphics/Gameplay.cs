@@ -19,7 +19,7 @@ using TriviaMaze.com.teamrc.util;
  */
 namespace TriviaMaze.com.teamrc.graphics {
     public partial class Gameplay : Form {
-        Player player = new Player(32, 32);
+        Player player;
         Graphics graphics;
         Map map;
         MazeGenerator mazeGenerator = new MazeGenerator();
@@ -31,8 +31,13 @@ namespace TriviaMaze.com.teamrc.graphics {
         public Gameplay() {
             InitializeComponent();
 
+            this.DoubleBuffered = true;
+
             this.graphics = this.CreateGraphics();
             this.map = mazeGenerator.generate();
+
+            Point start = map.getStart();
+            player = new Player(start.X, start.Y);
 
             t.Interval = 17;
             t.Tick += new EventHandler(update);

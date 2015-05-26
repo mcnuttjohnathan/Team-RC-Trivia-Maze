@@ -85,6 +85,12 @@
     <Compile Include="com\teamrc\gameobjects\Empty.Designer.cs">
       <DependentUpon>Empty.cs</DependentUpon>
     </Compile>
+    <Compile Include="com\teamrc\gameobjects\Finish.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="com\teamrc\gameobjects\Finish.Designer.cs">
+      <DependentUpon>Finish.cs</DependentUpon>
+    </Compile>
     <Compile Include="com\teamrc\gameobjects\Floor.cs">
       <SubType>Component</SubType>
     </Compile>
