@@ -45,23 +45,6 @@ namespace TriviaMaze {
 
         private void button2_Click(object sender, EventArgs e) {
             //Code for Maze Generation goes here
-            /*
-            Console.WriteLine("Enter the width you want the maze to be. (Smallest: 2, Largest: 10)");
-            int w = Console.Read();
-            if (w < 2 || w > 10)
-            {
-                Console.WriteLine("The number you entered did not follow the guidlines. The width will default to 4.");
-                w = 4;
-            }
-
-            Console.WriteLine("Enter the width you height the maze to be. (Smallest: 2, Largest: 10)");
-            int h = Console.Read();
-            if (h < 2 || h > 10)
-            {
-                Console.WriteLine("The number you entered did not follow the guidlines. The height will default to 4.");
-                h = 4;
-            }
-            */
             int h = 4;
             int w = 4;
             Console.WriteLine("Generating a {0}X{1} Maze with a 10% chance of opening more doors.", w, h);
