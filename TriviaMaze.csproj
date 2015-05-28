@@ -34,7 +34,7 @@
   <ItemGroup>
     <Reference Include="Database, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>com\teamrc\Database\Database\bin\Debug\Database.dll</HintPath>
+      <HintPath>com\teamrc\Database\Database.dll</HintPath>
     </Reference>
     <Reference Include="SQLite.NET">
       <HintPath>bin\Debug\SQLite.NET.dll</HintPath>
@@ -81,7 +81,9 @@
     <Compile Include="com\teamrc\gameobjects\DoorUsed.Designer.cs">
       <DependentUpon>DoorUsed.cs</DependentUpon>
     </Compile>
-    <Compile Include="com\teamrc\gameobjects\Empty.cs" />
+    <Compile Include="com\teamrc\gameobjects\Empty.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="com\teamrc\gameobjects\Empty.Designer.cs">
       <DependentUpon>Empty.cs</DependentUpon>
     </Compile>

@@ -56,23 +56,7 @@ namespace TriviaMaze {
         }
 
         private void button3_Click(object sender, EventArgs e) {
-            Database db = new Database("TestDatabase");
-            Table t = null;
-
-            if (db.Count < 1){
-                t = db.AddNewTable("TestTable");
-            } else {
-                t = db[0];
-            }
-
-            if (t.Count < 5){
-                t.AddNewQuestion();
-            } else {
-                t.RemoveQuestion(t[t.Count - 1]);
-            }
-
-            Console.WriteLine(db.SaveDatabase());
-             
+			
         }
     }
 }

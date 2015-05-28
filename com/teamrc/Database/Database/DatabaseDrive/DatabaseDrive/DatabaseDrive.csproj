@@ -51,10 +51,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Tester.cs">
+    <Compile Include="Properties\Tester.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Tester.Designer.cs">
+    <Compile Include="Properties\Tester.Designer.cs">
       <DependentUpon>Tester.cs</DependentUpon>
     </Compile>
     <Compile Include="DDriver.cs" />
@@ -68,7 +68,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Tester.resx">
+    <EmbeddedResource Include="Properties\Tester.resx">
       <DependentUpon>Tester.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">

@@ -18,6 +18,7 @@ namespace DatabaseSystem
         private int _id;
         private int _initialCount;
         private bool _imported;
+		private bool _drop;
         private List<QuestionAnswer> _table;
 
         public Table(Database d, String pName)
@@ -28,6 +29,7 @@ namespace DatabaseSystem
             this._table = new List<QuestionAnswer>();
             this._initialCount = 0;
             this._imported = false;
+			this._drop = false;
         }
 
         public String Name
@@ -78,6 +80,11 @@ namespace DatabaseSystem
             }
         }
 
+		public bool Drop {
+			get { return this._drop; }
+			set { this._drop = value; }
+		}
+
         public int Count
         {
             get { return this._table.Count; }
@@ -107,6 +114,8 @@ namespace DatabaseSystem
 
         public int GetNextAvailableId()
         {
+			this._table.Sort();
+
             for (int x = 0; x < this._table.Count; x++)
             {
                 if (this._table[x].Id != x)
@@ -131,6 +140,14 @@ namespace DatabaseSystem
                 {
                     QuestionAnswer qA = this.AddNewQuestion();
 
+					qA.Import = true;
+
+					try {
+						qA.Id = Int32.Parse(tR.Rows[x][TABLE_FIELDS.ID.ToString()].ToString());
+					} catch(FormatException e) {
+						Console.WriteLine("Invalid Id, using next available ID instead.\n" + e.Message);
+					}
+
                     qA.Question = tR.Rows[x][TABLE_FIELDS.question.ToString()].ToString();
 
                     for (int y = 0; y < qA.Answers.Length; y++)
@@ -149,29 +166,34 @@ namespace DatabaseSystem
         {
             String query = "";
 
-            if (!this._imported) {
-                query += @"CREATE TABLE '" + this._name + @"' ('ID' INTEGER NOT NULL UNIQUE, 'question' TEXT, 'ans0' TEXT, " +
-                                                @"'ans1' TEXT, 'ans2' TEXT, 'ans3' TEXT, 'type' INTEGER, PRIMARY KEY(ID));";
-            }
+			if(!this._drop) {
+				if(!this._imported) {
+					query += @"CREATE TABLE '" + this._name + @"' ('ID' INTEGER NOT NULL UNIQUE, 'question' TEXT, 'ans0' TEXT, " +
+													@"'ans1' TEXT, 'ans2' TEXT, 'ans3' TEXT, 'type' INTEGER, PRIMARY KEY(ID));";
+				}
 
-            for (int x = 0; x < this._table.Count; x++)
-            {
-                if (x < this._initialCount && this._imported)
-                {
-                    query += this._table[x].ToUpdateQuery();
-                } else if ((x >= this._initialCount && this._imported) || !this._imported)
-                {
-                    query += this._table[x].ToInsertQuery();
-                }
-            }
-
-            if (this._table.Count < this._initialCount)
-            {
-                query += @"DELETE FROM " + this._name + @" WHERE ID >= " + this._table.Count + ";";
-            }
+				for(int x = 0; x < this._table.Count; x++) {
+					if(this._table[x].Drop) {
+						query += this._table[x].ToDropQuery();
+					} else {
+						if(this._table[x].Import && this._imported) {
+							query += this._table[x].ToUpdateQuery();
+						} else if(!this._table[x].Import || !this._imported) {
+							query += this._table[x].ToInsertQuery();
+							this._table[x].Import = true;
+						}
+					}
+				}
+			} else {
+				query = @"DROP TABLE " + this._name + @";";
+			}
 
             return query;
         }
+
+		public void sort() {
+			this._table.Sort();
+		}
 
         private bool IsValidSchema(DataTable tR)
         {

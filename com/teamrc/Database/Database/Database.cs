@@ -95,10 +95,29 @@ namespace DatabaseSystem
             get { return this._tables.Count; }
         }
 
+		public bool Contains(object obj) {
+			for(int x = 0; x < this._tables.Count; x++){
+				for(int y = 0; y < this._tables[x].Count; y++){
+					if(this._tables[x][y] == obj) {
+						return true;
+					}
+				}
+			}
+
+			return false;
+		}
+
         public QuestionAnswer randomQuestion(Random rng)
         {
             return this._tables[rng.Next(this._tables.Count)].randomQuestion(rng);
         }
+
+		public void executeQuery(object source, String p) {
+			if(this.Contains(source)) {
+				this._sqlCommand.CommandText = p;
+				this._sqlCommand.ExecuteNonQuery();
+			}
+		}
 
         public Table AddNewTable(String tableName)
         {
@@ -110,9 +129,6 @@ namespace DatabaseSystem
         public void RemoveTable(Table t)
         {
             this._tables.Remove(t);
-
-            this._sqlCommand.CommandText = @"DROP TABLE IF EXISTS " + t.Name + @";";
-            this._sqlCommand.ExecuteNonQuery();
         }
 
         public String SaveDatabase()
