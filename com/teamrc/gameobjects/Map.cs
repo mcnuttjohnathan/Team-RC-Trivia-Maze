@@ -142,13 +142,13 @@ namespace TriviaMaze.com.teamrc.gameobjects{
                         res += 'O';
                     }
 
-                    if (e > 1){
+                    if (e % 2 == 1){
                         res += '-';
                     }else{
                         res += ' ';
                     }
 
-                    if (e % 2 == 1){
+                    if (e > 1){
                         nextRow += "| ";
                     }else{
                         nextRow += "  ";
@@ -177,13 +177,13 @@ namespace TriviaMaze.com.teamrc.gameobjects{
                         r.makeFinish();
                     }
                     this.map[i, j] = r;
-                    p.Y = p.Y + 128;
+                    p.X = p.X + 128;
                 }
-                p.X = p.X + 128;
-                p.Y = 0;
+                p.Y = p.Y + 128;
+                p.X = 0;
             }
 
-            generateMaze(this.start, this.start, false);
+           // generateMaze(this.start, this.start, false);
         }
 
         /**
@@ -303,11 +303,11 @@ namespace TriviaMaze.com.teamrc.gameobjects{
 
             if (exits != 3){
 
-                if (i != this.height - 1 && exits != 1){
+                if (j + 1 < this.width && exits != 1){
                     exits += 1;
                 }
 
-                if (j != this.width - 1 && exits != 2){
+                if (i + 1 < this.height && exits != 2){
                     exits += 2;
                 }
 
@@ -341,6 +341,8 @@ namespace TriviaMaze.com.teamrc.gameobjects{
         public Boolean solve(Point prev, Point cur, int[,] v){
             v[cur.X, cur.Y] = 1;
 
+            print(v);
+
             if (cur.X == this.finish.X & cur.Y == this.finish.Y){
                 return true;
             }
@@ -348,20 +350,22 @@ namespace TriviaMaze.com.teamrc.gameobjects{
             Point next = new Point();
             if (cur.Y + 1 != this.width && (map[cur.X, cur.Y].unlockedExits() == 1 || map[cur.X, cur.Y].unlockedExits() == 3) && v[cur.X, cur.Y+1] == 0)
             {
+                Console.Write("This is saying this: {0}", map[cur.X, cur.Y].unlockedExits());
                 next.X = cur.X;
                 next.Y = cur.Y + 1;
                 Boolean b = solve(prev, next, v);
-                if (b){
+                if (b == true){
                     return b;
                 }
             }
 
             if (cur.X + 1 != this.height && map[cur.X, cur.Y].unlockedExits() > 1 && v[cur.X + 1, cur.Y] == 0)
             {
+              
                 next.X = cur.X + 1;
                 next.Y = cur.Y;
                 Boolean b = solve(prev, next, v);
-                if (b)
+                if (b == true)
                 {
                     return b;
                 }
@@ -369,6 +373,7 @@ namespace TriviaMaze.com.teamrc.gameobjects{
 
             if (cur.Y - 1 >= 0 && (map[cur.X, cur.Y - 1].unlockedExits() == 1 || map[cur.X, cur.Y - 1].unlockedExits() == 3) && v[cur.X, cur.Y - 1] == 0)
             {
+                
                 next.X = cur.X;
                 next.Y = cur.Y - 1;
                 Boolean b = solve(prev, next, v);
@@ -380,6 +385,7 @@ namespace TriviaMaze.com.teamrc.gameobjects{
 
             if (cur.X - 1 >= 0 && map[cur.X - 1, cur.Y].unlockedExits() > 1 && v[cur.X - 1, cur.Y] == 0)
             {
+                
                 next.X = cur.X - 1;
                 next.Y = cur.Y;
                 Boolean b = solve(prev, next, v);
@@ -393,6 +399,18 @@ namespace TriviaMaze.com.teamrc.gameobjects{
             return false;
             
 
+        }
+
+        public void print(int[,] v){
+            for (int i = 0; i < v.GetLength(0); i++)
+            {
+                for (int j = 0; j < v.GetLength(1); j++)
+                {
+                    Console.Write(v[i, j]);
+                }
+                Console.WriteLine();
+            }
+            Console.WriteLine();
         }
 
     }
