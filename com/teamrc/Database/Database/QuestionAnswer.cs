@@ -8,7 +8,7 @@ namespace DatabaseSystem
 {
     public enum QUESTION_TYPE {MULTIPLE_CHOICE, TRUE_FALSE, INPUT};
 
-    public class QuestionAnswer
+    public class QuestionAnswer : IComparable<QuestionAnswer>
     {
         private const int MULTIPLE_CHOICE_ANSWERS = 4;
 
@@ -19,6 +19,9 @@ namespace DatabaseSystem
         private String[] _ans;
         private QUESTION_TYPE _type;
 
+		private bool _imported;
+		private bool _drop;
+
         public QuestionAnswer(Table t)
         {
             this._database = t.GetDatabase();
@@ -27,6 +30,8 @@ namespace DatabaseSystem
             this._question = null;
             this._ans = new String[QuestionAnswer.MULTIPLE_CHOICE_ANSWERS];
             this._type = QUESTION_TYPE.MULTIPLE_CHOICE;
+			this._imported = false;
+			this._drop = false;
         }
 
         public String Database
@@ -42,13 +47,23 @@ namespace DatabaseSystem
         public int Id
         {
             get { return this._id; }
+			set {
+				if(value > -1) {
+					this._id = value;
+				}
+			}
         }
 
         public String Question
         {
-            get { return this._question; }
+            get {
+				String q = this._question;
+				q.Replace("''", "'");
+				return q; 
+			}
             set { 
                 this._question = value;
+				this._question = this._question.Replace("''", "'");
                 this._question = this._question.Replace("'", "''");
             }
         }
@@ -57,6 +72,11 @@ namespace DatabaseSystem
         {
             get { return this._ans; }
         }
+
+		public bool Drop {
+			get { return this._drop; }
+			set { this._drop = value; }
+		}
 
         public String this[int x]
         {
@@ -86,6 +106,23 @@ namespace DatabaseSystem
             get { return this._type; }
             set { this._type = value; }
         }
+
+		public bool Import {
+			get { return this._imported; }
+			set { this._imported = value; }
+		}
+
+		public void deleteQuestion(bool loaded) {
+			if(loaded) {
+				this._database.executeQuery(this, @"DELETE FROM '" + this._table.Name + @"' WHERE ID = " + this._id + @";");
+			}
+
+			this._table.RemoveQuestion(this);
+		}
+
+		public String ToDropQuery() {
+			return @"DELETE FROM " + this._table.Name + @" WHERE ID = " + this._id + ";";
+		}
 
         public String ToInsertQuery()
         {
@@ -165,5 +202,13 @@ namespace DatabaseSystem
                 return false;
             }
         }
+
+		public override string ToString(){
+			return this._database.Name + "." + this._table.Name + "." + this._id;
+		}
+
+		public int CompareTo(QuestionAnswer qA) {
+			return this._id - qA._id;
+		}
     }
 }
