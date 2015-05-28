@@ -53,13 +53,19 @@ namespace TriviaMaze {
             Map m = mg.generate(h, w);
             String s = m.toString();
             Console.Write(s);
+            Boolean b = m.isSolvable();
+            Console.WriteLine("This maze is solvable: {0}", b);
+            Console.WriteLine(m.getRoom(0, 0).toString());
 
+            /*
             h = 10;
             w = 10;
             Console.WriteLine("Generating a {0}X{1} Maze with a 10% chance of opening more doors.", w, h);
             m = mg.generate(h, w);
             s = m.toString();
             Console.Write(s);
+            b = m.isSolvable();
+            Console.WriteLine("This maze is solvable: {0}", b);
 
             h = 2;
             w = 2;
@@ -67,6 +73,8 @@ namespace TriviaMaze {
             m = mg.generate(h, w);
             s = m.toString();
             Console.Write(s);
+            b = m.isSolvable();
+            Console.WriteLine("This maze is solvable: {0}", b);
 
             h = 2;
             w = 10;
@@ -74,7 +82,9 @@ namespace TriviaMaze {
             m = mg.generate(h, w);
             s = m.toString();
             Console.Write(s);
-
+            b = m.isSolvable();
+            Console.WriteLine("This maze is solvable: {0}", b);
+            */
             Console.Read();
         }
 
