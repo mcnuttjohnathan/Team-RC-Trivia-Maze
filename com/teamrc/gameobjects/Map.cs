@@ -38,9 +38,9 @@ namespace TriviaMaze.com.teamrc.gameobjects{
             this.map = new Room[h, w];
             this.height = h;
             this.width = w;
-            this.start = new Point(0, 0);
-            this.finish = new Point(h - 1, w - 1);
-            this.rnd = new Random();
+            this.rnd = new Random(); 
+            this.start = new Point(0, 0);  
+            this.finish = new Point(this.height - 1, this.width - 1);         
             createMaze();
             addDoors();
         }
@@ -172,6 +172,10 @@ namespace TriviaMaze.com.teamrc.gameobjects{
             for (int i = 0; i < height; i++){
                 for (int j = 0; j < width; j++){
                     Room r = new Room(0, p);
+                    if (i == finish.X && j == finish.Y)
+                    {
+                        r.makeFinish();
+                    }
                     this.map[i, j] = r;
                     p.Y = p.Y + 128;
                 }
@@ -179,7 +183,7 @@ namespace TriviaMaze.com.teamrc.gameobjects{
                 p.Y = 0;
             }
 
-            generateMaze(start, start, false);
+            generateMaze(this.start, this.start, false);
         }
 
         /**

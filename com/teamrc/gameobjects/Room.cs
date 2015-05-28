@@ -88,6 +88,11 @@ namespace TriviaMaze.com.teamrc.gameobjects{
             }
         }
 
+        public void makeFinish()
+        {
+            this.room[1, 1] = new Finish(location.X + 32, location.Y + 32);
+        }
+
         /**
          * This returns the array of the room
          * 
