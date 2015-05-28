@@ -88,8 +88,10 @@ namespace TriviaMaze.com.teamrc.gameobjects{
             }
         }
 
-        public void makeFinish()
-        {
+        /**
+         * This creates a finish tile in the room when called
+         **/
+        public void makeFinish(){
             this.room[1, 1] = new Finish(location.X + 32, location.Y + 32);
         }
 
