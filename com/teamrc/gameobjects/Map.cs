@@ -316,5 +316,84 @@ namespace TriviaMaze.com.teamrc.gameobjects{
             this.map[i,j].setExits(exits);
         }
 
+        /**
+         *Calls the isSolvable function at the start of the maze and returns the value it gives
+         *
+         * @returns boolean - true means the maze is still solvable, false means it isn't
+         **/
+        public Boolean isSolvable(){
+            int[,] visited = new int[this.height, this.width];
+            for (int i = 0; i < this.height; i++)
+            {
+                for (int j = 0; j < this.width; j++)
+                {
+                    visited[i, j] = 0;
+                }
+            }
+                return solve(this.start, this.start, visited);
+        }
+
+        /**
+         * Walks through the maze recursively to see if the end can still be reached
+         * 
+         * @returns boolean - true if the end has been found along a pathway.
+         **/
+        public Boolean solve(Point prev, Point cur, int[,] v){
+            v[cur.X, cur.Y] = 1;
+
+            if (cur.X == this.finish.X & cur.Y == this.finish.Y){
+                return true;
+            }
+
+            Point next = new Point();
+            if (cur.Y + 1 != this.width && (map[cur.X, cur.Y].unlockedExits() == 1 || map[cur.X, cur.Y].unlockedExits() == 3) && v[cur.X, cur.Y+1] == 0)
+            {
+                next.X = cur.X;
+                next.Y = cur.Y + 1;
+                Boolean b = solve(prev, next, v);
+                if (b){
+                    return b;
+                }
+            }
+
+            if (cur.X + 1 != this.height && map[cur.X, cur.Y].unlockedExits() > 1 && v[cur.X + 1, cur.Y] == 0)
+            {
+                next.X = cur.X + 1;
+                next.Y = cur.Y;
+                Boolean b = solve(prev, next, v);
+                if (b)
+                {
+                    return b;
+                }
+            }
+
+            if (cur.Y - 1 >= 0 && (map[cur.X, cur.Y - 1].unlockedExits() == 1 || map[cur.X, cur.Y - 1].unlockedExits() == 3) && v[cur.X, cur.Y - 1] == 0)
+            {
+                next.X = cur.X;
+                next.Y = cur.Y - 1;
+                Boolean b = solve(prev, next, v);
+                if (b)
+                {
+                    return b;
+                }
+            }
+
+            if (cur.X - 1 >= 0 && map[cur.X - 1, cur.Y].unlockedExits() > 1 && v[cur.X - 1, cur.Y] == 0)
+            {
+                next.X = cur.X - 1;
+                next.Y = cur.Y;
+                Boolean b = solve(prev, next, v);
+                if (b)
+                {
+                    return b;
+                }
+            }
+
+
+            return false;
+            
+
+        }
+
     }
 }
