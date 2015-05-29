@@ -34,7 +34,6 @@ public class MazeGenerator{
         */
 
         Map m = new Map(4, 4);
-        Console.Write(m.toString());
         return m;
     }
 
