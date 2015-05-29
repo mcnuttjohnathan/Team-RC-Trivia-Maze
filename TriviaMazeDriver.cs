@@ -55,9 +55,7 @@ namespace TriviaMaze {
             Console.Write(s);
             Boolean b = m.isSolvable();
             Console.WriteLine("This maze is solvable: {0}", b);
-            Console.WriteLine(m.getRoom(0, 0).toString());
 
-            /*
             h = 10;
             w = 10;
             Console.WriteLine("Generating a {0}X{1} Maze with a 10% chance of opening more doors.", w, h);
@@ -84,7 +82,7 @@ namespace TriviaMaze {
             Console.Write(s);
             b = m.isSolvable();
             Console.WriteLine("This maze is solvable: {0}", b);
-            */
+  
             Console.Read();
         }
 

@@ -183,7 +183,7 @@ namespace TriviaMaze.com.teamrc.gameobjects{
                 p.X = 0;
             }
 
-           // generateMaze(this.start, this.start, false);
+           generateMaze(this.start, this.start, false);
         }
 
         /**
@@ -204,36 +204,36 @@ namespace TriviaMaze.com.teamrc.gameobjects{
             
             if (makeDoor && prev.X == cur.X){
                 int e = map[cur.X, cur.Y].getExits();
-                e += 2;
+                e += 1;
                 this.map[cur.X, cur.Y].setExits(e);
             }
 
             if (makeDoor && prev.Y == cur.Y){
                 int e = map[cur.X, cur.Y].getExits();
-                e += 1;
+                e += 2;
                 this.map[cur.X, cur.Y].setExits(e);
             }
 
             
             ArrayList possible = new ArrayList();
 
-            if (cur.X - 1 >= 0 && !map[cur.X - 1, cur.Y].isConnected()){
+            if (cur.X - 1 >= 0 && map[cur.X - 1, cur.Y].isConnected() == false){
                 Point n = new Point(cur.X - 1, cur.Y);
                 possible.Add(n);
             }
 
-            if (cur.Y + 1 < this.width && !map[cur.X, cur.Y + 1].isConnected()){
+            if (cur.Y + 1 < this.width && map[cur.X, cur.Y + 1].isConnected() == false){
                 Point n = new Point(cur.X, cur.Y + 1);
                 possible.Add(n);
             }
 
 
-            if (cur.X + 1 < this.height && !map[cur.X + 1, cur.Y].isConnected()){
+            if (cur.X + 1 < this.height && map[cur.X + 1, cur.Y].isConnected() == false){
                 Point n = new Point(cur.X + 1, cur.Y);
                 possible.Add(n);
             }
 
-            if (cur.Y - 1 >= 0 && !map[cur.X, cur.Y - 1].isConnected()){
+            if (cur.Y - 1 >= 0 && map[cur.X, cur.Y - 1].isConnected() == false){
                 Point n = new Point(cur.X, cur.Y - 1);
                 possible.Add(n);
             }
@@ -256,13 +256,13 @@ namespace TriviaMaze.com.teamrc.gameobjects{
 
                     if (d == false && next.X == cur.X){
                         int e = map[cur.X, cur.Y].getExits();
-                        e += 2;
+                        e += 1;
                         this.map[cur.X, cur.Y].setExits(e);
                     }
 
                     if (d == false && next.Y == cur.Y){
                         int e = map[cur.X, cur.Y].getExits();
-                        e += 1;
+                        e += 2;
                         this.map[cur.X, cur.Y].setExits(e);
                     }
 
@@ -336,21 +336,20 @@ namespace TriviaMaze.com.teamrc.gameobjects{
         /**
          * Walks through the maze recursively to see if the end can still be reached
          * 
+         * @param prev - the previous point 
+         * @param cur - the current point 
+         * @param v - the visited array        
          * @returns boolean - true if the end has been found along a pathway.
          **/
         public Boolean solve(Point prev, Point cur, int[,] v){
             v[cur.X, cur.Y] = 1;
-
-            print(v);
 
             if (cur.X == this.finish.X & cur.Y == this.finish.Y){
                 return true;
             }
 
             Point next = new Point();
-            if (cur.Y + 1 != this.width && (map[cur.X, cur.Y].unlockedExits() == 1 || map[cur.X, cur.Y].unlockedExits() == 3) && v[cur.X, cur.Y+1] == 0)
-            {
-                Console.Write("This is saying this: {0}", map[cur.X, cur.Y].unlockedExits());
+            if (cur.Y + 1 != this.width && (map[cur.X, cur.Y].unlockedExits() == 1 || map[cur.X, cur.Y].unlockedExits() == 3) && v[cur.X, cur.Y+1] == 0){
                 next.X = cur.X;
                 next.Y = cur.Y + 1;
                 Boolean b = solve(prev, next, v);
@@ -359,58 +358,39 @@ namespace TriviaMaze.com.teamrc.gameobjects{
                 }
             }
 
-            if (cur.X + 1 != this.height && map[cur.X, cur.Y].unlockedExits() > 1 && v[cur.X + 1, cur.Y] == 0)
-            {
+            if (cur.X + 1 != this.height && map[cur.X, cur.Y].unlockedExits() > 1 && v[cur.X + 1, cur.Y] == 0){
               
                 next.X = cur.X + 1;
                 next.Y = cur.Y;
                 Boolean b = solve(prev, next, v);
-                if (b == true)
-                {
+                if (b == true){
                     return b;
                 }
             }
 
-            if (cur.Y - 1 >= 0 && (map[cur.X, cur.Y - 1].unlockedExits() == 1 || map[cur.X, cur.Y - 1].unlockedExits() == 3) && v[cur.X, cur.Y - 1] == 0)
-            {
-                
+            if (cur.Y - 1 >= 0 && (map[cur.X, cur.Y - 1].unlockedExits() == 1 || map[cur.X, cur.Y - 1].unlockedExits() == 3) && v[cur.X, cur.Y - 1] == 0){
                 next.X = cur.X;
                 next.Y = cur.Y - 1;
+
                 Boolean b = solve(prev, next, v);
-                if (b)
-                {
+
+                if (b){
                     return b;
                 }
             }
 
-            if (cur.X - 1 >= 0 && map[cur.X - 1, cur.Y].unlockedExits() > 1 && v[cur.X - 1, cur.Y] == 0)
-            {
-                
+            if (cur.X - 1 >= 0 && map[cur.X - 1, cur.Y].unlockedExits() > 1 && v[cur.X - 1, cur.Y] == 0){                
                 next.X = cur.X - 1;
                 next.Y = cur.Y;
                 Boolean b = solve(prev, next, v);
+
                 if (b)
                 {
                     return b;
                 }
             }
 
-
             return false;
-            
-
-        }
-
-        public void print(int[,] v){
-            for (int i = 0; i < v.GetLength(0); i++)
-            {
-                for (int j = 0; j < v.GetLength(1); j++)
-                {
-                    Console.Write(v[i, j]);
-                }
-                Console.WriteLine();
-            }
-            Console.WriteLine();
         }
 
     }
