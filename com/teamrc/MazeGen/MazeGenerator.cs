@@ -33,28 +33,7 @@ public class MazeGenerator{
         }
         */
 
-        Map m = new Map(3, 3);
-        Console.WriteLine("Top Row: ");
-        Console.WriteLine(m.getRoom(0, 0).toString());
-        Console.WriteLine(m.getRoom(0, 1).toString());
-        Console.WriteLine(m.getRoom(0, 2).toString());
-       // Console.WriteLine(m.getRoom(0, 3).toString());
-        Console.WriteLine("2 Row: ");
-        Console.WriteLine(m.getRoom(1, 0).toString());
-        Console.WriteLine(m.getRoom(1, 1).toString());
-        Console.WriteLine(m.getRoom(1, 2).toString());
-       // Console.WriteLine(m.getRoom(1, 3).toString());
-        Console.WriteLine("3 Row: ");
-        Console.WriteLine(m.getRoom(2, 0).toString());
-        Console.WriteLine(m.getRoom(2, 1).toString());
-        Console.WriteLine(m.getRoom(2, 2).toString());
-       // Console.WriteLine(m.getRoom(2, 3).toString());
-       /* Console.WriteLine("Bottom Row: ");
-        Console.WriteLine(m.getRoom(3, 0).toString());
-        Console.WriteLine(m.getRoom(3, 1).toString());
-        Console.WriteLine(m.getRoom(3, 2).toString());
-        Console.WriteLine(m.getRoom(3, 3).toString());
-        */
+        Map m = new Map(4, 4);
         Console.Write(m.toString());
         return m;
     }
