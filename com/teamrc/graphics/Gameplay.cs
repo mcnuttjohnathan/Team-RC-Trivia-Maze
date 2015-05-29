@@ -48,7 +48,7 @@ namespace TriviaMaze.com.teamrc.graphics {
          * draws the windows graphics approximately 60 times per second
          */
         private void update(object sender, EventArgs e) {
-            graphics.Clear(Color.Black);
+            this.graphics.Clear(Color.Black);
 
             Room[,] rooms = map.getRooms();
 
@@ -58,13 +58,18 @@ namespace TriviaMaze.com.teamrc.graphics {
 
                     for (int k = 0; k < tiles.GetLength(0); k++) {
                         for (int l = 0; l < tiles.GetLength(1); l++) {
-                            graphics.FillRectangle(tiles[k,l].getColor(), tiles[k,l].getImage());
+                            this.graphics.FillRectangle(tiles[k,l].getColor(), tiles[k,l].getImage());
                         }
                     }
                 }
             }
 
-            graphics.FillRectangle(player.playerColor, player.playerImage);
+            this.graphics.FillRectangle(player.playerColor, player.playerImage);
+
+            //Question
+            //this.graphics.FillRectangle(Brushes.Beige, new Rectangle(32, 32, 416, 240));
+            //this.graphics.DrawRectangle(new Pen(Brushes.Aqua), new Rectangle(32, 32, 416, 240));
+            //this.graphics.DrawString("This is a question", new Font(FontFamily.GenericSerif, 24), Brushes.Black, new PointF(64, 64));
         }
 
         /**
