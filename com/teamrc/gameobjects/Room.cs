@@ -89,6 +89,13 @@ namespace TriviaMaze.com.teamrc.gameobjects{
         }
 
         /**
+         * This creates a finish tile in the room when called
+         **/
+        public void makeFinish(){
+            this.room[1, 1] = new Finish(location.X + 32, location.Y + 32);
+        }
+
+        /**
          * This returns the array of the room
          * 
          * @return room - I_Collidable 2D array of room
@@ -124,6 +131,25 @@ namespace TriviaMaze.com.teamrc.gameobjects{
             return this.exits;
         }
 
+        /** 
+         * This checks each exit that exists and sees if the door is locked, if not, it adds it to the possible route int
+         * 
+         * @returns e - the int related to the unlocked doors in the room
+         **/
+        public int unlockedExits()
+        {
+            int e = 0;
+
+            if ((this.exits == 1 || this.exits == 3) && room[1, 3].toString() != "L"){
+                e += 1;
+            }
+
+            if(this.exits > 1 && room[3,1].toString() != "L"){
+                e += 2;
+            }
+
+            return e;
+        }
 
         /**
          * This is called to see if the room is connected to any other rooms in the map

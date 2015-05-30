@@ -20,7 +20,8 @@ namespace TriviaMaze.com.teamrc.gameobjects{
     public partial class Map : Component{
 
         private Room[,] map;
-        int size;
+        int height;
+        int width;
         Point start;
         Point finish;
         Random rnd;
@@ -31,14 +32,15 @@ namespace TriviaMaze.com.teamrc.gameobjects{
          * 
          * @param s - an int with the size of the array that the map should be (square)
          **/
-        public Map(int s){
+        public Map(int h, int w){
             InitializeComponent();
 
-            this.map = new Room[s, s];
-            this.size = s;
-            this.start = new Point(0, 0);
-            this.finish = new Point(s - 1, s - 1);
-            this.rnd = new Random();
+            this.map = new Room[h, w];
+            this.height = h;
+            this.width = w;
+            this.rnd = new Random(); 
+            this.start = new Point(0, 0);  
+            this.finish = new Point(this.height - 1, this.width - 1);         
             createMaze();
             addDoors();
         }
@@ -124,11 +126,11 @@ namespace TriviaMaze.com.teamrc.gameobjects{
         public String toString(){
             String res = "";
 
-            for (int i = 0; i < this.size; i++){
+            for (int i = 0; i < this.height; i++){
 
                 String nextRow ="";
 
-                for (int j = 0; j < this.size; j++){
+                for (int j = 0; j < this.width; j++){
 
                     int e = map[i, j].getExits();
 
@@ -140,13 +142,13 @@ namespace TriviaMaze.com.teamrc.gameobjects{
                         res += 'O';
                     }
 
-                    if (e > 1){
+                    if (e % 2 == 1){
                         res += '-';
                     }else{
                         res += ' ';
                     }
 
-                    if (e % 2 == 1){
+                    if (e > 1){
                         nextRow += "| ";
                     }else{
                         nextRow += "  ";
@@ -167,17 +169,21 @@ namespace TriviaMaze.com.teamrc.gameobjects{
         public void createMaze(){
             Point p = new Point(0, 0);
 
-            for (int i = 0; i < size; i++){
-                for (int j = 0; j < size; j++){
+            for (int i = 0; i < height; i++){
+                for (int j = 0; j < width; j++){
                     Room r = new Room(0, p);
+                    if (i == finish.X && j == finish.Y)
+                    {
+                        r.makeFinish();
+                    }
                     this.map[i, j] = r;
-                    p.Y = p.Y + 128;
+                    p.X = p.X + 128;
                 }
-                p.X = p.X + 128;
-                p.Y = 0;
+                p.Y = p.Y + 128;
+                p.X = 0;
             }
 
-            generateMaze(start, start, false);
+           generateMaze(this.start, this.start, false);
         }
 
         /**
@@ -191,39 +197,43 @@ namespace TriviaMaze.com.teamrc.gameobjects{
          **/
         public void generateMaze(Point prev, Point cur, Boolean makeDoor){
             this.map[cur.X, cur.Y].setConnected(true);
+
+            if (cur.X == this.finish.X && cur.Y == this.finish.Y){
+                return;
+            }
             
             if (makeDoor && prev.X == cur.X){
                 int e = map[cur.X, cur.Y].getExits();
-                e += 2;
+                e += 1;
                 this.map[cur.X, cur.Y].setExits(e);
             }
 
             if (makeDoor && prev.Y == cur.Y){
                 int e = map[cur.X, cur.Y].getExits();
-                e += 1;
+                e += 2;
                 this.map[cur.X, cur.Y].setExits(e);
             }
 
             
             ArrayList possible = new ArrayList();
 
-            if (cur.X - 1 >= 0 && !map[cur.X - 1, cur.Y].isConnected()){
+            if (cur.X - 1 >= 0 && map[cur.X - 1, cur.Y].isConnected() == false){
                 Point n = new Point(cur.X - 1, cur.Y);
                 possible.Add(n);
             }
 
-            if (cur.Y + 1 < this.size && !map[cur.X, cur.Y + 1].isConnected()){
+            if (cur.Y + 1 < this.width && map[cur.X, cur.Y + 1].isConnected() == false){
                 Point n = new Point(cur.X, cur.Y + 1);
                 possible.Add(n);
             }
 
 
-            if (cur.X + 1 < this.size && !map[cur.X + 1, cur.Y].isConnected()){
+            if (cur.X + 1 < this.height && map[cur.X + 1, cur.Y].isConnected() == false){
                 Point n = new Point(cur.X + 1, cur.Y);
                 possible.Add(n);
             }
 
-            if (cur.Y - 1 >= 0 && !map[cur.X, cur.Y - 1].isConnected()){
+            if (cur.Y - 1 >= 0 && map[cur.X, cur.Y - 1].isConnected() == false){
                 Point n = new Point(cur.X, cur.Y - 1);
                 possible.Add(n);
             }
@@ -246,13 +256,13 @@ namespace TriviaMaze.com.teamrc.gameobjects{
 
                     if (d == false && next.X == cur.X){
                         int e = map[cur.X, cur.Y].getExits();
-                        e += 2;
+                        e += 1;
                         this.map[cur.X, cur.Y].setExits(e);
                     }
 
                     if (d == false && next.Y == cur.Y){
                         int e = map[cur.X, cur.Y].getExits();
-                        e += 1;
+                        e += 2;
                         this.map[cur.X, cur.Y].setExits(e);
                     }
 
@@ -270,8 +280,8 @@ namespace TriviaMaze.com.teamrc.gameobjects{
         public void addDoors(){
             double chance = .1;
 
-            for (int i = 0; i < this.size; i++){
-                for (int j = 0; j < this.size; j++){
+            for (int i = 0; i < this.height; i++){
+                for (int j = 0; j < this.width; j++){
                     double c = rnd.NextDouble();
 
                     if (c <= chance){
@@ -293,17 +303,94 @@ namespace TriviaMaze.com.teamrc.gameobjects{
 
             if (exits != 3){
 
-                if (i != this.size - 1 && exits != 1){
+                if (j + 1 < this.width && exits != 1){
                     exits += 1;
                 }
 
-                if (j != this.size - 1 && exits != 2){
+                if (i + 1 < this.height && exits != 2){
                     exits += 2;
                 }
 
             }
 
             this.map[i,j].setExits(exits);
+        }
+
+        /**
+         *Calls the isSolvable function at the start of the maze and returns the value it gives
+         *
+         * @returns boolean - true means the maze is still solvable, false means it isn't
+         **/
+        public Boolean isSolvable(){
+            int[,] visited = new int[this.height, this.width];
+            for (int i = 0; i < this.height; i++)
+            {
+                for (int j = 0; j < this.width; j++)
+                {
+                    visited[i, j] = 0;
+                }
+            }
+                return solve(this.start, this.start, visited);
+        }
+
+        /**
+         * Walks through the maze recursively to see if the end can still be reached
+         * 
+         * @param prev - the previous point 
+         * @param cur - the current point 
+         * @param v - the visited array        
+         * @returns boolean - true if the end has been found along a pathway.
+         **/
+        public Boolean solve(Point prev, Point cur, int[,] v){
+            v[cur.X, cur.Y] = 1;
+
+            if (cur.X == this.finish.X & cur.Y == this.finish.Y){
+                return true;
+            }
+
+            Point next = new Point();
+            if (cur.Y + 1 != this.width && (map[cur.X, cur.Y].unlockedExits() == 1 || map[cur.X, cur.Y].unlockedExits() == 3) && v[cur.X, cur.Y+1] == 0){
+                next.X = cur.X;
+                next.Y = cur.Y + 1;
+                Boolean b = solve(prev, next, v);
+                if (b == true){
+                    return b;
+                }
+            }
+
+            if (cur.X + 1 != this.height && map[cur.X, cur.Y].unlockedExits() > 1 && v[cur.X + 1, cur.Y] == 0){
+              
+                next.X = cur.X + 1;
+                next.Y = cur.Y;
+                Boolean b = solve(prev, next, v);
+                if (b == true){
+                    return b;
+                }
+            }
+
+            if (cur.Y - 1 >= 0 && (map[cur.X, cur.Y - 1].unlockedExits() == 1 || map[cur.X, cur.Y - 1].unlockedExits() == 3) && v[cur.X, cur.Y - 1] == 0){
+                next.X = cur.X;
+                next.Y = cur.Y - 1;
+
+                Boolean b = solve(prev, next, v);
+
+                if (b){
+                    return b;
+                }
+            }
+
+            if (cur.X - 1 >= 0 && map[cur.X - 1, cur.Y].unlockedExits() > 1 && v[cur.X - 1, cur.Y] == 0){                
+                next.X = cur.X - 1;
+                next.Y = cur.Y;
+                Boolean b = solve(prev, next, v);
+
+                if (b)
+                {
+                    return b;
+                }
+            }
+
+            return false;
         }
 
     }

@@ -45,13 +45,44 @@ namespace TriviaMaze {
 
         private void button2_Click(object sender, EventArgs e) {
             //Code for Maze Generation goes here
-            Console.WriteLine("Generating a 4X4 Maze with a 10% chance of opening more doors.");
+            int h = 4;
+            int w = 4;
+            Console.WriteLine("Generating a {0}X{1} Maze with a 10% chance of opening more doors.", w, h);
 
             MazeGenerator mg = new MazeGenerator();
-            Map m = mg.generate();
+            Map m = mg.generate(h, w);
             String s = m.toString();
             Console.Write(s);
+            Boolean b = m.isSolvable();
+            Console.WriteLine("This maze is solvable: {0}", b);
 
+            h = 10;
+            w = 10;
+            Console.WriteLine("Generating a {0}X{1} Maze with a 10% chance of opening more doors.", w, h);
+            m = mg.generate(h, w);
+            s = m.toString();
+            Console.Write(s);
+            b = m.isSolvable();
+            Console.WriteLine("This maze is solvable: {0}", b);
+
+            h = 2;
+            w = 2;
+            Console.WriteLine("Generating a {0}X{1} Maze with a 10% chance of opening more doors.", w, h);
+            m = mg.generate(h, w);
+            s = m.toString();
+            Console.Write(s);
+            b = m.isSolvable();
+            Console.WriteLine("This maze is solvable: {0}", b);
+
+            h = 2;
+            w = 10;
+            Console.WriteLine("Generating a {0}X{1} Maze with a 10% chance of opening more doors.", w, h);
+            m = mg.generate(h, w);
+            s = m.toString();
+            Console.Write(s);
+            b = m.isSolvable();
+            Console.WriteLine("This maze is solvable: {0}", b);
+  
             Console.Read();
         }
 

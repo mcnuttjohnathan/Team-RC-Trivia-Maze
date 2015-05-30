@@ -11,10 +11,11 @@ using TriviaMaze.com.teamrc.gameobjects;
 
 public class MazeGenerator{
 
-    /**generate creates a blank map and walks through it space bu space setting rooms
-     * @return      a fully filled map with rooms all interconnected
-     **/
-    public Map generate(){
+ /**generate creates a map and  of default size 4x4
+ * @return      a fully filled maze with 4x4 rooms 
+ **/
+    public Map generate()
+    {
         /*
         int mazeSize = 4;
         Map m = new Map(mazeSize);
@@ -32,7 +33,17 @@ public class MazeGenerator{
         }
         */
 
-        Map m = new Map(4);
+        Map m = new Map(4, 4);
+        return m;
+    }
+
+    /**generate creates a maze of the specified dimensions
+     * @param h - the height of the maze to be created
+     * @param w - the width of the maze to be created
+     * @return      a fully filled map with rooms all interconnected
+     **/
+    public Map generate(int h, int w){
+        Map m = new Map(h, w);
 
         return m;
     }
