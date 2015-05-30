@@ -24,6 +24,14 @@ namespace DatabaseSystem.Controls {
 			this.btnLoad.BackColor = SystemColors.Control;
 		}
 
+		public String FolderPath {
+			get { return this._folderPath; }
+			set { 
+				this._folderPath = value;
+				this.cmbFolder.Text = value;
+			}
+		}
+
 		private void switchPanel(object sender, EventArgs e) {
 			if(this.cmbFolder.SelectedIndex < this.cmbFolder.Items.Count && this.cmbFolder.SelectedIndex > -1) {
 				this.pnlMain.Controls.Remove(this._currentPanel);
@@ -114,6 +122,16 @@ namespace DatabaseSystem.Controls {
 		private void resetPanel() {
 			this.pnlMain.Controls.Clear();
 			this._currentPanel = null;
+		}
+
+		private void cmbFolder_TextChanged(object sender, EventArgs e) {
+			String path = this.cmbFolder.Text;
+
+			if(Directory.Exists(Path.GetDirectoryName(path)) && Path.GetFileName(path).Length > 0 && Path.GetExtension(path).Length != 0) {
+				this.btnLoad.Text = "New Database";
+			} else {
+				this.btnLoad.Text = "Load Folder";
+			}
 		}
 	}
 }

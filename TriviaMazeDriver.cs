@@ -13,6 +13,8 @@ using Finisar.SQLite;
 using TriviaMaze.com.teamrc.gameobjects;
 using TriviaMaze.com.teamrc.graphics;
 using DatabaseSystem;
+using DatabaseSystem.Controls;
+using System.IO;
 
 
 /**
@@ -87,7 +89,20 @@ namespace TriviaMaze {
         }
 
         private void button3_Click(object sender, EventArgs e) {
-			
+			Form f = new Form();
+			DBManipulate dbM = new DBManipulate();
+			dbM.Dock = DockStyle.Fill;
+
+			if(!File.Exists("./testDB.db")) {
+				Database d = new Database("testDB.db");
+			}
+
+			dbM.FolderPath = "./";
+
+			f.Controls.Add(dbM);
+			f.WindowState = FormWindowState.Maximized;
+
+			f.ShowDialog();
         }
     }
 }

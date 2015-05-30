@@ -58,7 +58,7 @@ namespace DatabaseSystem
         {
             get {
 				String q = this._question;
-				q.Replace("''", "'");
+				q = q.Replace("''", "'");
 				return q; 
 			}
             set { 

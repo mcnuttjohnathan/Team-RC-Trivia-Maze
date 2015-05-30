@@ -60,6 +60,7 @@
 			this.cmbFolder.Size = new System.Drawing.Size(652, 24);
 			this.cmbFolder.TabIndex = 2;
 			this.cmbFolder.SelectedIndexChanged += new System.EventHandler(this.switchPanel);
+			this.cmbFolder.TextChanged += new System.EventHandler(this.cmbFolder_TextChanged);
 			// 
 			// pnlMain
 			// 
