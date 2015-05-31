@@ -66,10 +66,67 @@ namespace TriviaMaze.com.teamrc.graphics {
 
             this.graphics.FillRectangle(player.playerColor, player.playerImage);
 
-            //Question
-            //this.graphics.FillRectangle(Brushes.Beige, new Rectangle(32, 32, 416, 240));
-            //this.graphics.DrawRectangle(new Pen(Brushes.Aqua), new Rectangle(32, 32, 416, 240));
-            //this.graphics.DrawString("This is a question", new Font(FontFamily.GenericSerif, 24), Brushes.Black, new PointF(64, 64));
+            //Question Top
+            this.graphics.FillRectangle(Brushes.AntiqueWhite, new Rectangle(32, 16, 416, 128));
+            this.graphics.DrawRectangle(new Pen(Brushes.Black), new Rectangle(32, 16, 416, 128));
+            this.graphics.DrawString("This is a question?", new Font(FontFamily.GenericSerif, 16), Brushes.Black, new PointF(48, 32));
+
+            //Answer A Top
+            this.graphics.FillRectangle(Brushes.AntiqueWhite, new Rectangle(32, 148, 200, 32));
+            this.graphics.DrawRectangle(new Pen(Brushes.Black), new Rectangle(32, 148, 200, 32));
+            this.graphics.DrawString("1) Answer A", new Font(FontFamily.GenericSerif, 12), Brushes.Black, new PointF(48, 152));
+
+            //Answer B Top
+            this.graphics.FillRectangle(Brushes.AntiqueWhite, new Rectangle(248, 148, 200, 32));
+            this.graphics.DrawRectangle(new Pen(Brushes.Black), new Rectangle(248, 148, 200, 32));
+            this.graphics.DrawString("2) Answer B", new Font(FontFamily.GenericSerif, 12), Brushes.Black, new PointF(260, 152));
+
+            //Answer C Top
+            this.graphics.FillRectangle(Brushes.AntiqueWhite, new Rectangle(32, 184, 200, 32));
+            this.graphics.DrawRectangle(new Pen(Brushes.Black), new Rectangle(32, 184, 200, 32));
+            this.graphics.DrawString("3) Answer C", new Font(FontFamily.GenericSerif, 12), Brushes.Black, new PointF(48, 188));
+
+            //Answer D Top
+            this.graphics.FillRectangle(Brushes.AntiqueWhite, new Rectangle(248, 184, 200, 32));
+            this.graphics.DrawRectangle(new Pen(Brushes.Black), new Rectangle(248, 184, 200, 32));
+            this.graphics.DrawString("4) Answer D", new Font(FontFamily.GenericSerif, 12), Brushes.Black, new PointF(260, 188));
+
+            //Answer True Top
+
+            //Answer False Top
+
+            //Answer Input Top
+
+            //Question Bottom
+            this.graphics.FillRectangle(Brushes.AntiqueWhite, new Rectangle(32, 272, 416, 120));
+            this.graphics.DrawRectangle(new Pen(Brushes.Black), new Rectangle(32, 272, 416, 120));
+            this.graphics.DrawString("This is a question?", new Font(FontFamily.GenericSerif, 16), Brushes.Black, new PointF(48, 288));
+
+            //Answer A Bottom
+            this.graphics.FillRectangle(Brushes.AntiqueWhite, new Rectangle(32, 396, 200, 32));
+            this.graphics.DrawRectangle(new Pen(Brushes.Black), new Rectangle(32, 396, 200, 32));
+            this.graphics.DrawString("1) Answer A", new Font(FontFamily.GenericSerif, 12), Brushes.Black, new PointF(48, 400));
+
+            //Answer B Bottom
+            this.graphics.FillRectangle(Brushes.AntiqueWhite, new Rectangle(248, 396, 200, 32));
+            this.graphics.DrawRectangle(new Pen(Brushes.Black), new Rectangle(248, 396, 200, 32));
+            this.graphics.DrawString("2) Answer B", new Font(FontFamily.GenericSerif, 12), Brushes.Black, new PointF(260, 400));
+
+            //Answer C Bottom
+            this.graphics.FillRectangle(Brushes.AntiqueWhite, new Rectangle(32, 432, 200, 32));
+            this.graphics.DrawRectangle(new Pen(Brushes.Black), new Rectangle(32, 432, 200, 32));
+            this.graphics.DrawString("3) Answer C", new Font(FontFamily.GenericSerif, 12), Brushes.Black, new PointF(48, 436));
+
+            //Answer D Bottom
+            this.graphics.FillRectangle(Brushes.AntiqueWhite, new Rectangle(248, 432, 200, 32));
+            this.graphics.DrawRectangle(new Pen(Brushes.Black), new Rectangle(248, 432, 200, 32));
+            this.graphics.DrawString("4) Answer D", new Font(FontFamily.GenericSerif, 12), Brushes.Black, new PointF(260, 436));
+
+            //Answer True Bottom
+
+            //Answer False Bottom
+
+            //Answer Input Bottom
         }
 
         /**
