@@ -124,6 +124,36 @@
       <DependentUpon>Gameplay.cs</DependentUpon>
     </Compile>
     <Compile Include="com\teamrc\MazeGen\MazeGenerator.cs" />
+    <Compile Include="com\teamrc\TriviaUI\InputBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="com\teamrc\TriviaUI\InputBox.Designer.cs">
+      <DependentUpon>InputBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="com\teamrc\TriviaUI\MultipleChoiceBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="com\teamrc\TriviaUI\MultipleChoiceBox.Designer.cs">
+      <DependentUpon>MultipleChoiceBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="com\teamrc\TriviaUI\QuestionBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="com\teamrc\TriviaUI\QuestionBox.Designer.cs">
+      <DependentUpon>QuestionBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="com\teamrc\TriviaUI\TriviaController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="com\teamrc\TriviaUI\TriviaController.Designer.cs">
+      <DependentUpon>TriviaController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="com\teamrc\TriviaUI\TrueOrFalseBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="com\teamrc\TriviaUI\TrueOrFalseBox.Designer.cs">
+      <DependentUpon>TrueOrFalseBox.cs</DependentUpon>
+    </Compile>
     <Compile Include="com\teamrc\util\I_Collidable.cs" />
     <Compile Include="com\teamrc\util\CollisionManager.cs" />
     <Compile Include="com\teamrc\util\CollisionManager.Designer.cs">

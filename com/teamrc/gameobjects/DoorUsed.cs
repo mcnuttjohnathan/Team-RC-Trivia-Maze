@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DatabaseSystem;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -17,16 +18,18 @@ using TriviaMaze.com.teamrc.util;
  */
 namespace TriviaMaze.com.teamrc.gameobjects {
     public partial class DoorUsed : A_Door {
+        QuestionAnswer question;
+        
         /**
          * Constructs the Used Door Component
          * 
          * @param x - the door's x position.
          * @param y - the door's y position.
          */
-        public DoorUsed(int x, int y) : base(x, y) {
+        public DoorUsed(int x, int y, QuestionAnswer question) : base(x, y) {
             InitializeComponent();
 
-            this.init();
+            this.init(question);
         }
 
         /**
@@ -36,18 +39,20 @@ namespace TriviaMaze.com.teamrc.gameobjects {
          * @param y - the door's y position.
          * @param container - a parent container for the door.
          */
-        public DoorUsed(int x, int y, IContainer container) : base(x, y, container) {
+        public DoorUsed(int x, int y, QuestionAnswer question, IContainer container) : base(x, y, container) {
             container.Add(this);
 
             InitializeComponent();
 
-            this.init();
+            this.init(question);
         }
 
         /**
          * Initializes the Used Door Component.
          */
-        public void init() {
+        public void init(QuestionAnswer question) {
+            this.question = question;
+
             this.doorColor = Brushes.DarkOrange;
 
             this.type = CollisionManager.USED_DOOR;
@@ -62,6 +67,8 @@ namespace TriviaMaze.com.teamrc.gameobjects {
          * @returns unlockedDoor - a new door state.
          */
         public DoorUnlocked unlockDoor() {
+            CollisionManager.remove(this);
+
             return new DoorUnlocked(this.doorImage.X, this.doorImage.Y);
         }
 
@@ -72,6 +79,8 @@ namespace TriviaMaze.com.teamrc.gameobjects {
          * @returns lockedDoor - a new door state.
          */
         public DoorLocked lockDoor() {
+            CollisionManager.remove(this);
+
             return new DoorLocked(this.doorImage.X, this.doorImage.Y);
         }
 

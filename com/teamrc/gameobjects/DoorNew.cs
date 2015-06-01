@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DatabaseSystem;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -60,8 +61,10 @@ namespace TriviaMaze.com.teamrc.gameobjects {
          * Called when the door becomes activated by the player
          * walking into it.
          */
-        public DoorUsed activateDoor() {
-            return new DoorUsed(this.doorImage.X, this.doorImage.Y);
+        public DoorUsed activateDoor(QuestionAnswer question) {
+            CollisionManager.remove(this);
+
+            return new DoorUsed(this.doorImage.X, this.doorImage.Y, question);
         }
 
         /**
