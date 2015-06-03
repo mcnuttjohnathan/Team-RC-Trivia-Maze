@@ -18,9 +18,10 @@ namespace DatabaseDrive
 		public Tester()
         {
             InitializeComponent();
-			DBManipulate db = new DBManipulate();
-			db.Dock = DockStyle.Fill;
-			this.Controls.Add(db);
+			DBManipulate dB = new DBManipulate();
+			dB.Dock = DockStyle.Fill;
+			dB.FolderPath = "./";
+			this.Controls.Add(dB);
         }
     }
 }

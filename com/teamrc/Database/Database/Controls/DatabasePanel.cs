@@ -65,6 +65,15 @@ namespace DatabaseSystem.Controls {
 					this._panels[x].Loaded = true;
 				}
 
+				for(int x = 0; x < this._panels.Count; x++) {
+					if(this._panels[x].Drop) {
+						this.pnlMain.Controls.Remove(this._panels[x]);
+						this._panels.Remove(this._panels[x]);
+					}
+				}
+
+				this.recalcControls(this, new ControlEventArgs(this));
+
 				this.btnSave.BackColor = Color.LightGreen;
 			} else {
 				this.btnSave.BackColor = Color.LightSalmon;

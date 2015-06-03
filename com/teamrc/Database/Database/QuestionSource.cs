@@ -21,7 +21,49 @@ namespace DatabaseSystem
         public QuestionSource(String path)
             : this()
         {
-            this.addDatabasesFrom(path);
+			if(path.Contains('\n')) {
+				path = path.Replace("\r", "");
+				String[] data = path.Split('\n');
+
+				for(int x = 0; x < data.Length; x++) {
+					String[] line = data[x].Split('|');
+
+					if(line.Length == 2) {
+						if(File.GetLastWriteTime(line[0]).ToString().Equals(line[1])){
+							Database d = new Database(line[0]);
+							this.addDatabase(d);
+						} else {
+							throw new InvalidDataException("A database associated with this save file has been changed.");
+						}
+					} else if(line.Length == 3) {
+						Database d = null;
+
+						for(int y = 0; y < this._databases.Count; y++) {
+							if(this._databases[y].DatabasePath.Equals(line[0])) {
+								d = this._databases[y];
+							}
+						}
+
+						if(d != null) {
+							for(int y = 0; y < d.Count; y++) {
+								if(d[y].Name.Equals(line[1])) {
+									try {
+										int id = Int32.Parse(line[2]);
+
+										if(id > -1 && id < d[y].Count) {
+											this._usedQuestions.Add(d[y][id]);
+										}
+									} catch(Exception e) {
+										Console.WriteLine(e.Message);
+									}
+								}
+							}
+						}
+					}
+				}
+			} else {
+				this.addDatabasesFrom(path);
+			}
         }
 
         public QuestionAnswer this[int x]
@@ -97,7 +139,7 @@ namespace DatabaseSystem
             {
                 QuestionAnswer qA = this._databases[rng.Next(this._databases.Count)].randomQuestion(rng);
 
-                if (!this._usedQuestions.Contains(qA))
+                if (!this._usedQuestions.Contains(qA) && qA != null)
                 {
                     this._usedQuestions.Add(qA);
                     return qA;
@@ -109,6 +151,20 @@ namespace DatabaseSystem
 
 		public void clearQuestions() {
 			this._usedQuestions.Clear();
+		}
+
+		public String toSave() {
+			String data = "";
+
+			for(int x = 0; x < this._databases.Count; x++) {
+				data += this._databases[x].DatabasePath + "|" + File.GetLastWriteTime(Path.GetFullPath(this._databases[x].DatabasePath)) + "\n";
+			}
+
+			for(int x = 0; x < this._usedQuestions.Count; x++) {
+				data += this._usedQuestions[x].toPathString() + "\n";
+			}
+
+			return data;
 		}
     }
 }

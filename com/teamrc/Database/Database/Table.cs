@@ -92,7 +92,11 @@ namespace DatabaseSystem
 
         public QuestionAnswer randomQuestion(Random rng)
         {
-            return this._table[rng.Next(this._table.Count)];
+			if(this._table.Count > 0) {
+				return this._table[rng.Next(this._table.Count)];
+			} else {
+				return null;
+			}
         }
 
         public QuestionAnswer AddNewQuestion()

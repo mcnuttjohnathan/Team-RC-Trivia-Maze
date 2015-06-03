@@ -44,6 +44,11 @@ namespace DatabaseSystem.Controls {
 			get { return this._table.Name; }
 		}
 
+		public bool Drop {
+			get { return this._drop; }
+			set { this._drop = value; }
+		}
+
 		public bool Loaded {
 			get { return this._dbLoaded; }
 			set { this._dbLoaded = value; }

@@ -207,6 +207,10 @@ namespace DatabaseSystem
 			return this._database.Name + "." + this._table.Name + "." + this._id;
 		}
 
+		public string toPathString() {
+			return this._database.DatabasePath + "|" + this._table.Name + "|" + this._id;
+		}
+
 		public int CompareTo(QuestionAnswer qA) {
 			return this._id - qA._id;
 		}
