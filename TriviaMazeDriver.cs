@@ -73,10 +73,6 @@ namespace TriviaMaze {
 			DBManipulate dbM = new DBManipulate();
 			dbM.Dock = DockStyle.Fill;
 
-			if(!File.Exists("./testDB.db")) {
-				Database d = new Database("testDB.db");
-			}
-
 			dbM.FolderPath = "./";
 
 			f.Controls.Add(dbM);

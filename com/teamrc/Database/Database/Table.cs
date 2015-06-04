@@ -172,8 +172,8 @@ namespace DatabaseSystem
 
 			if(!this._drop) {
 				if(!this._imported) {
-					query += @"CREATE TABLE '" + this._name + @"' ('ID' INTEGER NOT NULL UNIQUE, 'question' TEXT, 'ans0' TEXT, " +
-													@"'ans1' TEXT, 'ans2' TEXT, 'ans3' TEXT, 'type' INTEGER, PRIMARY KEY(ID));";
+					query += @"CREATE TABLE '" + this._name + @"' ('ID' INTEGER NOT NULL UNIQUE, 'question' TEXT(140), 'ans0' TEXT(24), " +
+													@"'ans1' TEXT(24), 'ans2' TEXT(24), 'ans3' TEXT(24), 'type' INTEGER, PRIMARY KEY(ID));";
 				}
 
 				for(int x = 0; x < this._table.Count; x++) {

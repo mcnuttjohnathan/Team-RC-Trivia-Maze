@@ -132,19 +132,19 @@ namespace DatabaseSystem
 
         public QuestionAnswer randomQuestion()
         {
-            Random rng = new Random();
-            int sum = this.QuestionCount;
+			if(this._databases.Count > 0) {
+				Random rng = new Random();
+				int sum = this.QuestionCount;
 
-            do
-            {
-                QuestionAnswer qA = this._databases[rng.Next(this._databases.Count)].randomQuestion(rng);
+				do {
+					QuestionAnswer qA = this._databases[rng.Next(this._databases.Count)].randomQuestion(rng);
 
-                if (!this._usedQuestions.Contains(qA) && qA != null)
-                {
-                    this._usedQuestions.Add(qA);
-                    return qA;
-                }
-            } while (sum != this._usedQuestions.Count);
+					if(!this._usedQuestions.Contains(qA) && qA != null) {
+						this._usedQuestions.Add(qA);
+						return qA;
+					}
+				} while(sum != this._usedQuestions.Count);
+			}
 
             return null;
         }
