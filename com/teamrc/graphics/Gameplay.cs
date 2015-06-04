@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DatabaseSystem;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -7,7 +8,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
 using TriviaMaze.com.teamrc.gameobjects;
 using TriviaMaze.com.teamrc.util;
 
@@ -20,12 +20,12 @@ using TriviaMaze.com.teamrc.util;
 namespace TriviaMaze.com.teamrc.graphics {
     public partial class Gameplay : Form {
         private Player player;
-        private Graphics graphics;
         private Map map;
         private MazeGenerator mazeGenerator = new MazeGenerator();
         private Timer t = new Timer();
 
         private Boolean inQuestion = false;
+        private QuestionSource questionSource = new QuestionSource();
 
         /**
          * Constructs the gameplay window.
@@ -37,7 +37,6 @@ namespace TriviaMaze.com.teamrc.graphics {
 
             this.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
 
-            //this.graphics = this.CreateGraphics();
             this.map = mazeGenerator.generate();
 
             Point start = map.getStart();
@@ -172,7 +171,7 @@ namespace TriviaMaze.com.teamrc.graphics {
          * player can move in that direction.
          */
         private void Gameplay_KeyDown_1(object sender, KeyEventArgs e) {
-            if (e.KeyCode.Equals(Keys.W)) {
+            if (e.KeyCode.Equals(Keys.Up)) {
                 I_Collidable collider = 
                     CollisionManager.testPlayerCollision(new Point(this.player.playerImage.X, this.player.playerImage.Y - 32), this.player);
 
@@ -184,7 +183,7 @@ namespace TriviaMaze.com.teamrc.graphics {
                     this.inQuestion = true;
             }
 
-            else if (e.KeyCode.Equals(Keys.S)) {
+            else if (e.KeyCode.Equals(Keys.Down)) {
                 I_Collidable collider =
                     CollisionManager.testPlayerCollision(new Point(this.player.playerImage.X, this.player.playerImage.Y + 32), this.player);
 
@@ -192,11 +191,42 @@ namespace TriviaMaze.com.teamrc.graphics {
                     this.player.moveDown();
                     this.inQuestion = false;
                 }
-                else if(collider.getType().Equals(CollisionManager.NEW_DOOR))
+                else if (collider.getType().Equals(CollisionManager.NEW_DOOR)) {
                     this.inQuestion = true;
+                    QuestionAnswer qa;
+
+                    Console.WriteLine("test");
+
+                    do{
+                        qa = this.questionSource.randomQuestion();
+                    }while(qa == null);
+
+                    Point p = collider.getPosition();
+
+                    
+
+                    if (p.X % 128 == 0) {
+                        int x = (p.X / 128) - 1;
+                        int y = (p.Y - 32) / 128;
+
+                        Room curr = this.map.getRoom(x, y);
+
+                        Console.WriteLine(curr.toString());
+                    }
+                    else if (p.Y % 128 == 0) {
+                        int x = (p.X - 32) / 128;
+                        int y = (p.Y / 128) - 1;
+
+                        Room curr = this.map.getRoom(x, y);
+
+                        Console.WriteLine(curr.toString());
+                    }
+                    else
+                        throw new Exception();
+                }
             }
 
-            else if (e.KeyCode.Equals(Keys.A)) {
+            else if (e.KeyCode.Equals(Keys.Left)) {
                 I_Collidable collider =
                     CollisionManager.testPlayerCollision(new Point(this.player.playerImage.X - 32, this.player.playerImage.Y), this.player);
 
@@ -208,7 +238,7 @@ namespace TriviaMaze.com.teamrc.graphics {
                     this.inQuestion = true;
             }
 
-            else if (e.KeyCode.Equals(Keys.D)) {
+            else if (e.KeyCode.Equals(Keys.Right)) {
                 I_Collidable collider =
                     CollisionManager.testPlayerCollision(new Point(this.player.playerImage.X + 32, this.player.playerImage.Y), this.player);
 
@@ -219,6 +249,10 @@ namespace TriviaMaze.com.teamrc.graphics {
                 else if (collider.getType().Equals(CollisionManager.NEW_DOOR))
                     this.inQuestion = true;
             }
+
+            else if (e.KeyCode.Equals(Keys.D0)) {
+                //saving goes here
+            }
         }
 
         /**
@@ -226,18 +260,20 @@ namespace TriviaMaze.com.teamrc.graphics {
          * the player flag in the same direction is reset.
          */
         private void Gameplay_KeyUp_1(object sender, KeyEventArgs e) {
-            if (e.KeyCode.Equals(Keys.W))
+            if (e.KeyCode.Equals(Keys.Up))
                 this.player.resetUpFlag();
 
-            if (e.KeyCode.Equals(Keys.S))
+            if (e.KeyCode.Equals(Keys.Down))
                 this.player.resetDownFlag();
 
-            if (e.KeyCode.Equals(Keys.A))
+            if (e.KeyCode.Equals(Keys.Left))
                 this.player.resetLeftFlag();
 
-            if (e.KeyCode.Equals(Keys.D))
+            if (e.KeyCode.Equals(Keys.Right))
                 this.player.resetRightFlag();
         }
+
+
 
         /**
          * stops update from being called once the window is closed.
