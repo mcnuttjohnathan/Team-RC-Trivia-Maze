@@ -47,15 +47,24 @@ namespace TriviaMaze {
 
         private void button2_Click(object sender, EventArgs e) {
             //Code for printing directions goes here
-            
+
+            Console.WriteLine("Purpose: \n" +
+                              "You must lead the Player through the Knowledge Maze. \n" +
+                              "Along the way, you must solve questions to open doors. \n" +
+                              "If you get a question wrong, that door will be permanently locked. \n" +
+                              "The game is over when the Player either reaches the finish, \n" +
+                              "or all possible routes to the exit are blocked with impassable doors. \n \n");
+    
             Console.WriteLine("Controls: \n" +
-                              "Move: UP : Up Arrow Key \n" +
+                              " Move: \n" + 
+                              "      UP : Up Arrow Key \n" +
                               "      DOWN : Down Arrow Key \n" +
                               "      LEFT : Left Arrow Key \n" +
                               "      RIGHT : Right Arrow Key \n \n" +
-                              "Select Answer: " +
-                              "" +
-                              "");
+                              " Answer Questions: \n" +
+                              "      Multiple Choice : Use Number Keys (or click?) \n" +
+                              "      True or False : Use T or F Keys (or click?) \n" +
+                              "      Short Answer : Use Keyboard to type answer, then press Enter \n");
             
         }
 
