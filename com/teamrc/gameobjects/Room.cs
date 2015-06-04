@@ -123,6 +123,39 @@ namespace TriviaMaze.com.teamrc.gameobjects{
         }
 
         /**
+         *This sets the door on the right to be a new door
+         *@param d - the new A_Door Component to be placed
+         **/
+        public void setDoorRight(A_Door d)
+        {
+          
+            if (this.exits % 2 == 1){
+                this.room[1, 3] = d;
+            }else{
+                throw new Exception();
+            }
+ 
+        }
+
+        /**
+        *This sets the door on the bottom to be a new door
+        *@param d - the new A_Door Component to be placed
+        **/
+        public void setDoorDown(A_Door d)
+        {
+
+            if (this.exits >= 2 )
+            {
+                this.room[3, 1] = d;
+            }
+            else
+            {
+                throw new Exception();
+            }
+
+        }
+
+        /**
          * This returns the int signifying the exits existing
          * 
          * @returns exits - an int ranging from 1-3 for the exits the room holds
