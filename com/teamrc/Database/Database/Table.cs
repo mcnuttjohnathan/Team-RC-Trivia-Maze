@@ -174,6 +174,7 @@ namespace DatabaseSystem
 				if(!this._imported) {
 					query += @"CREATE TABLE '" + this._name + @"' ('ID' INTEGER NOT NULL UNIQUE, 'question' TEXT(140), 'ans0' TEXT(24), " +
 													@"'ans1' TEXT(24), 'ans2' TEXT(24), 'ans3' TEXT(24), 'type' INTEGER, PRIMARY KEY(ID));";
+					this._imported = true;
 				}
 
 				for(int x = 0; x < this._table.Count; x++) {
