@@ -19,6 +19,7 @@ namespace DatabaseSystem
         private SQLiteConnection _sqlConnection;
         private SQLiteCommand _sqlCommand;
         private SQLiteDataAdapter _sqlAdapter;
+		private String _path;
 
         public Database(String pName) {
 
@@ -28,7 +29,7 @@ namespace DatabaseSystem
             }
 
             this._name = pName;
-            Console.WriteLine(Path.GetFullPath(pName));
+			this._path = Path.GetFullPath(pName);
 
             if (File.Exists(this._name))
             {
@@ -61,6 +62,10 @@ namespace DatabaseSystem
         {
             get { return this._name; }
         }
+
+		public String DatabasePath {
+			get { return this._path; }
+		}
 
         public Table this[int x]
         {
@@ -109,7 +114,11 @@ namespace DatabaseSystem
 
         public QuestionAnswer randomQuestion(Random rng)
         {
-            return this._tables[rng.Next(this._tables.Count)].randomQuestion(rng);
+			if(this._tables.Count > 0) {
+				return this._tables[rng.Next(this._tables.Count)].randomQuestion(rng);
+			} else {
+				return null;
+			}
         }
 
 		public void executeQuery(object source, String p) {

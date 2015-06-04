@@ -46,46 +46,26 @@ namespace TriviaMaze {
         }
 
         private void button2_Click(object sender, EventArgs e) {
-            //Code for Maze Generation goes here
-            int h = 4;
-            int w = 4;
-            Console.WriteLine("Generating a {0}X{1} Maze with a 10% chance of opening more doors.", w, h);
+            //Code for printing directions goes here
 
-            MazeGenerator mg = new MazeGenerator();
-            Map m = mg.generate(h, w);
-            String s = m.toString();
-            Console.Write(s);
-            Boolean b = m.isSolvable();
-            Console.WriteLine("This maze is solvable: {0}", b);
-
-            h = 10;
-            w = 10;
-            Console.WriteLine("Generating a {0}X{1} Maze with a 10% chance of opening more doors.", w, h);
-            m = mg.generate(h, w);
-            s = m.toString();
-            Console.Write(s);
-            b = m.isSolvable();
-            Console.WriteLine("This maze is solvable: {0}", b);
-
-            h = 2;
-            w = 2;
-            Console.WriteLine("Generating a {0}X{1} Maze with a 10% chance of opening more doors.", w, h);
-            m = mg.generate(h, w);
-            s = m.toString();
-            Console.Write(s);
-            b = m.isSolvable();
-            Console.WriteLine("This maze is solvable: {0}", b);
-
-            h = 2;
-            w = 10;
-            Console.WriteLine("Generating a {0}X{1} Maze with a 10% chance of opening more doors.", w, h);
-            m = mg.generate(h, w);
-            s = m.toString();
-            Console.Write(s);
-            b = m.isSolvable();
-            Console.WriteLine("This maze is solvable: {0}", b);
-  
-            Console.Read();
+            Console.WriteLine("Purpose: \n" +
+                              "You must lead the Player through the Knowledge Maze. \n" +
+                              "Along the way, you must solve questions to open doors. \n" +
+                              "If you get a question wrong, that door will be permanently locked. \n" +
+                              "The game is over when the Player either reaches the finish, \n" +
+                              "or all possible routes to the exit are blocked with impassable doors. \n \n");
+    
+            Console.WriteLine("Controls: \n" +
+                              " Move: \n" + 
+                              "      UP : Up Arrow Key \n" +
+                              "      DOWN : Down Arrow Key \n" +
+                              "      LEFT : Left Arrow Key \n" +
+                              "      RIGHT : Right Arrow Key \n \n" +
+                              " Answer Questions: \n" +
+                              "      Multiple Choice : Use Number Keys (or click?) \n" +
+                              "      True or False : Use T or F Keys (or click?) \n" +
+                              "      Short Answer : Use Keyboard to type answer, then press Enter \n");
+            
         }
 
         private void button3_Click(object sender, EventArgs e) {
