@@ -78,7 +78,12 @@ namespace TriviaMaze {
 			f.Controls.Add(dbM);
 			f.WindowState = FormWindowState.Maximized;
 
-			f.ShowDialog();
+            try {
+                f.ShowDialog();
+            }
+            catch (NullReferenceException eN) {
+                Console.WriteLine(eN.InnerException.Message);
+            }
         }
     }
 }

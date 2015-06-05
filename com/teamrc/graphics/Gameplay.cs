@@ -25,7 +25,7 @@ namespace TriviaMaze.com.teamrc.graphics {
         private Timer t = new Timer();
 
         private Boolean inQuestion = false;
-        private QuestionSource questionSource = new QuestionSource();
+        private QuestionSource questionSource = new QuestionSource("./");
 
         /**
          * Constructs the gameplay window.
