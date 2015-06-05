@@ -51,6 +51,45 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="com\teamrc\Database\Database\Controls\DatabasePanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="com\teamrc\Database\Database\Controls\DatabasePanel.Designer.cs">
+      <DependentUpon>DatabasePanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="com\teamrc\Database\Database\Controls\DBManipulate.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="com\teamrc\Database\Database\Controls\DBManipulate.Designer.cs">
+      <DependentUpon>DBManipulate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="com\teamrc\Database\Database\Controls\QuestionRow.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="com\teamrc\Database\Database\Controls\QuestionRow.Designer.cs">
+      <DependentUpon>QuestionRow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="com\teamrc\Database\Database\Controls\TablePanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="com\teamrc\Database\Database\Controls\TablePanel.Designer.cs">
+      <DependentUpon>TablePanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="com\teamrc\Database\Database\Database.cs" />
+    <Compile Include="com\teamrc\Database\Database\DatabaseDrive\DatabaseDrive\DDriver.cs" />
+    <Compile Include="com\teamrc\Database\Database\DatabaseDrive\DatabaseDrive\Properties\AssemblyInfo.cs" />
+    <Compile Include="com\teamrc\Database\Database\DatabaseDrive\DatabaseDrive\Properties\Resources.Designer.cs" />
+    <Compile Include="com\teamrc\Database\Database\DatabaseDrive\DatabaseDrive\Properties\Settings.Designer.cs" />
+    <Compile Include="com\teamrc\Database\Database\DatabaseDrive\DatabaseDrive\Properties\Tester.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="com\teamrc\Database\Database\DatabaseDrive\DatabaseDrive\Properties\Tester.Designer.cs">
+      <DependentUpon>Tester.cs</DependentUpon>
+    </Compile>
+    <Compile Include="com\teamrc\Database\Database\Properties\AssemblyInfo.cs" />
+    <Compile Include="com\teamrc\Database\Database\QuestionAnswer.cs" />
+    <Compile Include="com\teamrc\Database\Database\QuestionSource.cs" />
+    <Compile Include="com\teamrc\Database\Database\Table.cs" />
     <Compile Include="com\teamrc\gameobjects\A_Door.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -124,6 +163,9 @@
       <DependentUpon>Gameplay.cs</DependentUpon>
     </Compile>
     <Compile Include="com\teamrc\MazeGen\MazeGenerator.cs" />
+    <Compile Include="com\teamrc\savefiles\SaveData.cs" />
+    <Compile Include="com\teamrc\savefiles\SaveOption.cs" />
+    <Compile Include="com\teamrc\savefiles\Serializer.cs" />
     <Compile Include="com\teamrc\TriviaUI\InputBox.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -167,6 +209,22 @@
       <DependentUpon>TriviaMazeDriver.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="com\teamrc\Database\Database\Controls\DatabasePanel.resx">
+      <DependentUpon>DatabasePanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="com\teamrc\Database\Database\Controls\DBManipulate.resx">
+      <DependentUpon>DBManipulate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="com\teamrc\Database\Database\Controls\QuestionRow.resx">
+      <DependentUpon>QuestionRow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="com\teamrc\Database\Database\Controls\TablePanel.resx">
+      <DependentUpon>TablePanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="com\teamrc\Database\Database\DatabaseDrive\DatabaseDrive\Properties\Resources.resx" />
+    <EmbeddedResource Include="com\teamrc\Database\Database\DatabaseDrive\DatabaseDrive\Properties\Tester.resx">
+      <DependentUpon>Tester.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="com\teamrc\gameobjects\Player.resx">
       <DependentUpon>Player.cs</DependentUpon>
     </EmbeddedResource>
@@ -185,6 +243,8 @@
     <EmbeddedResource Include="TriviaMazeDriver.resx">
       <DependentUpon>TriviaMazeDriver.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="com\teamrc\Database\Database\DatabaseDrive\DatabaseDrive\App.config" />
+    <None Include="com\teamrc\Database\Database\DatabaseDrive\DatabaseDrive\Properties\Settings.settings" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -198,7 +258,13 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="com\teamrc\Database\Database.dll" />
+    <Content Include="com\teamrc\Database\Database.sln" />
+    <Content Include="com\teamrc\Database\Database\DatabaseDrive\DatabaseDrive.sln" />
+    <Content Include="com\teamrc\Database\Database\DatabaseDrive\DatabaseDrive\DatabaseDrive.csproj" />
+    <Content Include="com\teamrc\Database\Database\DatabaseSystem.csproj" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

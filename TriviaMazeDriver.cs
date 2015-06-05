@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 using Finisar.SQLite;
-
+using TriviaMaze.com.teamrc.savefiles;
 using TriviaMaze.com.teamrc.gameobjects;
 using TriviaMaze.com.teamrc.graphics;
 using DatabaseSystem;
@@ -66,6 +66,22 @@ namespace TriviaMaze {
                               "      True or False : Use T or F Keys (or click?) \n" +
                               "      Short Answer : Use Keyboard to type answer, then press Enter \n");
             
+            //Code for testing Serialize
+
+            MazeGenerator mg = new MazeGenerator();
+            Map m = mg.generate();
+
+            Player p = new Player(0, 0);
+
+            QuestionSource qs = new QuestionSource();
+
+            SaveData sd = new SaveData(p, m, qs);
+            Serializer serializer = new Serializer();
+            serializer.SerializeObject("outputFile.txt", sd);
+
+            SaveData saved = serializer.DeSerializeObject("outputFile.txt");
+            Player player = saved.getPlayer();
+            QuestionSource questionSource = saved.getQuestionSource();
         }
 
         private void button3_Click(object sender, EventArgs e) {
