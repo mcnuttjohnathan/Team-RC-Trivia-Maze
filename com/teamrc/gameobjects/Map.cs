@@ -15,9 +15,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms.VisualStyles;
 using TriviaMaze.com.teamrc.util;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace TriviaMaze.com.teamrc.gameobjects{
-    public partial class Map : Component{
+    public partial class Map : Component, ISerializable{
 
         private Room[,] map;
         int height;
@@ -391,6 +393,25 @@ namespace TriviaMaze.com.teamrc.gameobjects{
             }
 
             return false;
+        }
+
+        public Map(SerializationInfo info, StreamingContext ctxt){
+            this.map = (Room[,])info.GetValue("map", typeof(Room[,]));
+            this.height = (int)info.GetValue("Height",typeof(int));
+            this.width = (int)info.GetValue("Width", typeof(int));
+            this.start = (Point)info.GetValue("Start", typeof(Point));
+            this.finish = (Point)info.GetValue("Finish", typeof(Point));
+            this.rnd = (Random)info.GetValue("Random", typeof(Random));
+        }
+
+        public void GetObjectData(SerializationInfo info, StreamingContext ctxt){
+            info.AddValue("map", this.map);
+            info.AddValue("Height", this.height);
+            info.AddValue("Width", this.width);
+            info.AddValue("Start", this.start);
+            info.AddValue("Finish", this.finish);
+            info.AddValue("Random", this.rnd);
+            
         }
 
     }
