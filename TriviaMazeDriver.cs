@@ -78,10 +78,22 @@ namespace TriviaMaze {
             SaveData sd = new SaveData(p, m, qs);
             Serializer serializer = new Serializer();
             serializer.SerializeObject("outputFile.txt", sd);
+            String ms =  m.toString();
+            Console.WriteLine(ms);
 
             SaveData saved = serializer.DeSerializeObject("outputFile.txt");
             Player player = saved.getPlayer();
             QuestionSource questionSource = saved.getQuestionSource();
+            Map map = saved.getMap();
+            try
+            {
+                String s = map.toString();
+                Console.Write(s);
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex);
+            }
         }
 
         private void button3_Click(object sender, EventArgs e) {

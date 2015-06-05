@@ -20,19 +20,32 @@ namespace TriviaMaze.com.teamrc.savefiles
         {
             Stream stream = File.Open(filename, FileMode.Create);
             BinaryFormatter bFormatter = new BinaryFormatter();
-            bFormatter.Serialize(stream, sd);
+            try
+            {
+                bFormatter.Serialize(stream, sd);
+            }
+            catch(SerializationException e)
+            {
+                Console.WriteLine(e);
+            }
             stream.Close();
         }
 
 
         public SaveData DeSerializeObject(string filename)
         {
-            SaveData saveData;
+            SaveData saveData = new SaveData();
             Stream stream = File.Open(filename, FileMode.Open);
             BinaryFormatter bFormatter = new BinaryFormatter();
-            saveData = (SaveData)bFormatter.Deserialize(stream);
+            try { 
+                saveData = (SaveData)bFormatter.Deserialize(stream);
+                return saveData;
+            }catch (SerializationException e){
+                Console.Write(e);
+            }
             stream.Close();
             return saveData;
+            
         }
     }
 }
