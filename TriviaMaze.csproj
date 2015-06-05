@@ -76,7 +76,6 @@
       <DependentUpon>TablePanel.cs</DependentUpon>
     </Compile>
     <Compile Include="com\teamrc\Database\Database\Database.cs" />
-    <Compile Include="com\teamrc\Database\Database\DatabaseDrive\DatabaseDrive\DDriver.cs" />
     <Compile Include="com\teamrc\Database\Database\DatabaseDrive\DatabaseDrive\Properties\AssemblyInfo.cs" />
     <Compile Include="com\teamrc\Database\Database\DatabaseDrive\DatabaseDrive\Properties\Resources.Designer.cs" />
     <Compile Include="com\teamrc\Database\Database\DatabaseDrive\DatabaseDrive\Properties\Settings.Designer.cs" />
