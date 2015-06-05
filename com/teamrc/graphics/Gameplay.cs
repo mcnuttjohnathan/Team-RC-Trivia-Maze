@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using TriviaMaze.com.teamrc.gameobjects;
 using TriviaMaze.com.teamrc.util;
+using TriviaMaze.com.teamrc.savefiles;
 
 /**
  * Opens a window where the user can control a player.
@@ -252,6 +253,8 @@ namespace TriviaMaze.com.teamrc.graphics {
 
             else if (e.KeyCode.Equals(Keys.D0)) {
                 //saving goes here
+                SaveData sd = new SaveData(player, map, questionSource);
+                sd.save();
             }
         }
 
