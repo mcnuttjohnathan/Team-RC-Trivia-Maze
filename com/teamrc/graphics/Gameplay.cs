@@ -254,7 +254,7 @@ namespace TriviaMaze.com.teamrc.graphics {
             else if (e.KeyCode.Equals(Keys.D0)) {
                 //saving goes here
                 SaveData sd = new SaveData(player, map, questionSource);
-                sd.save();
+                SaveOption so = new SaveOption(sd);
             }
         }
 
