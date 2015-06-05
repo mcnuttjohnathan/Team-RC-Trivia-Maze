@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 
 using TriviaMaze.com.teamrc.util;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 
 /**
  * Controls the player object in the game
@@ -15,7 +17,7 @@ using TriviaMaze.com.teamrc.util;
  * @author Johnathan McNutt
  */
 namespace TriviaMaze.com.teamrc.gameobjects {
-    public partial class Player : Component, I_Collidable {
+    public partial class Player : Component, I_Collidable, ISerializable{
         public Rectangle playerImage;
         public Brush playerColor = Brushes.Blue;
 
@@ -175,6 +177,15 @@ namespace TriviaMaze.com.teamrc.gameobjects {
          */
         public String toString() {
             return "p";
+        }
+
+        
+        public Player(SerializationInfo info, StreamingContext ctxt){
+            this.playerImage = (Rectangle)info.GetValue("Rectangle", typeof(Rectangle));
+        }
+
+        public void GetObjectData(SerializationInfo info, StreamingContext ctxt){
+            info.AddValue("Rectangle", this.playerImage);
         }
     }
 }
