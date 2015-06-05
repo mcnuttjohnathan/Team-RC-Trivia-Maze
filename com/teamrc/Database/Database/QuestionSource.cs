@@ -4,10 +4,12 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace DatabaseSystem
 {
-    public class QuestionSource
+    public class QuestionSource : ISerializable
     {
         private List<Database> _databases;
         private List<QuestionAnswer> _usedQuestions;
@@ -166,5 +168,15 @@ namespace DatabaseSystem
 
 			return data;
 		}
+
+         public QuestionSource(SerializationInfo info, StreamingContext ctxt){
+            this._databases = (List<Database>)info.GetValue("DataBaseList", typeof(List<Database>));
+            this._usedQuestions = (List<QuestionAnswer>)info.GetValue("UsedQuestions",typeof(List<QuestionAnswer>));
+        }
+
+        public void GetObjectData(SerializationInfo info, StreamingContext ctxt){
+            info.AddValue("DataBaseList", this._databases);
+            info.AddValue("UsedQuestions", this._usedQuestions);
+        }
     }
 }
