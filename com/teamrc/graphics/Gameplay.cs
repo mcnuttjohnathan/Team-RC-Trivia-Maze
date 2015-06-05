@@ -175,67 +175,36 @@ namespace TriviaMaze.com.teamrc.graphics {
                 I_Collidable collider = 
                     CollisionManager.testPlayerCollision(new Point(this.player.playerImage.X, this.player.playerImage.Y - 32), this.player);
 
-                if (collider.getType().Equals(CollisionManager.FLOOR)){
+                if (collider.getType().Equals(CollisionManager.FLOOR)) {
                     this.player.moveUp();
                     this.inQuestion = false;
                 }
-                else if(collider.getType().Equals(CollisionManager.NEW_DOOR))
-                    this.inQuestion = true;
+                else
+                    this.otherCollisions(collider);
             }
 
             else if (e.KeyCode.Equals(Keys.Down)) {
                 I_Collidable collider =
                     CollisionManager.testPlayerCollision(new Point(this.player.playerImage.X, this.player.playerImage.Y + 32), this.player);
 
-                if (collider.getType().Equals(CollisionManager.FLOOR)){
+                if (collider.getType().Equals(CollisionManager.FLOOR)) {
                     this.player.moveDown();
                     this.inQuestion = false;
                 }
-                else if (collider.getType().Equals(CollisionManager.NEW_DOOR)) {
-                    this.inQuestion = true;
-                    QuestionAnswer qa;
-
-                    Console.WriteLine("test");
-
-                    do{
-                        qa = this.questionSource.randomQuestion();
-                    }while(qa == null);
-
-                    Point p = collider.getPosition();
-
-                    
-
-                    if (p.X % 128 == 0) {
-                        int x = (p.X / 128) - 1;
-                        int y = (p.Y - 32) / 128;
-
-                        Room curr = this.map.getRoom(x, y);
-
-                        Console.WriteLine(curr.toString());
-                    }
-                    else if (p.Y % 128 == 0) {
-                        int x = (p.X - 32) / 128;
-                        int y = (p.Y / 128) - 1;
-
-                        Room curr = this.map.getRoom(x, y);
-
-                        Console.WriteLine(curr.toString());
-                    }
-                    else
-                        throw new Exception();
-                }
+                else
+                    this.otherCollisions(collider);
             }
 
             else if (e.KeyCode.Equals(Keys.Left)) {
                 I_Collidable collider =
                     CollisionManager.testPlayerCollision(new Point(this.player.playerImage.X - 32, this.player.playerImage.Y), this.player);
 
-                if (collider.getType().Equals(CollisionManager.FLOOR)){
+                if (collider.getType().Equals(CollisionManager.FLOOR)) {
                     this.player.moveLeft();
                     this.inQuestion = false;
                 }
-                else if(collider.getType().Equals(CollisionManager.NEW_DOOR))
-                    this.inQuestion = true;
+                else
+                    this.otherCollisions(collider);
             }
 
             else if (e.KeyCode.Equals(Keys.Right)) {
@@ -246,8 +215,8 @@ namespace TriviaMaze.com.teamrc.graphics {
                     this.player.moveRight();
                     this.inQuestion = false;
                 }
-                else if (collider.getType().Equals(CollisionManager.NEW_DOOR))
-                    this.inQuestion = true;
+                else
+                    this.otherCollisions(collider);
             }
 
             else if (e.KeyCode.Equals(Keys.D0)) {
@@ -273,13 +242,51 @@ namespace TriviaMaze.com.teamrc.graphics {
                 this.player.resetRightFlag();
         }
 
+        private void otherCollisions(I_Collidable collider) {
+            if (collider.getType().Equals(CollisionManager.NEW_DOOR))
+                this.openNewDoor(collider);
+            else if (collider.getType().Equals(CollisionManager.USED_DOOR)) {
 
+            }
+            else if (collider.getType().Equals(CollisionManager.FINISH)) {
+
+            }
+        }
+
+        private void openNewDoor(I_Collidable door) {
+            this.inQuestion = true;
+            QuestionAnswer qa = this.questionSource.randomQuestion();
+
+            Point p = door.getPosition();
+
+            if ((p.X - 96) % 128 == 0) {
+                int x = (p.X - 96) / 128;
+                int y = (p.Y - 32) / 128;
+
+                Room r = this.map.getRoom(y, x);
+
+                r.setDoorRight(((DoorNew)door).activateDoor(qa).unlockDoor());
+            }
+            else if ((p.Y - 96) % 128 == 0) {
+                int x = (p.X - 32) / 128;
+                int y = (p.Y - 96) / 128;
+
+                Room r = this.map.getRoom(y, x);
+
+                r.setDoorDown(((DoorNew)door).activateDoor(qa).unlockDoor());
+            }
+            else
+                throw new Exception();
+        }
 
         /**
-         * stops update from being called once the window is closed.
+         * stops update from being called once the window is closed and resets the
+         * CollisionManager singleton.
          */
         private void Gameplay_FormClosed(object sender, FormClosedEventArgs e) {
             t.Stop();
+
+            CollisionManager.reset();
         }
     }
 }

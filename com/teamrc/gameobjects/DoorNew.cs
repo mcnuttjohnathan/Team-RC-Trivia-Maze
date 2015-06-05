@@ -62,6 +62,9 @@ namespace TriviaMaze.com.teamrc.gameobjects {
          * walking into it.
          */
         public DoorUsed activateDoor(QuestionAnswer question) {
+            //if (question == null)
+                //throw new NullReferenceException();
+
             CollisionManager.remove(this);
 
             return new DoorUsed(this.doorImage.X, this.doorImage.Y, question);

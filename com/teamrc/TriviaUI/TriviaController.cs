@@ -7,12 +7,14 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TriviaMaze.com.teamrc.gameobjects;
 
 namespace TriviaMaze.com.teamrc.TriviaUI {
     public partial class TriviaController : Component {
         public enum Location { TOP, BOTTOM };
 
         private Location location;
+        private QuestionBox question;
 
         public TriviaController(Point playerPosition) {
             InitializeComponent();
@@ -35,5 +37,15 @@ namespace TriviaMaze.com.teamrc.TriviaUI {
             else
                 location = Location.TOP;
         }
+
+        public void loadQuestionAnswer(QuestionAnswer qa, Player p) {
+            if (p.getPosition().Y <= 224) {
+                location = Location.BOTTOM;
+            }
+            else
+                location = Location.TOP;
+        }
+
+
     }
 }
