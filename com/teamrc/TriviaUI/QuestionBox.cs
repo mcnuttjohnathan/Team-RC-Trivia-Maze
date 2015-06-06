@@ -13,7 +13,7 @@ namespace TriviaMaze.com.teamrc.TriviaUI {
         private Brush boxColor = Brushes.AntiqueWhite;
         private Brush borderColor = Brushes.Black;
 
-        private String question;
+        private String[] question = new String[4];
         private Font textFont = new Font(FontFamily.GenericSerif, 16);
         private Brush textColor = Brushes.Black;
         private PointF textPosition;
@@ -33,7 +33,7 @@ namespace TriviaMaze.com.teamrc.TriviaUI {
         }
 
         private void init(String question, TriviaController.Location location) {
-            this.question = question;
+            this.parseQuestion(question);
 
             if (location == TriviaController.Location.TOP) {
                 this.boxImage = new Rectangle(32, 16, 416, 128);
@@ -43,6 +43,28 @@ namespace TriviaMaze.com.teamrc.TriviaUI {
                 this.boxImage = new Rectangle(32, 272, 416, 120);
                 this.textPosition = new PointF(48, 288);
             }
+        }
+
+        private void parseQuestion(String question) {
+            String[] q = question.Split(new char[]{' '});
+            int i = 0;
+            int curr = 0;
+            int buffer = 0;
+
+            while (curr < q.GetLength(0)) {
+                if (buffer + q[curr].Length + 1 <= 35){
+                    buffer += q[curr].Length + 1;
+                    this.question[i] += q[curr] + " ";
+                    curr++;
+                }
+                else {
+                    i++;
+                    buffer = 0;
+                }
+
+            }
+
+
         }
 
         public Rectangle getImage() { return this.boxImage; }
@@ -57,6 +79,13 @@ namespace TriviaMaze.com.teamrc.TriviaUI {
 
         public PointF getTextPosition() { return this.textPosition; }
 
-        public String getQuestion() { return this.question; }
+        public String getQuestion() {
+            String q = "";
+ 
+            for(int i = 0; i < this.question.GetLength(0); i++)
+                q += this.question[i] + "\n";
+
+            return q;
+        }
     }
 }
