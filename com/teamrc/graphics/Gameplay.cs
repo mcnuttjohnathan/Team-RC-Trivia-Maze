@@ -111,6 +111,7 @@ namespace TriviaMaze.com.teamrc.graphics {
                 if (collider.getType().Equals(CollisionManager.FLOOR)) {
                     this.player.moveUp();
                     this.inQuestion = false;
+                    this.currDoor = null;
                 }
                 else
                     this.otherCollisions(collider);
@@ -158,7 +159,7 @@ namespace TriviaMaze.com.teamrc.graphics {
                 int i = this.triviaController.getAnswers().GetLength(0);
 
                 if (i == 1) {
-                    //
+                    this.inputAnswer(sender, e);
                 }
                 if (i >= 2) {
                     if (e.KeyCode.Equals(Keys.D1)) {
@@ -214,13 +215,106 @@ namespace TriviaMaze.com.teamrc.graphics {
                 this.player.resetRightFlag();
         }
 
+        private void inputAnswer(object sender, KeyEventArgs e) {
+            if (e.KeyCode.Equals(Keys.Back)) {
+                ((InputBox)this.triviaController.getAnswers()[0]).removeCharacter();
+            }
+            else if (e.KeyCode.Equals(Keys.A)) {
+                ((InputBox)this.triviaController.getAnswers()[0]).addCharacter('a');
+            }
+            else if (e.KeyCode.Equals(Keys.B)) {
+                ((InputBox)this.triviaController.getAnswers()[0]).addCharacter('b');
+            }
+            else if (e.KeyCode.Equals(Keys.C)) {
+                ((InputBox)this.triviaController.getAnswers()[0]).addCharacter('c');
+            }
+            else if (e.KeyCode.Equals(Keys.D)) {
+                ((InputBox)this.triviaController.getAnswers()[0]).addCharacter('d');
+            }
+            else if (e.KeyCode.Equals(Keys.E)) {
+                ((InputBox)this.triviaController.getAnswers()[0]).addCharacter('e');
+            }
+            else if (e.KeyCode.Equals(Keys.F)) {
+                ((InputBox)this.triviaController.getAnswers()[0]).addCharacter('f');
+            }
+            else if (e.KeyCode.Equals(Keys.G)) {
+                ((InputBox)this.triviaController.getAnswers()[0]).addCharacter('g');
+            }
+            else if (e.KeyCode.Equals(Keys.H)) {
+                ((InputBox)this.triviaController.getAnswers()[0]).addCharacter('h');
+            }
+            else if (e.KeyCode.Equals(Keys.I)) {
+                ((InputBox)this.triviaController.getAnswers()[0]).addCharacter('i');
+            }
+            else if (e.KeyCode.Equals(Keys.J)) {
+                ((InputBox)this.triviaController.getAnswers()[0]).addCharacter('j');
+            }
+            else if (e.KeyCode.Equals(Keys.K)) {
+                ((InputBox)this.triviaController.getAnswers()[0]).addCharacter('k');
+            }
+            else if (e.KeyCode.Equals(Keys.L)) {
+                ((InputBox)this.triviaController.getAnswers()[0]).addCharacter('l');
+            }
+            else if (e.KeyCode.Equals(Keys.M)) {
+                ((InputBox)this.triviaController.getAnswers()[0]).addCharacter('m');
+            }
+            else if (e.KeyCode.Equals(Keys.N)) {
+                ((InputBox)this.triviaController.getAnswers()[0]).addCharacter('n');
+            }
+            else if (e.KeyCode.Equals(Keys.O)) {
+                ((InputBox)this.triviaController.getAnswers()[0]).addCharacter('o');
+            }
+            else if (e.KeyCode.Equals(Keys.P)) {
+                ((InputBox)this.triviaController.getAnswers()[0]).addCharacter('p');
+            }
+            else if (e.KeyCode.Equals(Keys.Q)) {
+                ((InputBox)this.triviaController.getAnswers()[0]).addCharacter('q');
+            }
+            else if (e.KeyCode.Equals(Keys.R)) {
+                ((InputBox)this.triviaController.getAnswers()[0]).addCharacter('r');
+            }
+            else if (e.KeyCode.Equals(Keys.S)) {
+                ((InputBox)this.triviaController.getAnswers()[0]).addCharacter('s');
+            }
+            else if (e.KeyCode.Equals(Keys.T)) {
+                ((InputBox)this.triviaController.getAnswers()[0]).addCharacter('t');
+            }
+            else if (e.KeyCode.Equals(Keys.U)) {
+                ((InputBox)this.triviaController.getAnswers()[0]).addCharacter('u');
+            }
+            else if (e.KeyCode.Equals(Keys.V)) {
+                ((InputBox)this.triviaController.getAnswers()[0]).addCharacter('v');
+            }
+            else if (e.KeyCode.Equals(Keys.W)) {
+                ((InputBox)this.triviaController.getAnswers()[0]).addCharacter('w');
+            }
+            else if (e.KeyCode.Equals(Keys.X)) {
+                ((InputBox)this.triviaController.getAnswers()[0]).addCharacter('x');
+            }
+            else if (e.KeyCode.Equals(Keys.Y)) {
+                ((InputBox)this.triviaController.getAnswers()[0]).addCharacter('y');
+            }
+            else if (e.KeyCode.Equals(Keys.Z)) {
+                ((InputBox)this.triviaController.getAnswers()[0]).addCharacter('z');
+            }
+            else if (e.KeyCode.Equals(Keys.Space)) {
+                ((InputBox)this.triviaController.getAnswers()[0]).addCharacter(' ');
+            }
+            else if (e.KeyCode.Equals(Keys.Enter)) {
+                if (this.triviaController.getAnswers()[0].submitAnswer())
+                    this.openUsedDoor();
+                else
+                    this.closeUsedDoor();
+            }
+        }
+
         private void otherCollisions(I_Collidable collider) {
             if (collider.getType().Equals(CollisionManager.NEW_DOOR))
                 this.openNewDoor(collider);
             else if (collider.getType().Equals(CollisionManager.USED_DOOR))
                 this.viewUsedDoor(collider);
             else if (collider.getType().Equals(CollisionManager.FINISH)) {
-
+                //activates when they beat the game
             }
         }
 

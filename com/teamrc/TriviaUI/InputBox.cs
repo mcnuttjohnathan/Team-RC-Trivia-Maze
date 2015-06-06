@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 namespace TriviaMaze.com.teamrc.TriviaUI {
     public partial class InputBox : A_AnswerBox {
         private String answer;
+        private String input = "";
 
         public InputBox(String answer, TriviaController.Location location)
             : base(new Font(FontFamily.GenericSerif, 24)) {
@@ -29,7 +30,7 @@ namespace TriviaMaze.com.teamrc.TriviaUI {
 
         private void init(String answer, TriviaController.Location location) {
             this.answer = answer;
-            this.setText("Answer: ");
+            this.setText("Ans: " + input);
 
             if (location == TriviaController.Location.TOP) {
                 this.setImage(new Rectangle(32, 148, 416, 64));
@@ -41,9 +42,23 @@ namespace TriviaMaze.com.teamrc.TriviaUI {
             }
         }
 
+        public void addCharacter(char c) {
+            if (input.Length < 20)
+                input += c;
+
+            this.setText("Ans: " + input);
+        }
+
+        public void removeCharacter() {
+            if (input.Length > 0)
+                input = input.Substring(0, input.Length - 1);
+
+            this.setText("Ans: " + input);
+        }
+
         public override Boolean submitAnswer() {
-            //if (answer.Equals(this.answer))
-                //return true;
+            if (this.input.Equals(this.answer.ToLower()))
+                return true;
 
             return false;
         }
