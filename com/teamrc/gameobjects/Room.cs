@@ -126,8 +126,7 @@ namespace TriviaMaze.com.teamrc.gameobjects{
          *This sets the door on the right to be a new door
          *@param d - the new A_Door Component to be placed
          **/
-        public void setDoorRight(A_Door d)
-        {
+        public void setDoorRight(A_Door d){
           
             if (this.exits % 2 == 1){
                 this.room[1, 3] = d;
@@ -137,8 +136,11 @@ namespace TriviaMaze.com.teamrc.gameobjects{
  
         }
 
-        public I_Collidable getDoorRight()
-        {
+        /**
+         * This is to get the door object.
+         * @Returns - the door object held on the right exit
+         **/
+        public I_Collidable getDoorRight(){
                 return (this.room[1, 3]);
         }
 
@@ -146,22 +148,21 @@ namespace TriviaMaze.com.teamrc.gameobjects{
         *This sets the door on the bottom to be a new door
         *@param d - the new A_Door Component to be placed
         **/
-        public void setDoorDown(A_Door d)
-        {
+        public void setDoorDown(A_Door d){
 
-            if (this.exits >= 2 )
-            {
+            if (this.exits >= 2 ){
                 this.room[3, 1] = d;
-            }
-            else
-            {
+            }else{
                 throw new Exception();
             }
 
         }
 
-        public I_Collidable getDoorDown()
-        {
+        /**
+        * This is to get the door object on the bottom.
+        * @Returns - the door object held on the bottom exit
+        **/
+        public I_Collidable getDoorDown(){
             return (this.room[3, 1]);
         }
 
@@ -179,8 +180,7 @@ namespace TriviaMaze.com.teamrc.gameobjects{
          * 
          * @returns e - the int related to the unlocked doors in the room
          **/
-        public int unlockedExits()
-        {
+        public int unlockedExits(){
             int e = 0;
 
             if ((this.exits == 1 || this.exits == 3) && room[1, 3].toString() != "L"){
