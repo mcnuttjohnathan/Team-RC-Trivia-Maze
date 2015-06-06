@@ -137,6 +137,11 @@ namespace TriviaMaze.com.teamrc.gameobjects{
  
         }
 
+        public I_Collidable getDoorRight()
+        {
+                return (this.room[1, 3]);
+        }
+
         /**
         *This sets the door on the bottom to be a new door
         *@param d - the new A_Door Component to be placed
@@ -153,6 +158,11 @@ namespace TriviaMaze.com.teamrc.gameobjects{
                 throw new Exception();
             }
 
+        }
+
+        public I_Collidable getDoorDown()
+        {
+            return (this.room[3, 1]);
         }
 
         /**
