@@ -76,6 +76,11 @@ namespace TriviaMaze {
 
             SaveLoadDriver sld = new SaveLoadDriver(p, m, qs);
 
+            sld.load();
+            Map loadedMap = sld.getLoadMap();
+            Console.WriteLine("The loaded map data.");
+            Console.WriteLine(loadedMap.toString());
+
             
         }
 

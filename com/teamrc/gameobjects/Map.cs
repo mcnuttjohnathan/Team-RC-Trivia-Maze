@@ -45,6 +45,16 @@ namespace TriviaMaze.com.teamrc.gameobjects{
             addDoors();
         }
 
+        public Map(Room[,] r, int h, int w)
+        {
+            this.map = r;
+            this.height = h;
+            this.width = w;
+            this.rnd = new Random();
+            this.start = new Point(0, 0);
+            this.finish = new Point(this.height - 1, this.width - 1);
+        }
+
         public Map(IContainer container){
             container.Add(this);
 

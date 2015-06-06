@@ -6,6 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 using TriviaMaze.com.teamrc.gameobjects;
 using DatabaseSystem;
+using System.Windows.Forms.VisualStyles;
+using System.Drawing;
 
 namespace TriviaMaze.com.teamrc.savefiles
 {
@@ -45,9 +47,17 @@ namespace TriviaMaze.com.teamrc.savefiles
                         {
                             s += (r[i, j].getDoorRight().toString()) + " ";
                         }
+                        else
+                        {
+                            s += "X ";
+                        }
                         if (r[i, j].getExits() > 1)
                         {
                             s += (r[i, j].getDoorDown().toString());
+                        }
+                        else
+                        {
+                            s += "X";
                         }
                     }
                     write.WriteLine(s);
@@ -63,8 +73,67 @@ namespace TriviaMaze.com.teamrc.savefiles
 
         public void load()
         {
-            //get user input for file name
-            //load in input
+            Console.WriteLine("Loading File...");
+            String line;
+            System.IO.StreamReader file = new System.IO.StreamReader("savedata.txt");
+            line = file.ReadLine();
+            int h = (int)line[0];
+            int w = (int)line[2];
+            Room[,] recoveredMap = new Room[h, w];
+
+            Point p = new Point(0, 0);
+
+            for (int i = 0; i < h; i++)
+            {
+                for (int j = 0; j < w; j++)
+                {
+                    Room r = new Room(0, p);
+                    if (i == h - 1 && j == w - 1)
+                    {
+                        r.makeFinish();
+                    }
+                    recoveredMap[i, j] = r;
+                    p.X = p.X + 128;
+                }
+                p.Y = p.Y + 128;
+                p.X = 0;
+            }
+
+            for (int m = 0; m < h; m++)
+            {
+                for (int n = 0; n < w; n++)
+                {
+                    line = file.ReadLine();
+                    try
+                    {
+                        recoveredMap[m,n].setExits((int)line[4]);
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e);
+                    }
+                    
+                    if((int)line[4] % 2 == 1){
+                        if(line[6] == 'N'){
+                            DoorNew d = new DoorNew(0,0);
+                            recoveredMap[m,n].setDoorRight(d);
+                        }
+                        if(line[8] == 'N'){
+                            DoorNew d = new DoorNew(0,0);
+                            recoveredMap[m,n].setDoorDown(d);
+                        }
+                    }
+                }
+            }
+
+            file.Close();
+            Map nMap = new Map(recoveredMap, h, w);
+            this.map = nMap;
+
+        }
+
+        public Map getLoadMap(){
+            return this.map;
         }
 
     }
