@@ -107,21 +107,23 @@ namespace TriviaMaze.com.teamrc.savefiles
                     try
                     {
                         recoveredMap[m,n].setExits((int)line[4]);
+
+                    
+                        if((int)line[4] % 2 == 1){
+                            if(line[6] == 'N'){
+                                DoorNew d = new DoorNew(0,0);
+                                recoveredMap[m,n].setDoorRight(d);
+                            }
+                            if(line[8] == 'N'){
+                                DoorNew d = new DoorNew(0,0);
+                                recoveredMap[m,n].setDoorDown(d);
+                            }
+                        }
+                    
                     }
                     catch (Exception e)
                     {
                         Console.WriteLine(e);
-                    }
-                    
-                    if((int)line[4] % 2 == 1){
-                        if(line[6] == 'N'){
-                            DoorNew d = new DoorNew(0,0);
-                            recoveredMap[m,n].setDoorRight(d);
-                        }
-                        if(line[8] == 'N'){
-                            DoorNew d = new DoorNew(0,0);
-                            recoveredMap[m,n].setDoorDown(d);
-                        }
                     }
                 }
             }
