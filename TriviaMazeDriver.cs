@@ -15,6 +15,7 @@ using TriviaMaze.com.teamrc.graphics;
 using DatabaseSystem;
 using DatabaseSystem.Controls;
 using System.IO;
+using TriviaMaze.com.teamrc.savefiles;
 
 
 /**
@@ -65,6 +66,21 @@ namespace TriviaMaze {
                               "      Multiple Choice : Use Number Keys (or click?) \n" +
                               "      True or False : Use T or F Keys (or click?) \n" +
                               "      Short Answer : Use Keyboard to type answer, then press Enter \n");
+
+            Console.WriteLine("\n \n \nThis is testing the save functionality. \n");
+            MazeGenerator mg = new MazeGenerator();
+            Map m = mg.generate();
+            Player p = new Player(0,0);
+            QuestionSource qs = new QuestionSource();
+            Console.WriteLine(m.toString());
+
+            SaveLoadDriver sld = new SaveLoadDriver(p, m, qs);
+
+            sld.load();
+            Map loadedMap = sld.getLoadMap();
+            Console.WriteLine("The loaded map data.");
+            Console.WriteLine(loadedMap.toString());
+
             
         }
 
