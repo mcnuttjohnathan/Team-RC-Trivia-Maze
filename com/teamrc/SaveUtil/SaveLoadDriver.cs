@@ -77,8 +77,10 @@ namespace TriviaMaze.com.teamrc.savefiles
             String line;
             System.IO.StreamReader file = new System.IO.StreamReader("savedata.txt");
             line = file.ReadLine();
-            int h = (int)line[0];
-            int w = (int)line[2];
+            int h = (int)Char.GetNumericValue(line[0]);
+            Console.WriteLine("The Height was read in as {0}", h);
+            int w = (int)Char.GetNumericValue(line[2]);
+            Console.WriteLine("The width was read in as {0}", w);
             Room[,] recoveredMap = new Room[h, w];
 
             Point p = new Point(0, 0);
@@ -104,26 +106,32 @@ namespace TriviaMaze.com.teamrc.savefiles
                 for (int n = 0; n < w; n++)
                 {
                     line = file.ReadLine();
-                    try
+                    if (line != null)
                     {
-                        recoveredMap[m,n].setExits((int)line[4]);
+                        try
+                        {
+                            recoveredMap[m, n].setExits((int)Char.GetNumericValue(line[4]));
 
-                    
-                        if((int)line[4] % 2 == 1){
-                            if(line[6] == 'N'){
-                                DoorNew d = new DoorNew(0,0);
-                                recoveredMap[m,n].setDoorRight(d);
+
+                            if ((int)Char.GetNumericValue(line[4]) % 2 == 1)
+                            {
+                                if (line[6] == 'N')
+                                {
+                                    DoorNew d = new DoorNew(0, 0);
+                                    recoveredMap[m, n].setDoorRight(d);
+                                }
+                                if (line[8] == 'N')
+                                {
+                                    DoorNew d = new DoorNew(0, 0);
+                                    recoveredMap[m, n].setDoorDown(d);
+                                }
                             }
-                            if(line[8] == 'N'){
-                                DoorNew d = new DoorNew(0,0);
-                                recoveredMap[m,n].setDoorDown(d);
-                            }
+
                         }
-                    
-                    }
-                    catch (Exception e)
-                    {
-                        Console.WriteLine(e);
+                        catch (Exception e)
+                        {
+                            Console.WriteLine(e);
+                        }
                     }
                 }
             }
