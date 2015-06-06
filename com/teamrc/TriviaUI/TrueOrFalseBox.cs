@@ -8,25 +8,20 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace TriviaMaze.com.teamrc.TriviaUI {
-    public partial class TrueOrFalseBox : Component {
+    public partial class TrueOrFalseBox : A_AnswerBox {
         public enum ToF { TRUE, FALSE };
 
-        private Rectangle boxImage;
-        private Brush boxColor = Brushes.AntiqueWhite;
-        private Brush borderColor = Brushes.Black;
-
         private Boolean correct;
-        private Font textFont = new Font(FontFamily.GenericSerif, 24);
-        private Brush textColor = Brushes.Black;
-        private PointF textPosition;
 
-        public TrueOrFalseBox(Boolean correct, TriviaController.Location location, ToF tof) {
+        public TrueOrFalseBox(Boolean correct, TriviaController.Location location, ToF tof)
+            : base(new Font(FontFamily.GenericSerif, 24)) {
             InitializeComponent();
 
             this.init(correct, location, tof);
         }
 
-        public TrueOrFalseBox(Boolean correct, TriviaController.Location location, ToF tof, IContainer container) {
+        public TrueOrFalseBox(Boolean correct, TriviaController.Location location, ToF tof, IContainer container)
+            : base(new Font(FontFamily.GenericSerif, 24)) {
             container.Add(this);
 
             InitializeComponent();
@@ -39,27 +34,31 @@ namespace TriviaMaze.com.teamrc.TriviaUI {
 
             if (location == TriviaController.Location.TOP) {
                 if (tof == ToF.TRUE) {
-                    this.boxImage = new Rectangle(32, 148, 200, 64);
-                    this.textPosition = new PointF(48, 160);
+                    this.setImage(new Rectangle(32, 148, 200, 64));
+                    this.setTextPosition(new PointF(48, 160));
+                    this.setText("1) True");
                 }
                 else if (tof == ToF.FALSE) {
-                    this.boxImage = new Rectangle(248, 148, 200, 64);
-                    this.textPosition = new PointF(260, 160);
+                    this.setImage(new Rectangle(248, 148, 200, 64));
+                    this.setTextPosition(new PointF(260, 160));
+                    this.setText("2) False");
                 }
             }
             else if (location == TriviaController.Location.BOTTOM) {
                 if (tof == ToF.TRUE) {
-                    this.boxImage = new Rectangle(32, 396, 200, 64);
-                    this.textPosition = new PointF(48, 408);
+                    this.setImage(new Rectangle(32, 396, 200, 64));
+                    this.setTextPosition(new PointF(48, 408));
+                    this.setText("1) True");
                 }
                 else if (tof == ToF.FALSE) {
-                    this.boxImage = new Rectangle(248, 396, 200, 64);
-                    this.textPosition = new PointF(260, 408);
+                    this.setImage(new Rectangle(248, 396, 200, 64));
+                    this.setTextPosition(new PointF(260, 408));
+                    this.setText("2) False");
                 }
             }
         }//end init
 
-        public Boolean submitAnswer() {
+        public override Boolean submitAnswer() {
             return correct;
         }
     }

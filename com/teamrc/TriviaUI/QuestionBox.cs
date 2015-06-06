@@ -44,5 +44,19 @@ namespace TriviaMaze.com.teamrc.TriviaUI {
                 this.textPosition = new PointF(48, 288);
             }
         }
+
+        public Rectangle getImage() { return this.boxImage; }
+
+        public Brush getBoxColor() { return this.boxColor; }
+
+        public Brush getBorderColor() { return this.borderColor; }
+
+        public Font getFont() { return this.textFont; }
+
+        public Brush getTextColor() { return this.textColor; }
+
+        public PointF getTextPosition() { return this.textPosition; }
+
+        public String getQuestion() { return this.question; }
     }
 }

@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using TriviaMaze.com.teamrc.gameobjects;
+using TriviaMaze.com.teamrc.TriviaUI;
 using TriviaMaze.com.teamrc.util;
 
 /**
@@ -26,6 +27,9 @@ namespace TriviaMaze.com.teamrc.graphics {
 
         private Boolean inQuestion = false;
         private QuestionSource questionSource = new QuestionSource("./");
+        private TriviaController triviaController = new TriviaController();
+
+        private DoorUsed currDoor = null;
 
         /**
          * Constructs the gameplay window.
@@ -69,89 +73,19 @@ namespace TriviaMaze.com.teamrc.graphics {
             e.Graphics.FillRectangle(player.playerColor, player.playerImage);
 
             if (this.inQuestion) {
-                if (player.getPosition().Y > 224) {
-                    //Question Top
-                    e.Graphics.FillRectangle(Brushes.AntiqueWhite, new Rectangle(32, 16, 416, 128));
-                    e.Graphics.DrawRectangle(new Pen(Brushes.Black), new Rectangle(32, 16, 416, 128));
-                    e.Graphics.DrawString("This is a question?", new Font(FontFamily.GenericSerif, 16), Brushes.Black, new PointF(48, 32));
+                QuestionBox qb = this.triviaController.getQuestion();
+                A_AnswerBox[] ab = this.triviaController.getAnswers();
 
-                    //Answer A Top
-                    e.Graphics.FillRectangle(Brushes.AntiqueWhite, new Rectangle(32, 148, 200, 32));
-                    e.Graphics.DrawRectangle(new Pen(Brushes.Black), new Rectangle(32, 148, 200, 32));
-                    e.Graphics.DrawString("1) Answer A", new Font(FontFamily.GenericSerif, 12), Brushes.Black, new PointF(48, 152));
+                //Question
+                e.Graphics.FillRectangle(qb.getBoxColor(), qb.getImage());
+                e.Graphics.DrawRectangle(new Pen(qb.getBorderColor()), qb.getImage());
+                e.Graphics.DrawString(qb.getQuestion(), qb.getFont(), qb.getTextColor(), qb.getTextPosition());
 
-                    //Answer B Top
-                    e.Graphics.FillRectangle(Brushes.AntiqueWhite, new Rectangle(248, 148, 200, 32));
-                    e.Graphics.DrawRectangle(new Pen(Brushes.Black), new Rectangle(248, 148, 200, 32));
-                    e.Graphics.DrawString("2) Answer B", new Font(FontFamily.GenericSerif, 12), Brushes.Black, new PointF(260, 152));
-
-                    //Answer C Top
-                    e.Graphics.FillRectangle(Brushes.AntiqueWhite, new Rectangle(32, 184, 200, 32));
-                    e.Graphics.DrawRectangle(new Pen(Brushes.Black), new Rectangle(32, 184, 200, 32));
-                    e.Graphics.DrawString("3) Answer C", new Font(FontFamily.GenericSerif, 12), Brushes.Black, new PointF(48, 188));
-
-                    //Answer D Top
-                    e.Graphics.FillRectangle(Brushes.AntiqueWhite, new Rectangle(248, 184, 200, 32));
-                    e.Graphics.DrawRectangle(new Pen(Brushes.Black), new Rectangle(248, 184, 200, 32));
-                    e.Graphics.DrawString("4) Answer D", new Font(FontFamily.GenericSerif, 12), Brushes.Black, new PointF(260, 188));
-                    /*
-                    //Answer True Top
-                    e.Graphics.FillRectangle(Brushes.AntiqueWhite, new Rectangle(32, 148, 200, 64));
-                    e.Graphics.DrawRectangle(new Pen(Brushes.Black), new Rectangle(32, 148, 200, 64));
-                    e.Graphics.DrawString("1) True", new Font(FontFamily.GenericSerif, 24), Brushes.Black, new PointF(48, 160));
-
-                    //Answer False Top
-                    e.Graphics.FillRectangle(Brushes.AntiqueWhite, new Rectangle(248, 148, 200, 64));
-                    e.Graphics.DrawRectangle(new Pen(Brushes.Black), new Rectangle(248, 148, 200, 64));
-                    e.Graphics.DrawString("2) False", new Font(FontFamily.GenericSerif, 24), Brushes.Black, new PointF(260, 160));
-            
-                    //Answer Input Top
-                    e.Graphics.FillRectangle(Brushes.AntiqueWhite, new Rectangle(32, 148, 416, 64));
-                    e.Graphics.DrawRectangle(new Pen(Brushes.Black), new Rectangle(32, 148, 416, 64));
-                    e.Graphics.DrawString("Answer: ", new Font(FontFamily.GenericSerif, 24), Brushes.Black, new PointF(48, 160));
-                    */
-                }
-                else {
-                    //Question Bottom
-                    e.Graphics.FillRectangle(Brushes.AntiqueWhite, new Rectangle(32, 272, 416, 120));
-                    e.Graphics.DrawRectangle(new Pen(Brushes.Black), new Rectangle(32, 272, 416, 120));
-                    e.Graphics.DrawString("This is a question?", new Font(FontFamily.GenericSerif, 16), Brushes.Black, new PointF(48, 288));
-
-                    //Answer A Bottom
-                    e.Graphics.FillRectangle(Brushes.AntiqueWhite, new Rectangle(32, 396, 200, 32));
-                    e.Graphics.DrawRectangle(new Pen(Brushes.Black), new Rectangle(32, 396, 200, 32));
-                    e.Graphics.DrawString("1) Answer A", new Font(FontFamily.GenericSerif, 12), Brushes.Black, new PointF(48, 400));
-
-                    //Answer B Bottom
-                    e.Graphics.FillRectangle(Brushes.AntiqueWhite, new Rectangle(248, 396, 200, 32));
-                    e.Graphics.DrawRectangle(new Pen(Brushes.Black), new Rectangle(248, 396, 200, 32));
-                    e.Graphics.DrawString("2) Answer B", new Font(FontFamily.GenericSerif, 12), Brushes.Black, new PointF(260, 400));
-
-                    //Answer C Bottom
-                    e.Graphics.FillRectangle(Brushes.AntiqueWhite, new Rectangle(32, 432, 200, 32));
-                    e.Graphics.DrawRectangle(new Pen(Brushes.Black), new Rectangle(32, 432, 200, 32));
-                    e.Graphics.DrawString("3) Answer C", new Font(FontFamily.GenericSerif, 12), Brushes.Black, new PointF(48, 436));
-
-                    //Answer D Bottom
-                    e.Graphics.FillRectangle(Brushes.AntiqueWhite, new Rectangle(248, 432, 200, 32));
-                    e.Graphics.DrawRectangle(new Pen(Brushes.Black), new Rectangle(248, 432, 200, 32));
-                    e.Graphics.DrawString("4) Answer D", new Font(FontFamily.GenericSerif, 12), Brushes.Black, new PointF(260, 436));
-                    /*
-                    //Answer True Bottom
-                    e.Graphics.FillRectangle(Brushes.AntiqueWhite, new Rectangle(32, 396, 200, 64));
-                    e.Graphics.DrawRectangle(new Pen(Brushes.Black), new Rectangle(32, 396, 200, 64));
-                    e.Graphics.DrawString("1) True", new Font(FontFamily.GenericSerif, 24), Brushes.Black, new PointF(48, 408));
-
-                    //Answer False Bottom
-                    e.Graphics.FillRectangle(Brushes.AntiqueWhite, new Rectangle(248, 396, 200, 64));
-                    e.Graphics.DrawRectangle(new Pen(Brushes.Black), new Rectangle(248, 396, 200, 64));
-                    e.Graphics.DrawString("2) False", new Font(FontFamily.GenericSerif, 24), Brushes.Black, new PointF(260, 408));
-            
-                    //Answer Input Bottom
-                    e.Graphics.FillRectangle(Brushes.AntiqueWhite, new Rectangle(32, 396, 416, 64));
-                    e.Graphics.DrawRectangle(new Pen(Brushes.Black), new Rectangle(32, 396, 416, 64));
-                    e.Graphics.DrawString("Answer: ", new Font(FontFamily.GenericSerif, 24), Brushes.Black, new PointF(48, 408));
-                    */
+                //Answers
+                for(int i = 0; i < ab.GetLength(0); i++){
+                    e.Graphics.FillRectangle(ab[i].getBoxColor(), ab[i].getImage());
+                    e.Graphics.DrawRectangle(new Pen(ab[i].getBorderColor()), ab[i].getImage());
+                    e.Graphics.DrawString(ab[i].getText(), ab[i].getFont(), ab[i].getTextColor(), ab[i].getTextPosition());
                 }
             }//end if statement
         }
@@ -159,7 +93,6 @@ namespace TriviaMaze.com.teamrc.graphics {
         /**
          * draws the window graphics approximately 60 times per second
          */
-        
         private void update(object sender, EventArgs e) {
             this.Invalidate();
         }
@@ -190,6 +123,7 @@ namespace TriviaMaze.com.teamrc.graphics {
                 if (collider.getType().Equals(CollisionManager.FLOOR)) {
                     this.player.moveDown();
                     this.inQuestion = false;
+                    this.currDoor = null;
                 }
                 else
                     this.otherCollisions(collider);
@@ -202,6 +136,7 @@ namespace TriviaMaze.com.teamrc.graphics {
                 if (collider.getType().Equals(CollisionManager.FLOOR)) {
                     this.player.moveLeft();
                     this.inQuestion = false;
+                    this.currDoor = null;
                 }
                 else
                     this.otherCollisions(collider);
@@ -214,9 +149,46 @@ namespace TriviaMaze.com.teamrc.graphics {
                 if (collider.getType().Equals(CollisionManager.FLOOR)) {
                     this.player.moveRight();
                     this.inQuestion = false;
+                    this.currDoor = null;
                 }
                 else
                     this.otherCollisions(collider);
+            }
+            else if (this.inQuestion) {
+                int i = this.triviaController.getAnswers().GetLength(0);
+
+                if (i == 1) {
+                    //
+                }
+                if (i >= 2) {
+                    if (e.KeyCode.Equals(Keys.D1)) {
+                        if (this.triviaController.getAnswers()[0].submitAnswer())
+                            this.openUsedDoor();
+                        else
+                            this.closeUsedDoor();
+                    }
+                    else if (e.KeyCode.Equals(Keys.D2)) {
+                        if (this.triviaController.getAnswers()[1].submitAnswer())
+                            this.openUsedDoor();
+                        else
+                            this.closeUsedDoor();
+                    }
+                }
+                if (i == 4) {
+                    if (e.KeyCode.Equals(Keys.D3)) {
+                        if (this.triviaController.getAnswers()[2].submitAnswer())
+                            this.openUsedDoor();
+                        else
+                            this.closeUsedDoor();
+                    }
+                    else if (e.KeyCode.Equals(Keys.D4)) {
+                        if (this.triviaController.getAnswers()[3].submitAnswer())
+                            this.openUsedDoor();
+                        else
+                            this.closeUsedDoor();
+                    }
+                }
+                
             }
 
             else if (e.KeyCode.Equals(Keys.D0)) {
@@ -245,9 +217,8 @@ namespace TriviaMaze.com.teamrc.graphics {
         private void otherCollisions(I_Collidable collider) {
             if (collider.getType().Equals(CollisionManager.NEW_DOOR))
                 this.openNewDoor(collider);
-            else if (collider.getType().Equals(CollisionManager.USED_DOOR)) {
-
-            }
+            else if (collider.getType().Equals(CollisionManager.USED_DOOR))
+                this.viewUsedDoor(collider);
             else if (collider.getType().Equals(CollisionManager.FINISH)) {
 
             }
@@ -256,8 +227,11 @@ namespace TriviaMaze.com.teamrc.graphics {
         private void openNewDoor(I_Collidable door) {
             this.inQuestion = true;
             QuestionAnswer qa = this.questionSource.randomQuestion();
+            this.triviaController.loadQuestionAnswer(qa, this.player);
 
             Point p = door.getPosition();
+
+            DoorUsed du = ((DoorNew)door).activateDoor(qa);
 
             if ((p.X - 96) % 128 == 0) {
                 int x = (p.X - 96) / 128;
@@ -265,7 +239,7 @@ namespace TriviaMaze.com.teamrc.graphics {
 
                 Room r = this.map.getRoom(y, x);
 
-                r.setDoorRight(((DoorNew)door).activateDoor(qa).unlockDoor());
+                r.setDoorRight(du);
             }
             else if ((p.Y - 96) % 128 == 0) {
                 int x = (p.X - 32) / 128;
@@ -273,10 +247,75 @@ namespace TriviaMaze.com.teamrc.graphics {
 
                 Room r = this.map.getRoom(y, x);
 
-                r.setDoorDown(((DoorNew)door).activateDoor(qa).unlockDoor());
+                r.setDoorDown(du);
             }
             else
                 throw new Exception();
+
+            this.currDoor = du;
+        }
+
+        private void viewUsedDoor(I_Collidable door) {
+            this.inQuestion = true;
+            QuestionAnswer qa = ((DoorUsed)door).getQuestionAnswer();
+            this.triviaController.loadQuestionAnswer(qa, this.player);
+
+            this.currDoor = (DoorUsed)door;
+        }
+
+        private void openUsedDoor() {
+            Point p = this.currDoor.getPosition();
+
+            if ((p.X - 96) % 128 == 0) {
+                int x = (p.X - 96) / 128;
+                int y = (p.Y - 32) / 128;
+
+                Room r = this.map.getRoom(y, x);
+
+                r.setDoorRight(((DoorUsed)this.currDoor).unlockDoor());
+            }
+            else if ((p.Y - 96) % 128 == 0) {
+                int x = (p.X - 32) / 128;
+                int y = (p.Y - 96) / 128;
+
+                Room r = this.map.getRoom(y, x);
+
+                r.setDoorDown(((DoorUsed)this.currDoor).unlockDoor());
+            }
+            else
+                throw new Exception();
+
+            this.inQuestion = false;
+            this.currDoor = null;
+        }
+
+        private void closeUsedDoor() {
+            Point p = this.currDoor.getPosition();
+
+            if ((p.X - 96) % 128 == 0) {
+                int x = (p.X - 96) / 128;
+                int y = (p.Y - 32) / 128;
+
+                Room r = this.map.getRoom(y, x);
+
+                r.setDoorRight(((DoorUsed)this.currDoor).lockDoor());
+            }
+            else if ((p.Y - 96) % 128 == 0) {
+                int x = (p.X - 32) / 128;
+                int y = (p.Y - 96) / 128;
+
+                Room r = this.map.getRoom(y, x);
+
+                r.setDoorDown(((DoorUsed)this.currDoor).lockDoor());
+            }
+            else
+                throw new Exception();
+
+            this.inQuestion = false;
+            this.currDoor = null;
+
+            if (!this.map.isSolvable())
+                Console.WriteLine("Game Over");
         }
 
         /**

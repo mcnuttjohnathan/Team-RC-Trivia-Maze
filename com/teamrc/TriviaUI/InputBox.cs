@@ -8,23 +8,18 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace TriviaMaze.com.teamrc.TriviaUI {
-    public partial class InputBox : Component {
-        private Rectangle boxImage;
-        private Brush boxColor = Brushes.AntiqueWhite;
-        private Brush borderColor = Brushes.Black;
-
+    public partial class InputBox : A_AnswerBox {
         private String answer;
-        private Font textFont = new Font(FontFamily.GenericSerif, 24);
-        private Brush textColor = Brushes.Black;
-        private PointF textPosition;
-        
-        public InputBox(String answer, TriviaController.Location location) {
+
+        public InputBox(String answer, TriviaController.Location location)
+            : base(new Font(FontFamily.GenericSerif, 24)) {
             InitializeComponent();
 
             this.init(answer, location);
         }
 
-        public InputBox(String answer, TriviaController.Location location, IContainer container) {
+        public InputBox(String answer, TriviaController.Location location, IContainer container)
+            : base(new Font(FontFamily.GenericSerif, 24)) {
             container.Add(this);
 
             InitializeComponent();
@@ -34,20 +29,21 @@ namespace TriviaMaze.com.teamrc.TriviaUI {
 
         private void init(String answer, TriviaController.Location location) {
             this.answer = answer;
+            this.setText("Answer: ");
 
             if (location == TriviaController.Location.TOP) {
-                this.boxImage = new Rectangle(32, 148, 416, 64);
-                this.textPosition = new PointF(48, 160);
+                this.setImage(new Rectangle(32, 148, 416, 64));
+                this.setTextPosition(new PointF(48, 160));
             }
             else if (location == TriviaController.Location.BOTTOM) {
-                this.boxImage = new Rectangle(32, 396, 416, 64);
-                this.textPosition = new PointF(48, 408);
+                this.setImage(new Rectangle(32, 396, 416, 64));
+                this.setTextPosition(new PointF(48, 408));
             }
         }
 
-        public Boolean submitAnswer(String answer) {
-            if (answer.Equals(this.answer))
-                return true;
+        public override Boolean submitAnswer() {
+            //if (answer.Equals(this.answer))
+                //return true;
 
             return false;
         }

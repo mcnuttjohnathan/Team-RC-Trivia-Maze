@@ -8,26 +8,21 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace TriviaMaze.com.teamrc.TriviaUI {
-    public partial class MultipleChoiceBox : Component {
+    public partial class MultipleChoiceBox : A_AnswerBox {
         public enum Letter { A, B, C, D };
-
-        private Rectangle boxImage;
-        private Brush boxColor = Brushes.AntiqueWhite;
-        private Brush borderColor = Brushes.Black;
 
         private String answer;
         private Boolean correct;
-        private Font textFont = new Font(FontFamily.GenericSerif, 12);
-        private Brush textColor = Brushes.Black;
-        private PointF textPosition;
-        
-        public MultipleChoiceBox(String answer, Boolean correct, TriviaController.Location location, Letter letter) {
+
+        public MultipleChoiceBox(String answer, Boolean correct, TriviaController.Location location, Letter letter)
+            : base(new Font(FontFamily.GenericSerif, 12)) {
             InitializeComponent();
 
             this.init(answer, correct, location, letter);
         }
 
-        public MultipleChoiceBox(String answer, Boolean correct, TriviaController.Location location, Letter letter, IContainer container) {
+        public MultipleChoiceBox(String answer, Boolean correct, TriviaController.Location location, Letter letter, IContainer container)
+            : base(new Font(FontFamily.GenericSerif, 12)) {
             container.Add(this);
 
             InitializeComponent();
@@ -41,43 +36,51 @@ namespace TriviaMaze.com.teamrc.TriviaUI {
 
             if (location == TriviaController.Location.TOP) {
                 if (letter == Letter.A) {
-                    this.boxImage = new Rectangle(32, 148, 200, 32);
-                    this.textPosition = new PointF(48, 152);
+                    this.setImage(new Rectangle(32, 148, 200, 32));
+                    this.setTextPosition(new PointF(48, 152));
+                    this.setText("1) " + answer);
                 }
                 else if (letter == Letter.B) {
-                    this.boxImage = new Rectangle(248, 148, 200, 32);
-                    this.textPosition = new PointF(260, 152);
+                    this.setImage(new Rectangle(248, 148, 200, 32));
+                    this.setTextPosition(new PointF(260, 152));
+                    this.setText("2) " + answer);
                 }
                 else if (letter == Letter.C) {
-                    this.boxImage = new Rectangle(32, 184, 200, 32);
-                    this.textPosition = new PointF(48, 188);
+                    this.setImage(new Rectangle(32, 184, 200, 32));
+                    this.setTextPosition(new PointF(48, 188));
+                    this.setText("3) " + answer);
                 }
                 else if (letter == Letter.D) {
-                    this.boxImage = new Rectangle(248, 184, 200, 32);
-                    this.textPosition = new PointF(260, 188);
+                    this.setImage(new Rectangle(248, 184, 200, 32));
+                    this.setTextPosition(new PointF(260, 188));
+                    this.setText("4) " + answer);
                 }
             }
             else if (location == TriviaController.Location.BOTTOM) {
                 if (letter == Letter.A) {
-                    this.boxImage = new Rectangle(32, 396, 200, 32);
-                    this.textPosition = new PointF(48, 400);
+                    this.setImage(new Rectangle(32, 396, 200, 32));
+                    this.setTextPosition(new PointF(48, 400));
+                    this.setText("1) " + answer);
                 }
                 else if (letter == Letter.B) {
-                    this.boxImage = new Rectangle(248, 396, 200, 32);
-                    this.textPosition = new PointF(260, 400);
+                    this.setImage(new Rectangle(248, 396, 200, 32));
+                    this.setTextPosition(new PointF(260, 400));
+                    this.setText("2) " + answer);
                 }
                 else if (letter == Letter.C) {
-                    this.boxImage = new Rectangle(32, 432, 200, 32);
-                    this.textPosition = new PointF(48, 436);
+                    this.setImage(new Rectangle(32, 432, 200, 32));
+                    this.setTextPosition(new PointF(48, 436));
+                    this.setText("3) " + answer);
                 }
                 else if (letter == Letter.D) {
-                    this.boxImage = new Rectangle(248, 432, 200, 32);
-                    this.textPosition = new PointF(260, 436);
+                    this.setImage(new Rectangle(248, 432, 200, 32));
+                    this.setTextPosition(new PointF(260, 436));
+                    this.setText("4) " + answer);
                 }
             }
         }// end init
 
-        public Boolean submitAnswer() {
+        public override Boolean submitAnswer() {
             return correct;
         }
     }
