@@ -16,16 +16,21 @@ using System.Drawing;
 using TriviaMaze.com.teamrc.graphics;
 using TriviaMaze.com.teamrc.SaveUtil;
 
-namespace TriviaMaze.com.teamrc.savefiles{
-    class SaveLoadDriver{
+namespace TriviaMaze.com.teamrc.savefiles
+{
+    internal class SaveLoadDriver
+    {
 
-        Player player;
-        Map map;
-        
+        private Player player;
+        private Map map;
+        private Point p;
+
         /*
          *This is the default constructor, used to load in a map
          */
-        public SaveLoadDriver(){
+
+        public SaveLoadDriver()
+        {
             load();
         }
 
@@ -36,7 +41,9 @@ namespace TriviaMaze.com.teamrc.savefiles{
          * @param m - the map to be saved
          * @param qs - the question source to be saved
          **/
-        public SaveLoadDriver(Player p, Map m){
+
+        public SaveLoadDriver(Player p, Map m)
+        {
             this.player = p;
             this.map = m;
             save();
@@ -46,29 +53,40 @@ namespace TriviaMaze.com.teamrc.savefiles{
          * This is the save method which goes through the map array and writes out the data needed
          * to the file savedata.txt
          **/
-        public void save(){
+
+        public void save()
+        {
             Console.WriteLine("Saving Data...");
 
             string data = "";
             Room[,] r = this.map.getRooms();
             data += r.GetLength(0) + " " + r.GetLength(1) + "\n";
 
-            for (int i = 0; i < r.GetLength(0); i++){
-                for (int j = 0; j < r.GetLength(1); j++){
+            for (int i = 0; i < r.GetLength(0); i++)
+            {
+                for (int j = 0; j < r.GetLength(1); j++)
+                {
 
-                    String s = i + " " + j + " " + r[i,j].getExits() + " ";
+                    String s = i + " " + j + " " + r[i, j].getExits() + " ";
 
-                    if(r[i,j].getExits() != 0){
+                    if (r[i, j].getExits() != 0)
+                    {
 
-                        if (r[i, j].getExits() % 2 == 1){
+                        if (r[i, j].getExits()%2 == 1)
+                        {
                             s += (r[i, j].getDoorRight().toString()) + " ";
-                        }else{
+                        }
+                        else
+                        {
                             s += "X ";
                         }
 
-                        if (r[i, j].getExits() > 1){
+                        if (r[i, j].getExits() > 1)
+                        {
                             s += (r[i, j].getDoorDown().toString());
-                        } else{
+                        }
+                        else
+                        {
                             s += "X";
                         }
 
@@ -92,7 +110,9 @@ namespace TriviaMaze.com.teamrc.savefiles{
         /** 
          * The method called to read in and convert data from the savedata.txt
          **/
-        public void load(){
+
+        public void load()
+        {
 
             Console.WriteLine("Loading File...");
 
@@ -101,26 +121,26 @@ namespace TriviaMaze.com.teamrc.savefiles{
             string s = objectToSerialize.Map;
             int x = objectToSerialize.PlayerXLoc;
             int y = objectToSerialize.PlayerYLoc;
+            this.p = new Point(x, y);
 
-            
-            nm.setRooms(objectToSerialize.Map);
+            string[] mapString = s.Split('\n');
 
-            String line;
-            System.IO.StreamReader file = new System.IO.StreamReader("savedata.txt");
-
-            line = file.ReadLine();
-            int h = (int)Char.GetNumericValue(line[0]);
-            int w = (int)Char.GetNumericValue(line[2]);
+            int h = (int) Char.GetNumericValue(mapString[0][0]);
+            int w = (int) Char.GetNumericValue(mapString[0][2]);
+            Map nmap = new Map(h, w);
             Room[,] recoveredMap = new Room[h, w];
 
             Point p = new Point(0, 0);
 
-            for (int i = 0; i < h; i++){
-                for (int j = 0; j < w; j++){
+            for (int i = 0; i < h; i++)
+            {
+                for (int j = 0; j < w; j++)
+                {
 
                     Room r = new Room(0, p);
 
-                    if (i == h - 1 && j == w - 1){
+                    if (i == h - 1 && j == w - 1)
+                    {
                         r.makeFinish();
                     }
 
@@ -131,53 +151,77 @@ namespace TriviaMaze.com.teamrc.savefiles{
                 p.Y = p.Y + 128;
                 p.X = 0;
             }
+            int count = 0;
+            for (int m = 0; m < h; m++)
+            {
+                for (int n = 0; n < w; n++)
+                {
+                    count++;
+                    String line = mapString[count];
 
-            for (int m = 0; m < h; m++){
-                for (int n = 0; n < w; n++){
-                    line = file.ReadLine();
+                    if (line != null)
+                    {
+                        recoveredMap[m, n].setExits((int) Char.GetNumericValue(line[4]));
 
-                    if (line != null){
-                        try{
+                        Point loc = recoveredMap[m, n].getLocation();
 
-                            recoveredMap[m, n].setExits((int)Char.GetNumericValue(line[4]));
+                        if ((int) Char.GetNumericValue(line[4])%2 == 1)
+                        {
 
-                            if ((int)Char.GetNumericValue(line[4]) % 2 == 1){
-                                if (line[6] == 'N'){
-                                    DoorNew d = new DoorNew(0, 0);
-                                    recoveredMap[m, n].setDoorRight(d);
-                                }
 
-                                if (line[8] == 'N'){
-                                    DoorNew d = new DoorNew(0, 0);
-                                    recoveredMap[m, n].setDoorDown(d);
-                                }
-
+                            if (line[6] == 'N' || line[6] == 'U')
+                            {
+                                DoorNew d = new DoorNew(loc.X + 96, loc.Y + 32);
+                                recoveredMap[m, n].setDoorRight(d);
                             }
+                            else if (line[6] == 'L')
+                            {
+                                DoorLocked d = new DoorLocked(loc.X + 96, loc.Y + 32);
+                                recoveredMap[m, n].setDoorRight(d);
+                            }
+                            else
+                            {
+                                DoorUnlocked d = new DoorUnlocked(loc.X + 96, loc.Y + 32);
+                                recoveredMap[m, n].setDoorRight(d);
+                            }
+                        }
+                        if ((int) Char.GetNumericValue(line[4]) > 1)
+                        {
+                            if (line[8] == 'N' || line[8] == 'U')
+                            {
+                                DoorNew d = new DoorNew(loc.X + 32, loc.Y + 96);
+                                recoveredMap[m, n].setDoorDown(d);
+                            }
+                            else if (line[8] == 'L')
+                            {
+                                DoorLocked d = new DoorLocked(loc.X + 32, loc.Y + 96);
+                                recoveredMap[m, n].setDoorDown(d);
+                            }
+                            else
+                            {
+                                DoorUnlocked d = new DoorUnlocked(loc.X + 32, loc.Y + 96);
+                                recoveredMap[m, n].setDoorDown(d);
+                            }
+                        }
 
-                        }
-                        catch (Exception e){
-                            Console.WriteLine(e);
-                        }
+
                     }
                 }
             }
-
-            file.Close();
-            Map nMap = new Map(recoveredMap, h, w);
-            this.map = nMap;
-
-            
+            nmap.setRooms(recoveredMap);
+            this.map = nmap;
 
         }
 
-        /**
-         * This returns the Map from the loaded 
-         * 
-         * @return map - the map read in from the file converted back to a map object
-         **/
-        public Map getLoadMap(){
+        public Point getPlayer()
+        {
+            return this.p;
+        }
+
+        public Map getMap()
+        {
             return this.map;
         }
-
     }
+
 }

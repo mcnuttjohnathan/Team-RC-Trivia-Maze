@@ -49,6 +49,10 @@ namespace TriviaMaze {
          */
         private void button4_Click(object sender, EventArgs e) {
             //loading game code goes here.
+            SaveLoadDriver sld = new SaveLoadDriver();
+            Map m = sld.getMap();
+            Point p = sld.getPlayer();
+            Gameplay game = new Gameplay(p.X, p.Y, m);
         }
 
         /**

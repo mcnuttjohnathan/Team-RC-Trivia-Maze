@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using TriviaMaze.com.teamrc.gameobjects;
+using TriviaMaze.com.teamrc.savefiles;
 using TriviaMaze.com.teamrc.TriviaUI;
 using TriviaMaze.com.teamrc.util;
 
@@ -205,7 +206,7 @@ namespace TriviaMaze.com.teamrc.graphics {
             }
 
             else if (e.KeyCode.Equals(Keys.D0)) {
-                //saving goes here
+                SaveLoadDriver sld = new SaveLoadDriver(player, map);
             }
         }
 
