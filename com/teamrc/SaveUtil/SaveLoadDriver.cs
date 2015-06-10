@@ -91,7 +91,7 @@ namespace TriviaMaze.com.teamrc.savefiles
                         }
 
                     }
-                    data += s;
+                    data += s + "\n";
                 }
             }
 

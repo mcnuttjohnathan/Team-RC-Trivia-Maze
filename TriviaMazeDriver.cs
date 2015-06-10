@@ -53,6 +53,7 @@ namespace TriviaMaze {
             Map m = sld.getMap();
             Point p = sld.getPlayer();
             Gameplay game = new Gameplay(p.X, p.Y, m);
+            game.Show();
         }
 
         /**

@@ -48,6 +48,8 @@ namespace TriviaMaze.com.teamrc.graphics {
         }
 
         public Gameplay(int playerX, int playerY, Map map) {
+            InitializeComponent();
+
             this.map = map;
 
             player = new Player(playerX, playerY);
