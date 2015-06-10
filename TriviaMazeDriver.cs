@@ -36,68 +36,67 @@ namespace TriviaMaze {
         }
 
         /**
-         * When clicked opens a window that demos the basic graphics
-         * and movement. WASD too move. The player can only move on
-         * flooring.
+         * Starts a new game for the player.
          */
         private void button1_Click(object sender, EventArgs e) {
-            Gameplay demo = new Gameplay();
-            demo.Show();
+            Gameplay game = new Gameplay();
+            game.Show();
             //this.Close();
         }
 
+        /**
+         * Loads a previously saved game for the player.
+         */
+        private void button4_Click(object sender, EventArgs e) {
+            //loading game code goes here.
+        }
+
+        /**
+         * Opens a window with instructions for how to play.
+         */
         private void button2_Click(object sender, EventArgs e) {
-            //Code for printing directions goes here
 
-            Console.WriteLine("Purpose: \n" +
-                              "You must lead the Player through the Knowledge Maze. \n" +
-                              "Along the way, you must solve questions to open doors. \n" +
-                              "If you get a question wrong, that door will be permanently locked. \n" +
-                              "The game is over when the Player either reaches the finish, \n" +
-                              "or all possible routes to the exit are blocked with impassable doors. \n \n");
-    
-            Console.WriteLine("Controls: \n" +
-                              " Move: \n" + 
-                              "      UP : Up Arrow Key \n" +
-                              "      DOWN : Down Arrow Key \n" +
-                              "      LEFT : Left Arrow Key \n" +
-                              "      RIGHT : Right Arrow Key \n \n" +
-                              " Answer Questions: \n" +
-                              "      Multiple Choice : Use Number Keys (or click?) \n" +
-                              "      True or False : Use T or F Keys (or click?) \n" +
-                              "      Short Answer : Use Keyboard to type answer, then press Enter \n");
+            Form f = new Form();
+            TextBox t = new TextBox();
 
-            Console.WriteLine("\n \n \nThis is testing the save functionality. \n");
+            f.Height = 400;
+            f.Width = 480;
 
-            
+            t.AppendText("Purpose: \r\n" +
+                              "You must lead the Player through the Knowledge Labyrinth. \r\n" +
+                              "Along the way, you must solve questions to open doors. \r\n" +
+                              "If you get a question wrong, that door will be permanently locked. \r\n" +
+                              "The game is over when the Player either reaches the finish, \r\n" +
+                              "or all possible routes to the exit are blocked with impassable doors. \r\n \r\n");
 
-            MazeGenerator mg = new MazeGenerator();
-            Map m = mg.generate();
+            t.AppendText("Controls: \r\n" +
+                              " Move: \r\n" +
+                              "      UP : Up Arrow Key \r\n" +
+                              "      DOWN : Down Arrow Key \r\n" +
+                              "      LEFT : Left Arrow Key \r\n" +
+                              "      RIGHT : Right Arrow Key \r\n \r\n" +
+                              " Answer Questions: \r\n" +
+                              "      Multiple Choice : Use Number Keys 1-4 \r\n" +
+                              "      True or False : Use 1 for True and 2 for False \r\n" +
+                              "      Short Answer : Use Keyboard to type answer, then press Enter \r\n");
 
-            //save the car list to a file
-            ObjectToSerialize objectToSerialize = new ObjectToSerialize();
-            objectToSerialize.Map = m.getRooms();
+            t.Enabled = false;
+            t.Multiline = true;
+            t.Dock = DockStyle.Fill;
+            t.Font = new Font(FontFamily.GenericSerif, 12);
+            t.ForeColor = Color.Black;
 
-            Serializer serializer = new Serializer();
-            serializer.SerializeObject(objectToSerialize);
+            f.Text = "Instructions";
 
-            //the car list has been saved to outputFile.txt
-            //read the file back from outputFile.txt
+            f.Controls.Add(t);
 
-            objectToSerialize = serializer.DeSerializeObject();
-            Map nm = mg.generate();
-            nm.setRooms(objectToSerialize.Map);
-
-            Console.WriteLine("First Map: ");
-            Console.WriteLine(m.toString());
-            Console.WriteLine("\nLoaded Map: ");
-            Console.WriteLine(nm.toString());
-             
-
-
+            f.ShowDialog();
 
         }
 
+        /**
+         * starts the database manipulator when clicked.
+         */
         private void button3_Click(object sender, EventArgs e) {
 			Form f = new Form();
 			DBManipulate dbM = new DBManipulate();

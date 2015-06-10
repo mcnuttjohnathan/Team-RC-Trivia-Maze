@@ -37,14 +37,26 @@ namespace TriviaMaze.com.teamrc.graphics {
         public Gameplay() {
             InitializeComponent();
 
-            this.DoubleBuffered = true;
-
-            this.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
-
             this.map = mazeGenerator.generate();
 
             Point start = map.getStart();
             player = new Player(start.X, start.Y);
+
+            this.init();
+        }
+
+        public Gameplay(int playerX, int playerY, Map map) {
+            this.map = map;
+
+            player = new Player(playerX, playerY);
+            
+            this.init();
+        }
+
+        private void init() {
+            this.DoubleBuffered = true;
+
+            this.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
 
             t.Interval = 17;
             t.Tick += new EventHandler(update);
@@ -297,6 +309,36 @@ namespace TriviaMaze.com.teamrc.graphics {
             else if (e.KeyCode.Equals(Keys.Z)) {
                 ((InputBox)this.triviaController.getAnswers()[0]).addCharacter('z');
             }
+            else if (e.KeyCode.Equals(Keys.D0)) {
+                ((InputBox)this.triviaController.getAnswers()[0]).addCharacter('0');
+            }
+            else if (e.KeyCode.Equals(Keys.D1)) {
+                ((InputBox)this.triviaController.getAnswers()[0]).addCharacter('1');
+            }
+            else if (e.KeyCode.Equals(Keys.D2)) {
+                ((InputBox)this.triviaController.getAnswers()[0]).addCharacter('2');
+            }
+            else if (e.KeyCode.Equals(Keys.D3)) {
+                ((InputBox)this.triviaController.getAnswers()[0]).addCharacter('3');
+            }
+            else if (e.KeyCode.Equals(Keys.D4)) {
+                ((InputBox)this.triviaController.getAnswers()[0]).addCharacter('4');
+            }
+            else if (e.KeyCode.Equals(Keys.D5)) {
+                ((InputBox)this.triviaController.getAnswers()[0]).addCharacter('5');
+            }
+            else if (e.KeyCode.Equals(Keys.D6)) {
+                ((InputBox)this.triviaController.getAnswers()[0]).addCharacter('6');
+            }
+            else if (e.KeyCode.Equals(Keys.D7)) {
+                ((InputBox)this.triviaController.getAnswers()[0]).addCharacter('7');
+            }
+            else if (e.KeyCode.Equals(Keys.D8)) {
+                ((InputBox)this.triviaController.getAnswers()[0]).addCharacter('8');
+            }
+            else if (e.KeyCode.Equals(Keys.D9)) {
+                ((InputBox)this.triviaController.getAnswers()[0]).addCharacter('9');
+            }
             else if (e.KeyCode.Equals(Keys.Space)) {
                 ((InputBox)this.triviaController.getAnswers()[0]).addCharacter(' ');
             }
@@ -314,7 +356,7 @@ namespace TriviaMaze.com.teamrc.graphics {
             else if (collider.getType().Equals(CollisionManager.USED_DOOR))
                 this.viewUsedDoor(collider);
             else if (collider.getType().Equals(CollisionManager.FINISH)) {
-                //activates when they beat the game
+                this.gameWon();
             }
         }
 
@@ -409,7 +451,51 @@ namespace TriviaMaze.com.teamrc.graphics {
             this.currDoor = null;
 
             if (!this.map.isSolvable())
-                Console.WriteLine("Game Over");
+                this.gameOver();
+        }
+
+        private void gameOver() {
+            Form f = new Form();
+            TextBox t = new TextBox();
+
+            t.AppendText("There are no more doors to go through\r\n" +
+                "and you are trapped forever!\r\n\r\n" +
+                "Try again, if you are brave.");
+
+            t.Enabled = false;
+            t.Multiline = true;
+            t.Dock = DockStyle.Fill;
+            t.Font = new Font(FontFamily.GenericSerif, 12);
+            t.ForeColor = Color.Black;
+
+            f.Text = "Game Over";
+
+            f.Controls.Add(t);
+
+            f.ShowDialog();
+            this.Close();
+        }
+
+        private void gameWon() {
+            Form f = new Form();
+            TextBox t = new TextBox();
+
+
+            t.AppendText("You have found your way through\r\n" +
+                "The Knowledge Labyrinth\r\n\r\n" +
+                "Congratulations!");
+            t.Enabled = false;
+            t.Multiline = true;
+            t.Dock = DockStyle.Fill;
+            t.Font = new Font(FontFamily.GenericSerif, 12);
+            t.ForeColor = Color.Black;
+
+            f.Text = "Victory";
+
+            f.Controls.Add(t);
+
+            f.ShowDialog();
+            this.Close();
         }
 
         /**
