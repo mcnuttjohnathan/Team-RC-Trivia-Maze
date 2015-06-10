@@ -37,14 +37,26 @@ namespace TriviaMaze.com.teamrc.graphics {
         public Gameplay() {
             InitializeComponent();
 
-            this.DoubleBuffered = true;
-
-            this.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
-
             this.map = mazeGenerator.generate();
 
             Point start = map.getStart();
             player = new Player(start.X, start.Y);
+
+            this.init();
+        }
+
+        public Gameplay(int playerX, int playerY, Map map) {
+            this.map = map;
+
+            player = new Player(playerX, playerY);
+            
+            this.init();
+        }
+
+        private void init() {
+            this.DoubleBuffered = true;
+
+            this.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
 
             t.Interval = 17;
             t.Tick += new EventHandler(update);
@@ -445,9 +457,11 @@ namespace TriviaMaze.com.teamrc.graphics {
         private void gameOver() {
             Form f = new Form();
             TextBox t = new TextBox();
-            
 
-            t.AppendText("You are trapped forever!");
+            t.AppendText("There are no more doors to go through\r\n" +
+                "and you are trapped forever!\r\n\r\n" +
+                "Try again, if you are brave.");
+
             t.Enabled = false;
             t.Multiline = true;
             t.Dock = DockStyle.Fill;
@@ -467,7 +481,9 @@ namespace TriviaMaze.com.teamrc.graphics {
             TextBox t = new TextBox();
 
 
-            t.AppendText("You can smell sweet freedom!");
+            t.AppendText("You have found your way through\r\n" +
+                "The Knowledge Labyrinth\r\n\r\n" +
+                "Congratulations!");
             t.Enabled = false;
             t.Multiline = true;
             t.Dock = DockStyle.Fill;
