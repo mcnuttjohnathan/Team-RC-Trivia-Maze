@@ -48,12 +48,19 @@ namespace TriviaMaze {
          * Loads a previously saved game for the player.
          */
         private void button4_Click(object sender, EventArgs e) {
-            //loading game code goes here.
-            SaveLoadDriver sld = new SaveLoadDriver();
-            Map m = sld.getMap();
-            Point p = sld.getPlayer();
-            Gameplay game = new Gameplay(p.X, p.Y, m);
-            game.Show();
+           //loading game code goes here.
+           try{
+                SaveLoadDriver sld = new SaveLoadDriver();
+                Map m = sld.getMap();
+                Point p = sld.getPlayer();
+                Gameplay game = new Gameplay(p.X, p.Y, m);
+                game.Show();
+           }
+           catch (FileNotFoundException fnf)
+           {
+               Gameplay game = new Gameplay();
+               game.Show();
+           }
         }
 
         /**
