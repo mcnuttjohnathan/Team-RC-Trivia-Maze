@@ -315,7 +315,7 @@ namespace TriviaMaze.com.teamrc.gameobjects{
          * to make it easier for the player to get to the exit
          **/
         public void addDoors(){
-            double chance = .1;
+            double chance = .3;
 
             for (int i = 0; i < this.height; i++){
                 for (int j = 0; j < this.width; j++){
