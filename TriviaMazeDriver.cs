@@ -68,6 +68,9 @@ namespace TriviaMaze {
                               "      Short Answer : Use Keyboard to type answer, then press Enter \n");
 
             Console.WriteLine("\n \n \nThis is testing the save functionality. \n");
+
+            
+
             MazeGenerator mg = new MazeGenerator();
             Map m = mg.generate();
 
@@ -89,6 +92,8 @@ namespace TriviaMaze {
             Console.WriteLine(m.toString());
             Console.WriteLine("\nLoaded Map: ");
             Console.WriteLine(nm.toString());
+             
+
 
 
         }

@@ -8,19 +8,19 @@ using TriviaMaze.com.teamrc.gameobjects;
 using DatabaseSystem;
 using System.Windows.Forms.VisualStyles;
 using System.Drawing;
-
 /**
  * This class allows the user to save the map to a file and read it back in
  * 
  * @author Zoe Baker
  **/
+using TriviaMaze.com.teamrc.graphics;
+using TriviaMaze.com.teamrc.SaveUtil;
 
 namespace TriviaMaze.com.teamrc.savefiles{
     class SaveLoadDriver{
 
         Player player;
         Map map;
-        QuestionSource questionSource;
         
         /*
          *This is the default constructor, used to load in a map
@@ -36,10 +36,9 @@ namespace TriviaMaze.com.teamrc.savefiles{
          * @param m - the map to be saved
          * @param qs - the question source to be saved
          **/
-        public SaveLoadDriver(Player p, Map m, QuestionSource qs){
+        public SaveLoadDriver(Player p, Map m){
             this.player = p;
             this.map = m;
-            this.questionSource = qs;
             save();
         }
 
@@ -50,9 +49,9 @@ namespace TriviaMaze.com.teamrc.savefiles{
         public void save(){
             Console.WriteLine("Saving Data...");
 
-            StreamWriter write = new StreamWriter("savedata.txt");
+            string data = "";
             Room[,] r = this.map.getRooms();
-            write.WriteLine(r.GetLength(0) + " " + r.GetLength(1));
+            data += r.GetLength(0) + " " + r.GetLength(1) + "\n";
 
             for (int i = 0; i < r.GetLength(0); i++){
                 for (int j = 0; j < r.GetLength(1); j++){
@@ -74,11 +73,19 @@ namespace TriviaMaze.com.teamrc.savefiles{
                         }
 
                     }
-                    write.WriteLine(s);
+                    data += s;
                 }
             }
 
-            write.Close();
+            ObjectToSerialize objectToSerialize = new ObjectToSerialize();
+            objectToSerialize.Map = data;
+            Point p = this.player.getPosition();
+            objectToSerialize.PlayerXLoc = p.X;
+            objectToSerialize.PlayerYLoc = p.Y;
+
+            Serializer serializer = new Serializer();
+            serializer.SerializeObject(objectToSerialize);
+
             Console.WriteLine("Data Saved.");
         }
 
@@ -88,6 +95,15 @@ namespace TriviaMaze.com.teamrc.savefiles{
         public void load(){
 
             Console.WriteLine("Loading File...");
+
+            Serializer serializer = new Serializer();
+            ObjectToSerialize objectToSerialize = serializer.DeSerializeObject();
+            string s = objectToSerialize.Map;
+            int x = objectToSerialize.PlayerXLoc;
+            int y = objectToSerialize.PlayerYLoc;
+
+            
+            nm.setRooms(objectToSerialize.Map);
 
             String line;
             System.IO.StreamReader file = new System.IO.StreamReader("savedata.txt");
@@ -149,6 +165,8 @@ namespace TriviaMaze.com.teamrc.savefiles{
             file.Close();
             Map nMap = new Map(recoveredMap, h, w);
             this.map = nMap;
+
+            
 
         }
 

@@ -57,7 +57,7 @@ namespace TriviaMaze.com.teamrc.gameobjects{
         }
 
         public Map(SerializationInfo info, StreamingContext ctxt)
-        {
+        { 
             this.map = (Room[,])info.GetValue("Map", typeof(Room[,]));
             this.height = 4;
             this.width = 4;
