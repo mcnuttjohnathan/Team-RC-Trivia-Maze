@@ -123,7 +123,15 @@ namespace TriviaMaze.com.teamrc.savefiles
             int y = objectToSerialize.PlayerYLoc;
             this.p = new Point(x, y);
 
+            Console.WriteLine("This is the string before the split : \n{0}", s);
+
             string[] mapString = s.Split('\n');
+
+            Console.WriteLine("This is the string after the split:");
+            for (int i = 0; i < mapString.GetLength(0); i++)
+            {
+                Console.WriteLine(mapString[i]);
+            }
 
             int h = (int) Char.GetNumericValue(mapString[0][0]);
             int w = (int) Char.GetNumericValue(mapString[0][2]);
