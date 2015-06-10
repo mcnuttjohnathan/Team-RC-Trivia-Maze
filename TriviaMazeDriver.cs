@@ -16,8 +16,6 @@ using DatabaseSystem;
 using DatabaseSystem.Controls;
 using System.IO;
 using TriviaMaze.com.teamrc.savefiles;
-
-
 /**
  * Driver class for Team Rapidash Cachers Trivia Maze project for CSCD 350 in Spring 2015
  * 
@@ -29,6 +27,8 @@ using TriviaMaze.com.teamrc.savefiles;
  * Zoe Baker - Maze Generation
  * Ted Bickham - Database Management
  */
+using TriviaMaze.com.teamrc.SaveUtil;
+
 namespace TriviaMaze {
     public partial class TriviaMazeDriver : Form {
         public TriviaMazeDriver() {
@@ -70,18 +70,27 @@ namespace TriviaMaze {
             Console.WriteLine("\n \n \nThis is testing the save functionality. \n");
             MazeGenerator mg = new MazeGenerator();
             Map m = mg.generate();
-            Player p = new Player(0,0);
-            QuestionSource qs = new QuestionSource();
+
+            //save the car list to a file
+            ObjectToSerialize objectToSerialize = new ObjectToSerialize();
+            objectToSerialize.Map = m.getRooms();
+
+            Serializer serializer = new Serializer();
+            serializer.SerializeObject(objectToSerialize);
+
+            //the car list has been saved to outputFile.txt
+            //read the file back from outputFile.txt
+
+            objectToSerialize = serializer.DeSerializeObject();
+            Map nm = mg.generate();
+            nm.setRooms(objectToSerialize.Map);
+
+            Console.WriteLine("First Map: ");
             Console.WriteLine(m.toString());
+            Console.WriteLine("\nLoaded Map: ");
+            Console.WriteLine(nm.toString());
 
-            SaveLoadDriver sld = new SaveLoadDriver(p, m, qs);
 
-            sld.load();
-            Map loadedMap = sld.getLoadMap();
-            Console.WriteLine("The loaded map data.");
-            Console.WriteLine(loadedMap.toString());
-
-            
         }
 
         private void button3_Click(object sender, EventArgs e) {

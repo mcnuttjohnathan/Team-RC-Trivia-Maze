@@ -10,6 +10,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms.VisualStyles;
@@ -48,6 +49,22 @@ namespace TriviaMaze.com.teamrc.gameobjects{
 
             InitializeComponent();
         }
+
+        public Room(SerializationInfo info, StreamingContext ctxt)
+        {
+            this.exits = (int)info.GetValue("Exit", typeof(int));
+            this.location = new Point((int) info.GetValue("X", typeof (int)), (int) info.GetValue("Y", typeof (int)));
+            this.connected = (Boolean)info.GetValue("Connected", typeof(Boolean));
+        }
+
+        public void GetObjectData(SerializationInfo info, StreamingContext ctxt)
+        {
+            info.AddValue("Exit", this.exits);
+            info.AddValue("X", this.location.X);
+            info.AddValue("Y", this.location.Y);
+            info.AddValue("Connected", this.connected);
+        }
+
 
         /**
          * This initializes the array of the room using the default size hardcoded, and fills it will floors and a surrounding of emptyness

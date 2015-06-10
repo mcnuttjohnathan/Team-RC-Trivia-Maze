@@ -168,7 +168,9 @@
       <DependentUpon>Gameplay.cs</DependentUpon>
     </Compile>
     <Compile Include="com\teamrc\MazeGen\MazeGenerator.cs" />
+    <Compile Include="com\teamrc\SaveUtil\ObjectToSerialize.cs" />
     <Compile Include="com\teamrc\SaveUtil\SaveLoadDriver.cs" />
+    <Compile Include="com\teamrc\SaveUtil\Serializer.cs" />
     <Compile Include="com\teamrc\TriviaUI\A_AnswerBox.cs">
       <SubType>Component</SubType>
     </Compile>

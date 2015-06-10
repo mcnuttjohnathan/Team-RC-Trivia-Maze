@@ -11,6 +11,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms.VisualStyles;
@@ -55,6 +56,22 @@ namespace TriviaMaze.com.teamrc.gameobjects{
             this.finish = new Point(this.height - 1, this.width - 1);
         }
 
+        public Map(SerializationInfo info, StreamingContext ctxt)
+        {
+            this.map = (Room[,])info.GetValue("Map", typeof(Room[,]));
+            this.height = 4;
+            this.width = 4;
+            this.rnd = new Random();
+            this.start = new Point(0,0);
+            this.finish = new Point();
+        }
+
+        public void GetObjectData(SerializationInfo info, StreamingContext ctxt)
+        {
+            info.AddValue("Map", this.map);
+        }
+
+
         public Map(IContainer container){
             container.Add(this);
 
@@ -81,6 +98,16 @@ namespace TriviaMaze.com.teamrc.gameobjects{
          **/
         public void setRoom(int i, int j, Room r){
             this.map[i, j] = r;
+        }
+
+        /**
+         * setRoom sets the room array to a new array
+         *@param r - the new room array to be set to
+         **/
+
+        public void setRooms(Room[,] r)
+        {
+            this.map = r;
         }
 
         /**
