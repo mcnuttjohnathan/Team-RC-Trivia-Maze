@@ -26,6 +26,7 @@ namespace TriviaMaze.com.teamrc.graphics {
         private Timer t = new Timer();
 
         private Boolean inQuestion = false;
+        private Boolean victorySignal = false;
         private QuestionSource questionSource = new QuestionSource("./");
         private TriviaController triviaController = new TriviaController();
 
@@ -104,9 +105,17 @@ namespace TriviaMaze.com.teamrc.graphics {
 
         /**
          * draws the window graphics approximately 60 times per second
+         * and checks if the player has won the game.
          */
         private void update(object sender, EventArgs e) {
             this.Invalidate();
+
+            Point pp = this.player.getPosition();
+
+            if (pp.X == 416 && pp.Y == 416 && !this.victorySignal) {
+                this.victorySignal = true;
+                this.gameWon();
+            }
         }
         
 
@@ -120,52 +129,52 @@ namespace TriviaMaze.com.teamrc.graphics {
                 I_Collidable collider = 
                     CollisionManager.testPlayerCollision(new Point(this.player.playerImage.X, this.player.playerImage.Y - 32), this.player);
 
+                this.otherCollisions(collider);
+
                 if (collider.getType().Equals(CollisionManager.FLOOR)) {
                     this.player.moveUp();
                     this.inQuestion = false;
                     this.currDoor = null;
                 }
-                else
-                    this.otherCollisions(collider);
             }
 
             else if (e.KeyCode.Equals(Keys.Down)) {
                 I_Collidable collider =
                     CollisionManager.testPlayerCollision(new Point(this.player.playerImage.X, this.player.playerImage.Y + 32), this.player);
 
+                this.otherCollisions(collider);
+
                 if (collider.getType().Equals(CollisionManager.FLOOR)) {
                     this.player.moveDown();
                     this.inQuestion = false;
                     this.currDoor = null;
                 }
-                else
-                    this.otherCollisions(collider);
             }
 
             else if (e.KeyCode.Equals(Keys.Left)) {
                 I_Collidable collider =
                     CollisionManager.testPlayerCollision(new Point(this.player.playerImage.X - 32, this.player.playerImage.Y), this.player);
 
+                this.otherCollisions(collider);
+
                 if (collider.getType().Equals(CollisionManager.FLOOR)) {
                     this.player.moveLeft();
                     this.inQuestion = false;
                     this.currDoor = null;
                 }
-                else
-                    this.otherCollisions(collider);
             }
 
             else if (e.KeyCode.Equals(Keys.Right)) {
                 I_Collidable collider =
                     CollisionManager.testPlayerCollision(new Point(this.player.playerImage.X + 32, this.player.playerImage.Y), this.player);
 
+                this.otherCollisions(collider);
+
                 if (collider.getType().Equals(CollisionManager.FLOOR)) {
                     this.player.moveRight();
                     this.inQuestion = false;
                     this.currDoor = null;
                 }
-                else
-                    this.otherCollisions(collider);
             }
             else if (this.inQuestion) {
                 int i = this.triviaController.getAnswers().GetLength(0);
@@ -351,13 +360,13 @@ namespace TriviaMaze.com.teamrc.graphics {
         }
 
         private void otherCollisions(I_Collidable collider) {
+            //this collision doesn't work and I don't know why.
+            //if (collider.getType().Equals(CollisionManager.FINISH))
+                //this.gameWon();
             if (collider.getType().Equals(CollisionManager.NEW_DOOR))
                 this.openNewDoor(collider);
             else if (collider.getType().Equals(CollisionManager.USED_DOOR))
                 this.viewUsedDoor(collider);
-            else if (collider.getType().Equals(CollisionManager.FINISH)) {
-                this.gameWon();
-            }
         }
 
         private void openNewDoor(I_Collidable door) {

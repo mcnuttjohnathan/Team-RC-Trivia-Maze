@@ -103,7 +103,7 @@ namespace TriviaMaze.com.teamrc.savefiles{
             int y = objectToSerialize.PlayerYLoc;
 
             
-            nm.setRooms(objectToSerialize.Map);
+            //nm.setRooms(objectToSerialize.Map);
 
             String line;
             System.IO.StreamReader file = new System.IO.StreamReader("savedata.txt");
