@@ -33,8 +33,8 @@
             this.Name = "Gameplay";
             this.Text = "Knowledge Labyrinth";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Gameplay_FormClosed);
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Gameplay_KeyDown_1);
-            this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Gameplay_KeyUp_1);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.gameplay_KeyDown);
+            this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.gameplay_KeyUp);
             this.ResumeLayout(false);
 
         }

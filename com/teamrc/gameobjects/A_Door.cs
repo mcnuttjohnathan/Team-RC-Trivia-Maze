@@ -16,8 +16,8 @@ using TriviaMaze.com.teamrc.util;
  */
 namespace TriviaMaze.com.teamrc.gameobjects {
     public abstract partial class A_Door : Component, I_Collidable {
-        public Rectangle doorImage;
-        public Brush doorColor;
+        protected Rectangle _doorImage;
+        protected Brush _doorColor;
 
         public String type;
 
@@ -34,7 +34,7 @@ namespace TriviaMaze.com.teamrc.gameobjects {
             if (x % 32 != 0 || y % 32 != 0)
                 throw new Exception();
 
-            this.doorImage = new Rectangle(x, y, 32, 32);
+            this._doorImage = new Rectangle(x, y, 32, 32);
         }
 
         /**
@@ -51,18 +51,18 @@ namespace TriviaMaze.com.teamrc.gameobjects {
             if (x % 32 != 0 || y % 32 != 0)
                 throw new Exception();
 
-            this.doorImage = new Rectangle(x, y, 32, 32);
+            this._doorImage = new Rectangle(x, y, 32, 32);
         }
 
         /**
          * @returns image - the doors rectangle image
          */
-        public Rectangle getImage() { return this.doorImage; }
+        public Rectangle getImage() { return this._doorImage; }
 
         /**
          * @returns color
          */
-        public Brush getColor() { return this.doorColor; }
+        public Brush getColor() { return this._doorColor; }
 
         /**
          * @returns type - a string represtation of its type
@@ -77,7 +77,7 @@ namespace TriviaMaze.com.teamrc.gameobjects {
         /**
          * @return position - the doors x and y position.
          */
-        public Point getPosition() { return new Point(this.doorImage.X, this.doorImage.Y); }
+        public Point getPosition() { return new Point(this._doorImage.X, this._doorImage.Y); }
 
         /**
          * @returns character representation for mapping purposes

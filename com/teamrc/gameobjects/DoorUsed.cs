@@ -18,7 +18,7 @@ using TriviaMaze.com.teamrc.util;
  */
 namespace TriviaMaze.com.teamrc.gameobjects {
     public partial class DoorUsed : A_Door {
-        QuestionAnswer questionAnswer;
+        private QuestionAnswer _questionAnswer;
         
         /**
          * Constructs the Used Door Component
@@ -54,9 +54,9 @@ namespace TriviaMaze.com.teamrc.gameobjects {
             if (questionAnswer == null)
                 throw new NullReferenceException();
             
-            this.questionAnswer = questionAnswer;
+            this._questionAnswer = questionAnswer;
 
-            this.doorColor = Brushes.DarkOrange;
+            this._doorColor = Brushes.DarkOrange;
 
             this.type = CollisionManager.USED_DOOR;
 
@@ -72,7 +72,7 @@ namespace TriviaMaze.com.teamrc.gameobjects {
         public DoorUnlocked unlockDoor() {
             CollisionManager.remove(this);
 
-            return new DoorUnlocked(this.doorImage.X, this.doorImage.Y);
+            return new DoorUnlocked(this._doorImage.X, this._doorImage.Y);
         }
 
         /**
@@ -84,10 +84,10 @@ namespace TriviaMaze.com.teamrc.gameobjects {
         public DoorLocked lockDoor() {
             CollisionManager.remove(this);
 
-            return new DoorLocked(this.doorImage.X, this.doorImage.Y);
+            return new DoorLocked(this._doorImage.X, this._doorImage.Y);
         }
 
-        public QuestionAnswer getQuestionAnswer() { return this.questionAnswer; }
+        public QuestionAnswer getQuestionAnswer() { return this._questionAnswer; }
 
         /**
          * Returns a character representation of the door.

@@ -47,7 +47,7 @@ namespace TriviaMaze.com.teamrc.gameobjects {
          * Initializes the Component
          */
         private void init() {
-            this.doorColor = Brushes.BurlyWood;
+            this._doorColor = Brushes.BurlyWood;
 
             this.type = CollisionManager.FLOOR;
 

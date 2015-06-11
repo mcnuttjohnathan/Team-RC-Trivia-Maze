@@ -15,8 +15,8 @@ using TriviaMaze.com.teamrc.util;
  */
 namespace TriviaMaze.com.teamrc.gameobjects {
     public partial class Finish : Component, I_Collidable {
-        public Rectangle finishImage;
-        public Brush finishColor = Brushes.Green;
+        private Rectangle _finishImage;
+        private Brush _finishColor = Brushes.Green;
 
         public String type = CollisionManager.FINISH;
 
@@ -52,7 +52,7 @@ namespace TriviaMaze.com.teamrc.gameobjects {
          * Initializes the component
          */
         private void init(int x, int y) {
-            finishImage = new Rectangle(x, y, 32, 32);
+            _finishImage = new Rectangle(x, y, 32, 32);
 
             CollisionManager.add(this);
         }
@@ -75,21 +75,21 @@ namespace TriviaMaze.com.teamrc.gameobjects {
          * @returns color
          */
         public Brush getColor() {
-            return this.finishColor;
+            return this._finishColor;
         }
 
         /**
          * @returns image - rectangle image of the finish
          */
         public Rectangle getImage() {
-            return this.finishImage;
+            return this._finishImage;
         }
 
         /**
          * @returns position - Point
          */
         public Point getPosition() {
-            return new Point(this.finishImage.X, this.finishImage.Y);
+            return new Point(this._finishImage.X, this._finishImage.Y);
         }
 
         /**

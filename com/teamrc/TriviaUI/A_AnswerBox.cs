@@ -14,14 +14,14 @@ using System.Threading.Tasks;
  */
 namespace TriviaMaze.com.teamrc.TriviaUI {
     public abstract partial class A_AnswerBox : Component {
-        private Rectangle _boxImage = new Rectangle(0, 0, 32, 32);
-        private Brush _boxColor = Brushes.AntiqueWhite;
-        private Brush _borderColor = Brushes.Black;
+        protected Rectangle _boxImage = new Rectangle(0, 0, 32, 32);
+        protected Brush _boxColor = Brushes.AntiqueWhite;
+        protected Brush _borderColor = Brushes.Black;
 
-        private String _text;
-        private Font _textFont;
-        private Brush _textColor = Brushes.Black;
-        private PointF _textPosition = new PointF();
+        protected String _text;
+        protected Font _textFont;
+        protected Brush _textColor = Brushes.Black;
+        protected PointF _textPosition = new PointF();
         
         /**
          * Constructs the abstract answer box component.

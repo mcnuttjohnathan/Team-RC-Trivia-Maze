@@ -16,8 +16,8 @@ using TriviaMaze.com.teamrc.util;
  */
 namespace TriviaMaze.com.teamrc.gameobjects {
     public partial class Floor : Component, I_Collidable {
-        public Rectangle floorImage;
-        public Brush floorColor = Brushes.BurlyWood;
+        private Rectangle _floorImage;
+        private Brush _floorColor = Brushes.BurlyWood;
 
         public String type = CollisionManager.FLOOR;
 
@@ -62,7 +62,7 @@ namespace TriviaMaze.com.teamrc.gameobjects {
             if (x % 32 != 0 || x % 32 != 0)
                 throw new Exception();
 
-            floorImage = new Rectangle(x, y, 32, 32);
+            _floorImage = new Rectangle(x, y, 32, 32);
 
             CollisionManager.add(this);
         }
@@ -72,14 +72,14 @@ namespace TriviaMaze.com.teamrc.gameobjects {
          * 
          * @returns image - the floor's Rectangle.
          */
-        public Rectangle getImage() { return this.floorImage; }
+        public Rectangle getImage() { return this._floorImage; }
 
         /**
          * Returns the floors Brush color.
          * 
          * @returns color - the floor's Brush color.
          */
-        public Brush getColor() { return this.floorColor; }
+        public Brush getColor() { return this._floorColor; }
 
         /**
          * Returns a String representing the floors type.
@@ -100,7 +100,7 @@ namespace TriviaMaze.com.teamrc.gameobjects {
          * 
          * @returns position - A Point representing the floor's position.
          */
-        public Point getPosition() { return new Point(this.floorImage.X, this.floorImage.Y); }
+        public Point getPosition() { return new Point(this._floorImage.X, this._floorImage.Y); }
 
         /**
          * Returns a character representing the Component.

@@ -49,7 +49,7 @@ namespace TriviaMaze.com.teamrc.gameobjects {
          * Initializes the New Door Component.
          */
         private void init() {
-            this.doorColor = Brushes.DarkOrange;
+            this._doorColor = Brushes.DarkOrange;
 
             this.type = CollisionManager.NEW_DOOR;
 
@@ -67,7 +67,7 @@ namespace TriviaMaze.com.teamrc.gameobjects {
 
             CollisionManager.remove(this);
 
-            return new DoorUsed(this.doorImage.X, this.doorImage.Y, question);
+            return new DoorUsed(this._doorImage.X, this._doorImage.Y, question);
         }
 
         /**

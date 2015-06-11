@@ -16,8 +16,8 @@ using TriviaMaze.com.teamrc.util;
  */
 namespace TriviaMaze.com.teamrc.gameobjects {
     public partial class Player : Component, I_Collidable {
-        public Rectangle playerImage;
-        public Brush playerColor = Brushes.Blue;
+        private Rectangle _playerImage;
+        private Brush _playerColor = Brushes.Blue;
 
         public String type = CollisionManager.PLAYER;
 
@@ -54,7 +54,7 @@ namespace TriviaMaze.com.teamrc.gameobjects {
          * initializes the player component
          */
         private void init(int x, int y) {
-            this.playerImage = new Rectangle(x, y, 32, 32);
+            this._playerImage = new Rectangle(x, y, 32, 32);
 
             //CollisionManager.add(this);
         }
@@ -66,7 +66,7 @@ namespace TriviaMaze.com.teamrc.gameobjects {
             if (!this.upFlag) {
                 this.upFlag = true;
 
-                this.playerImage.Y -= MOVE_SPEED;
+                this._playerImage.Y -= MOVE_SPEED;
             }
         }
 
@@ -77,7 +77,7 @@ namespace TriviaMaze.com.teamrc.gameobjects {
             if (!this.downFlag) {
                 this.downFlag = true;
 
-                this.playerImage.Y += MOVE_SPEED;
+                this._playerImage.Y += MOVE_SPEED;
             }
         }
 
@@ -88,7 +88,7 @@ namespace TriviaMaze.com.teamrc.gameobjects {
             if (!this.leftFlag) {
                 this.leftFlag = true;
 
-                this.playerImage.X -= MOVE_SPEED;
+                this._playerImage.X -= MOVE_SPEED;
             }
         }
 
@@ -99,7 +99,7 @@ namespace TriviaMaze.com.teamrc.gameobjects {
             if (!this.rightFlag) {
                 this.rightFlag = true;
 
-                this.playerImage.X += MOVE_SPEED;
+                this._playerImage.X += MOVE_SPEED;
             }
         }
 
@@ -136,7 +136,7 @@ namespace TriviaMaze.com.teamrc.gameobjects {
          * 
          * @returns image - player Rectangle
          */
-        public Rectangle getImage() { return this.playerImage; }
+        public Rectangle getImage() { return this._playerImage; }
 
 
         /**
@@ -144,7 +144,7 @@ namespace TriviaMaze.com.teamrc.gameobjects {
          * 
          * @returns color - the Brush color.
          */
-        public Brush getColor() { return this.playerColor; }
+        public Brush getColor() { return this._playerColor; }
 
         /**
          * Returns the players type.
@@ -166,7 +166,7 @@ namespace TriviaMaze.com.teamrc.gameobjects {
          * 
          * @returns position - A Point representing the players position.
          */
-        public Point getPosition() { return new Point(this.playerImage.X, this.playerImage.Y); }
+        public Point getPosition() { return new Point(this._playerImage.X, this._playerImage.Y); }
 
         /**
          * Returns a character representing the component.
