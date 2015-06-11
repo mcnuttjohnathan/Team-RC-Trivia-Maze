@@ -7,20 +7,30 @@ using System.Threading.Tasks;
 
 namespace DatabaseSystem
 {
+	/// <summary>
+	/// This class is a simpleton class that loads databases and tracks use of questions.
+	/// </summary>
     public class QuestionSource
     {
         private List<Database> _databases;
         private List<QuestionAnswer> _usedQuestions;
 
-        public QuestionSource()
-        {
+		/// <summary>
+		/// Creates a source with no databases loaded.
+		/// </summary>
+        public QuestionSource() {
             this._databases = new List<Database>();
             this._usedQuestions = new List<QuestionAnswer>();
         }
 
+		/// <summary>
+		/// Creates a source with database loaded from the path. Also used to load a saved source.
+		/// 
+		/// Throws an exception if loading a source encounters an edited database.
+		/// </summary>
+		/// <param name="path">A string that represents a folder path or save data from a source.</param>
         public QuestionSource(String path)
-            : this()
-        {
+            : this() {
 			if(path.Contains('\n')) {
 				path = path.Replace("\r", "");
 				String[] data = path.Split('\n');
@@ -66,6 +76,11 @@ namespace DatabaseSystem
 			}
         }
 
+		/// <summary>
+		/// Gets an used QuestionAnswer
+		/// </summary>
+		/// <param name="x">Selects which QuestionAnswer to receive.</param>
+		/// <returns>A QuestionAnswer that has been used.</returns>
         public QuestionAnswer this[int x]
         {
             get
@@ -81,6 +96,9 @@ namespace DatabaseSystem
             }
         }
 
+		/// <summary>
+		/// Gets the number of questions stored in all loaded databases.
+		/// </summary>
         public int QuestionCount
         {
             get
@@ -101,16 +119,22 @@ namespace DatabaseSystem
             }
         }
 
-        public void addDatabase(Database d)
-        {
+		/// <summary>
+		/// Adds a loaded database to the source.
+		/// </summary>
+		/// <param name="d">The database to be added to the source.</param>
+        public void addDatabase(Database d) {
             if (!this._databases.Contains(d))
             {
                 this._databases.Add(d);
             }
         }
 
-        public void addDatabasesFrom(String p)
-        {
+		/// <summary>
+		/// Loads all databases in the passed in path.
+		/// </summary>
+		/// <param name="p">A string that represents a path to a folder.</param>
+        public void addDatabasesFrom(String p) {
             if (Directory.Exists(p))
             {
                 String[] files = Directory.GetFiles(p);
@@ -125,11 +149,20 @@ namespace DatabaseSystem
             }
         }
 
-        public void removeDatabase(Database d)
-        {
+		/// <summary>
+		/// Removes the passed in database from the source.
+		/// </summary>
+		/// <param name="d"></param>
+        public void removeDatabase(Database d) {
             this._databases.Remove(d);
         }
 
+		/// <summary>
+		/// Gets a random question from the databases stored in the source.
+		/// 
+		/// The pulled random question will be considered used.
+		/// </summary>
+		/// <returns>A QuestionAnswer to hasn't been used.</returns>
         public QuestionAnswer randomQuestion()
         {
 			if(this._databases.Count > 0) {
@@ -149,10 +182,17 @@ namespace DatabaseSystem
             return null;
         }
 
+		/// <summary>
+		/// Removes all QuestionAnswers from the used list, allowing them to be randomly pulled again.
+		/// </summary>
 		public void clearQuestions() {
 			this._usedQuestions.Clear();
 		}
 
+		/// <summary>
+		/// Creates a string that can be used with this(string) to recreate this source.
+		/// </summary>
+		/// <returns>A string that can be used with this(string) to recreate this source.</returns>
 		public String toSave() {
 			String data = "";
 

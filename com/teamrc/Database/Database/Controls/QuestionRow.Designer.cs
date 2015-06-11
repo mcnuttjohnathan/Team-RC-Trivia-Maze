@@ -35,6 +35,7 @@
 			// 
 			this.txtQuestion.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
 			this.txtQuestion.Location = new System.Drawing.Point(3, 3);
+			this.txtQuestion.MaxLength = 140;
 			this.txtQuestion.Name = "txtQuestion";
 			this.txtQuestion.Size = new System.Drawing.Size(200, 22);
 			this.txtQuestion.TabIndex = 0;
@@ -45,6 +46,7 @@
 			// 
 			this.txtAns0.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
 			this.txtAns0.Location = new System.Drawing.Point(209, 3);
+			this.txtAns0.MaxLength = 24;
 			this.txtAns0.Name = "txtAns0";
 			this.txtAns0.Size = new System.Drawing.Size(100, 22);
 			this.txtAns0.TabIndex = 1;
@@ -55,6 +57,7 @@
 			// 
 			this.txtAns1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
 			this.txtAns1.Location = new System.Drawing.Point(315, 3);
+			this.txtAns1.MaxLength = 24;
 			this.txtAns1.Name = "txtAns1";
 			this.txtAns1.Size = new System.Drawing.Size(100, 22);
 			this.txtAns1.TabIndex = 2;
@@ -65,6 +68,7 @@
 			// 
 			this.txtAns2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
 			this.txtAns2.Location = new System.Drawing.Point(421, 3);
+			this.txtAns2.MaxLength = 24;
 			this.txtAns2.Name = "txtAns2";
 			this.txtAns2.Size = new System.Drawing.Size(100, 22);
 			this.txtAns2.TabIndex = 3;
@@ -75,6 +79,7 @@
 			// 
 			this.txtAns3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
 			this.txtAns3.Location = new System.Drawing.Point(527, 3);
+			this.txtAns3.MaxLength = 24;
 			this.txtAns3.Name = "txtAns3";
 			this.txtAns3.Size = new System.Drawing.Size(100, 22);
 			this.txtAns3.TabIndex = 4;

@@ -67,34 +67,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="com\teamrc\Database\Database\Controls\DatabasePanel.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="com\teamrc\Database\Database\Controls\DatabasePanel.Designer.cs">
-      <DependentUpon>DatabasePanel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="com\teamrc\Database\Database\Controls\DBManipulate.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="com\teamrc\Database\Database\Controls\DBManipulate.Designer.cs">
-      <DependentUpon>DBManipulate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="com\teamrc\Database\Database\Controls\QuestionRow.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="com\teamrc\Database\Database\Controls\QuestionRow.Designer.cs">
-      <DependentUpon>QuestionRow.cs</DependentUpon>
-    </Compile>
-    <Compile Include="com\teamrc\Database\Database\Controls\TablePanel.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="com\teamrc\Database\Database\Controls\TablePanel.Designer.cs">
-      <DependentUpon>TablePanel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="com\teamrc\Database\Database\Database.cs" />
-    <Compile Include="com\teamrc\Database\Database\QuestionAnswer.cs" />
-    <Compile Include="com\teamrc\Database\Database\QuestionSource.cs" />
-    <Compile Include="com\teamrc\Database\Database\Table.cs" />
     <Compile Include="com\teamrc\gameobjects\A_Door.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -220,18 +192,6 @@
       <DependentUpon>TriviaMazeDriver.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="com\teamrc\Database\Database\Controls\DatabasePanel.resx">
-      <DependentUpon>DatabasePanel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="com\teamrc\Database\Database\Controls\DBManipulate.resx">
-      <DependentUpon>DBManipulate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="com\teamrc\Database\Database\Controls\QuestionRow.resx">
-      <DependentUpon>QuestionRow.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="com\teamrc\Database\Database\Controls\TablePanel.resx">
-      <DependentUpon>TablePanel.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="com\teamrc\gameobjects\Player.resx">
       <DependentUpon>Player.cs</DependentUpon>
     </EmbeddedResource>
@@ -279,11 +239,6 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="com\teamrc\Database\Database.dll" />
-    <Content Include="com\teamrc\Database\Database.sln" />
-    <Content Include="com\teamrc\Database\Database\DatabaseSystem.csproj" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -9,11 +9,19 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace DatabaseSystem.Controls {
+	/// <summary>
+	/// A control that represents a database.
+	/// </summary>
 	public partial class DatabasePanel : UserControl {
 		private DBManipulate _owner;
 		private Database _database;
 		private List<TablePanel> _panels;
 
+		/// <summary>
+		/// Creates a panel based on the passed in database.
+		/// </summary>
+		/// <param name="m">The manipulator using this panel.</param>
+		/// <param name="d">The database that this panel is based on.</param>
 		public DatabasePanel(DBManipulate m, Database d) {
 			InitializeComponent();
 			this._owner = m;
@@ -23,6 +31,9 @@ namespace DatabaseSystem.Controls {
 			this.importTables();
 		}
 
+		/// <summary>
+		/// Private method
+		/// </summary>
 		private void addTable(object sender, EventArgs e) {
 			TablePanel tP = new TablePanel(this, this._database);
 
@@ -31,6 +42,9 @@ namespace DatabaseSystem.Controls {
 			this.recalcControls(this, new ControlEventArgs(this));
 		}
 
+		/// <summary>
+		/// Private method
+		/// </summary>
 		private void importTables() {
 			for(int x = 0; x < this._database.Count; x++) {
 				TablePanel tP = new TablePanel(this, this._database[x]);
@@ -42,6 +56,10 @@ namespace DatabaseSystem.Controls {
 			this.recalcControls(this, new ControlEventArgs(this));
 		}
 
+		/// <summary>
+		/// Removes the passed in TablePanel from the list.
+		/// </summary>
+		/// <param name="p">The TablePanel to be removed.</param>
 		public void dropTable(TablePanel p) {
 			if(this._panels.Contains(p)) {
 				this._panels.Remove(p);
@@ -49,6 +67,11 @@ namespace DatabaseSystem.Controls {
 			}
 		}
 
+		/// <summary>
+		/// An event method that saves the database and update the GUI accordingly.
+		/// </summary>
+		/// <param name="sender">The sender of the method.</param>
+		/// <param name="e">The event arguments of the event.</param>
 		public void saveDatabase(object sender, EventArgs e) {
 			if(this.allUniqueTableNames()) {
 				this.btnSave.BackColor = Color.LightYellow;
@@ -57,7 +80,7 @@ namespace DatabaseSystem.Controls {
 					this._panels[x].updateRows();
 				} 
 				
-				Console.WriteLine(this._database.SaveDatabase()); 
+				Console.WriteLine(this._database.saveDatabase()); 
 				
 				for(int x = 0; x < this._panels.Count; x++) {
 					this._panels[x].clearRows();
@@ -81,6 +104,9 @@ namespace DatabaseSystem.Controls {
 			}			
 		}
 
+		/// <summary>
+		/// Private method
+		/// </summary>
 		private bool allUniqueTableNames() {
 			List<string> list = new List<string>(this._panels.Count);
 
@@ -95,12 +121,18 @@ namespace DatabaseSystem.Controls {
 			return true;
 		}
 
+		/// <summary>
+		/// Private method
+		/// </summary>
 		private void recalcControls(object sender, ControlEventArgs e) {
 			for(int x = 0; x < this._panels.Count; x++) {
 				this._panels[x].Location = new Point((this.pnlMain.Width / 2) - (this._panels[x].Width / 2), 5 + (x * (this._panels[x].Height + 5)));
 			}
 		}
 
+		/// <summary>
+		/// Private method
+		/// </summary>
 		private void resize(object sender, EventArgs e) {
 			this.btnAdd.Location = new Point(0, 0);
 			this.btnSave.Location = new Point(this.Width - this.btnAdd.Width - 10, 0);
@@ -108,6 +140,9 @@ namespace DatabaseSystem.Controls {
 			this.pnlMain.Size = new Size(this.Width, this.Height - this.btnAdd.Height - 5);
 		}
 
+		/// <summary>
+		/// Private method
+		/// </summary>
 		private void DatabasePanel_Validated(object sender, EventArgs e) {
 			this.recalcControls(this, new ControlEventArgs(this));
 		}

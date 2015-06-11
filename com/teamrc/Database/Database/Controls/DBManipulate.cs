@@ -10,11 +10,17 @@ using System.Windows.Forms;
 using System.IO;
 
 namespace DatabaseSystem.Controls {
+	/// <summary>
+	/// A manipulator to load and edit databases.
+	/// </summary>
 	public partial class DBManipulate : UserControl {
 		private DatabasePanel _currentPanel;
 		private String _folderPath;
 		private List<DatabasePanel> _folderPanels;
 
+		/// <summary>
+		/// Creates a manipulator initially set in the exe's folder.
+		/// </summary>
 		public DBManipulate() {
 			InitializeComponent();
 			this._folderPath = @"./";
@@ -24,6 +30,9 @@ namespace DatabaseSystem.Controls {
 			this.btnLoad.BackColor = SystemColors.Control;
 		}
 
+		/// <summary>
+		/// Gets or sets the path to the folder the manipulator is working in.
+		/// </summary>
 		public String FolderPath {
 			get { return this._folderPath; }
 			set { 
@@ -32,6 +41,9 @@ namespace DatabaseSystem.Controls {
 			}
 		}
 
+		/// <summary>
+		/// Private method
+		/// </summary>
 		private void switchPanel(object sender, EventArgs e) {
 			if(this.cmbFolder.SelectedIndex < this.cmbFolder.Items.Count && this.cmbFolder.SelectedIndex > -1) {
 				this.pnlMain.Controls.Remove(this._currentPanel);
@@ -40,12 +52,20 @@ namespace DatabaseSystem.Controls {
 			}
 		}
 
+		/// <summary>
+		/// An event method to prompt the user whether to save all databases or not.
+		/// </summary>
+		/// <param name="sender">The sender of the method.</param>
+		/// <param name="e">The event arguments of the event.</param>
 		public void cPromptSave(object sender, FormClosingEventArgs e) {
 			if(!this.promptSave()) {
 				e.Cancel = true;
 			}
 		}
 
+		/// <summary>
+		/// Private method
+		/// </summary>
 		private bool promptSave() {
 			if(this._folderPanels.Count != 0) {
 				DialogResult r = MessageBox.Show("Do you want to save all loaded Databases?", "Save databases?", MessageBoxButtons.YesNoCancel);
@@ -62,6 +82,9 @@ namespace DatabaseSystem.Controls {
 			return true;
 		}
 
+		/// <summary>
+		/// Private method
+		/// </summary>
 		private void switchFolder(object sender, EventArgs e) {
 
 			btnLoad.BackColor = Color.LightYellow;
@@ -119,11 +142,17 @@ namespace DatabaseSystem.Controls {
 			}
 		}
 
+		/// <summary>
+		/// Private method
+		/// </summary>
 		private void resetPanel() {
 			this.pnlMain.Controls.Clear();
 			this._currentPanel = null;
 		}
 
+		/// <summary>
+		/// Private method
+		/// </summary>
 		private void cmbFolder_TextChanged(object sender, EventArgs e) {
 			String path = this.cmbFolder.Text;
 
