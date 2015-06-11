@@ -44,21 +44,32 @@ namespace TriviaMaze.com.teamrc.gameobjects{
             makeExits();
         }
 
+        /*
+         * This the the default component constructor
+         **/
         public Room(IContainer container){
             container.Add(this);
 
             InitializeComponent();
         }
 
-        public Room(SerializationInfo info, StreamingContext ctxt)
-        {
+        /*
+         * The constructor used for serialization.
+         * @param info- serialized information
+         * @param ctxt - serialized information
+         **/
+        public Room(SerializationInfo info, StreamingContext ctxt){
             this.exits = (int)info.GetValue("Exit", typeof(int));
             this.location = new Point((int) info.GetValue("X", typeof (int)), (int) info.GetValue("Y", typeof (int)));
             this.connected = (Boolean)info.GetValue("Connected", typeof(Boolean));
         }
 
-        public void GetObjectData(SerializationInfo info, StreamingContext ctxt)
-        {
+        /*
+         * The helper method used when Room is needed to be serialized
+         * @param info - the serializer 
+         * @param ctct - helps the serializer
+         **/
+        public void GetObjectData(SerializationInfo info, StreamingContext ctxt){
             info.AddValue("Exit", this.exits);
             info.AddValue("X", this.location.X);
             info.AddValue("Y", this.location.Y);

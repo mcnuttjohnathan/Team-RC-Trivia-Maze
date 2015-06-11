@@ -48,10 +48,18 @@ namespace TriviaMaze.com.teamrc.gameobjects{
             return "X";
         }
 
+        /**
+         * The get used to show the rectangle that visually represents it
+         *@returns emptyImage - Rectangle
+         **/
         public Rectangle getImage() {
             return this.emptyImage;
         }
 
+        /**
+         * The get used to show the color the rectangle needs to be
+         * @returns emptyColor - the color empty is supposed to be
+         **/
         public Brush getColor() {
             return this.emptyColor;
         }

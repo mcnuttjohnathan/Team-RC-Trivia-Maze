@@ -41,23 +41,34 @@ namespace TriviaMaze.com.teamrc.gameobjects{
             this.width = w;
             this.rnd = new Random(); 
             this.start = new Point(0, 0);  
-            this.finish = new Point(this.height - 1, this.width - 1);         
+            this.finish = new Point(this.height - 1, this.width - 1);   
+      
             createMaze();
             addDoors();
         }
 
-        public Map(Room[,] r, int h, int w)
-        {
+        /*
+         * This is the constructor used when remaking a map
+         * @param r - the Room array the new map will have
+         * @param h - the height of the new map
+         * @param w - the width of the new map
+         */
+        public Map(Room[,] r, int h, int w){
             this.map = r;
             this.height = h;
             this.width = w;
+
             this.rnd = new Random();
             this.start = new Point(0, 0);
             this.finish = new Point(this.height - 1, this.width - 1);
         }
 
-        public Map(SerializationInfo info, StreamingContext ctxt)
-        { 
+        /*
+         * The map constuctor called with the serialize method
+         * @param info - Serialization information
+         * @param ctxt - Serialization context
+         */
+        public Map(SerializationInfo info, StreamingContext ctxt){ 
             this.map = (Room[,])info.GetValue("Map", typeof(Room[,]));
             this.height = 4;
             this.width = 4;
@@ -66,12 +77,19 @@ namespace TriviaMaze.com.teamrc.gameobjects{
             this.finish = new Point();
         }
 
-        public void GetObjectData(SerializationInfo info, StreamingContext ctxt)
-        {
+
+        /*
+         * The serialization method used to convert the information
+         * @param info - Serialization information
+         * @param ctxt - Serialization context
+         */
+        public void GetObjectData(SerializationInfo info, StreamingContext ctxt){
             info.AddValue("Map", this.map);
         }
 
-
+        /*
+         * The constructor needed to comply with the component
+         */
         public Map(IContainer container){
             container.Add(this);
 
@@ -104,9 +122,7 @@ namespace TriviaMaze.com.teamrc.gameobjects{
          * setRoom sets the room array to a new array
          *@param r - the new room array to be set to
          **/
-
-        public void setRooms(Room[,] r)
-        {
+        public void setRooms(Room[,] r){
             this.map = r;
         }
 
@@ -208,14 +224,17 @@ namespace TriviaMaze.com.teamrc.gameobjects{
 
             for (int i = 0; i < height; i++){
                 for (int j = 0; j < width; j++){
+
                     Room r = new Room(0, p);
-                    if (i == finish.X && j == finish.Y)
-                    {
+
+                    if (i == finish.X && j == finish.Y){
                         r.makeFinish();
                     }
+
                     this.map[i, j] = r;
                     p.X = p.X + 128;
                 }
+
                 p.Y = p.Y + 128;
                 p.X = 0;
             }
@@ -360,14 +379,14 @@ namespace TriviaMaze.com.teamrc.gameobjects{
          **/
         public Boolean isSolvable(){
             int[,] visited = new int[this.height, this.width];
-            for (int i = 0; i < this.height; i++)
-            {
+
+            for (int i = 0; i < this.height; i++){
                 for (int j = 0; j < this.width; j++)
                 {
                     visited[i, j] = 0;
                 }
             }
-                return solve(this.start, this.start, visited);
+            return solve(this.start, this.start, visited);
         }
 
         /**
@@ -421,8 +440,7 @@ namespace TriviaMaze.com.teamrc.gameobjects{
                 next.Y = cur.Y;
                 Boolean b = solve(prev, next, v);
 
-                if (b)
-                {
+                if (b){
                     return b;
                 }
             }
