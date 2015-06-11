@@ -7,23 +7,34 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+/**
+ * Abstract Answer Box that all other answer boxes inherit from.
+ * 
+ * @author Johnathan McNutt
+ */
 namespace TriviaMaze.com.teamrc.TriviaUI {
     public abstract partial class A_AnswerBox : Component {
-        private Rectangle boxImage = new Rectangle(0, 0, 32, 32);
-        private Brush boxColor = Brushes.AntiqueWhite;
-        private Brush borderColor = Brushes.Black;
+        private Rectangle _boxImage = new Rectangle(0, 0, 32, 32);
+        private Brush _boxColor = Brushes.AntiqueWhite;
+        private Brush _borderColor = Brushes.Black;
 
-        private String text;
-        private Font textFont;
-        private Brush textColor = Brushes.Black;
-        private PointF textPosition = new PointF();
+        private String _text;
+        private Font _textFont;
+        private Brush _textColor = Brushes.Black;
+        private PointF _textPosition = new PointF();
         
+        /**
+         * Constructs the abstract answer box component.
+         */
         public A_AnswerBox(Font font) {
             InitializeComponent();
 
             this.init(font);
         }
 
+        /**
+         * Constructs the abstract answer box component.
+         */
         public A_AnswerBox(Font font, IContainer container) {
             container.Add(this);
 
@@ -32,30 +43,67 @@ namespace TriviaMaze.com.teamrc.TriviaUI {
             this.init(font);
         }
 
+        /**
+         * @private
+         * Initialize the component.
+         */
         private void init(Font font) {
-            this.textFont = font;
+            this._textFont = font;
         }
 
+        /**
+         * checks the users answer and returns if its correct.
+         */
         public abstract Boolean submitAnswer();
 
-        public Rectangle getImage() { return this.boxImage; }
+        /**
+         * returns the answer boxes rectangle.
+         */
+        public Rectangle getImage() { return this._boxImage; }
 
-        public void setImage(Rectangle r) { this.boxImage = r; }
+        /**
+         * sets the answer boxes rectangle.
+         */
+        public void setImage(Rectangle r) { this._boxImage = r; }
 
-        public Brush getBoxColor() { return this.boxColor; }
+        /**
+         * returns the answer boxes inner color.
+         */
+        public Brush getBoxColor() { return this._boxColor; }
 
-        public Brush getBorderColor() { return this.borderColor; }
+        /**
+         * returns the answer boxes outer color.
+         */
+        public Brush getBorderColor() { return this._borderColor; }
 
-        public String getText() { return this.text; }
+        /**
+         * returns the answer boxes text.
+         */
+        public String getText() { return this._text; }
 
-        public void setText(String text) { this.text = text; }
+        /**
+         * sets the answer boxes text.
+         */
+        public void setText(String text) { this._text = text; }
 
-        public Font getFont() { return this.textFont; }
+        /**
+         * returns the text font.
+         */
+        public Font getFont() { return this._textFont; }
 
-        public Brush getTextColor() { return this.textColor; }
+        /**
+         * returns the text color.
+         */
+        public Brush getTextColor() { return this._textColor; }
 
-        public PointF getTextPosition() { return this.textPosition; }
+        /**
+         * returns the text position.
+         */
+        public PointF getTextPosition() { return this._textPosition; }
 
-        public void setTextPosition(PointF pf) { this.textPosition = pf; }
+        /**
+         * sets the text position.
+         */
+        public void setTextPosition(PointF pf) { this._textPosition = pf; }
     }
 }

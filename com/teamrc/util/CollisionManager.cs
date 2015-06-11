@@ -80,22 +80,5 @@ namespace TriviaMaze.com.teamrc.util {
             
             return player;
         }
-
-        /*
-        public static void testAllCollsions() {
-            foreach(var a in collidableTypes){
-                for (int i = 0; i < a.Value.Count; i++ ) {
-
-                    I_Collidable headObject = (I_Collidable)a.Value[i];
-                    String[] collisionTypes = headObject.getCollisionTypes();
-                    foreach (var c in collidableTypes) {
-                        if (collisionTypes.Contains(c.Key)) {
-                            //
-                        }
-                    }
-                }
-            }
-        }
-        */
     }
 }

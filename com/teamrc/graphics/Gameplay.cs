@@ -34,7 +34,8 @@ namespace TriviaMaze.com.teamrc.graphics {
         private DoorUsed currDoor = null;
 
         /**
-         * Constructs the gameplay window.
+         * Constructs the gameplay window. For starting
+         * a new game.
          */
         public Gameplay() {
             InitializeComponent();
@@ -47,6 +48,10 @@ namespace TriviaMaze.com.teamrc.graphics {
             this.init();
         }
 
+        /**
+         * Constructs the gameplay window. For loading a
+         * saved game.
+         */
         public Gameplay(int playerX, int playerY, Map map) {
             InitializeComponent();
 
@@ -57,6 +62,10 @@ namespace TriviaMaze.com.teamrc.graphics {
             this.init();
         }
 
+        /**
+         * @private
+         * initiaizes the Gameplay Form.
+         */
         private void init() {
             this.DoubleBuffered = true;
 
@@ -67,6 +76,9 @@ namespace TriviaMaze.com.teamrc.graphics {
             t.Start();
         }
 
+        /**
+         * draws the graphics for the window.
+         */
         protected override void OnPaint(PaintEventArgs e) {
             base.OnPaint(e);
 
@@ -107,6 +119,7 @@ namespace TriviaMaze.com.teamrc.graphics {
         }
 
         /**
+         * @private
          * draws the window graphics approximately 60 times per second
          * and checks if the player has won the game.
          */
@@ -123,6 +136,7 @@ namespace TriviaMaze.com.teamrc.graphics {
         
 
         /**
+         * @private
          * Activates whenever the user presses a key.
          * Checks to see if the key is WASD and if the
          * player can move in that direction.
@@ -219,9 +233,10 @@ namespace TriviaMaze.com.teamrc.graphics {
             else if (e.KeyCode.Equals(Keys.D0)) {
                 SaveLoadDriver sld = new SaveLoadDriver(player, map);
             }
-        }
+        }// end Gameplay_KeyDown_1 method
 
         /**
+         * @private
          * Checks if a key is released, if WASD is released
          * the player flag in the same direction is reset.
          */
@@ -239,6 +254,11 @@ namespace TriviaMaze.com.teamrc.graphics {
                 this.player.resetRightFlag();
         }
 
+        /**
+         * @private
+         * handles keyboard input for answers that require
+         * user input.
+         */
         private void inputAnswer(object sender, KeyEventArgs e) {
             if (e.KeyCode.Equals(Keys.Back)) {
                 ((InputBox)this.triviaController.getAnswers()[0]).removeCharacter();
@@ -362,16 +382,22 @@ namespace TriviaMaze.com.teamrc.graphics {
             }
         }
 
+        /**
+         * @private
+         * checks if the player collided with a new or used door.
+         */
         private void otherCollisions(I_Collidable collider) {
-            //this collision doesn't work and I don't know why.
-            //if (collider.getType().Equals(CollisionManager.FINISH))
-                //this.gameWon();
             if (collider.getType().Equals(CollisionManager.NEW_DOOR))
                 this.openNewDoor(collider);
             else if (collider.getType().Equals(CollisionManager.USED_DOOR))
                 this.viewUsedDoor(collider);
         }
 
+        /**
+         * @private
+         * replaces a new door with a used door storing a
+         * QuestionAnswer object inside the door.
+         */
         private void openNewDoor(I_Collidable door) {
             this.inQuestion = true;
             QuestionAnswer qa = this.questionSource.randomQuestion();
@@ -403,6 +429,11 @@ namespace TriviaMaze.com.teamrc.graphics {
             this.currDoor = du;
         }
 
+        /**
+         * @private
+         * allows the player to interact with used doors without
+         * locked or unlocking them.
+         */
         private void viewUsedDoor(I_Collidable door) {
             this.inQuestion = true;
             QuestionAnswer qa = ((DoorUsed)door).getQuestionAnswer();
@@ -411,6 +442,10 @@ namespace TriviaMaze.com.teamrc.graphics {
             this.currDoor = (DoorUsed)door;
         }
 
+        /**
+         * @private
+         * converts a used door to an unlocked door.
+         */
         private void openUsedDoor() {
             Point p = this.currDoor.getPosition();
 
@@ -437,6 +472,10 @@ namespace TriviaMaze.com.teamrc.graphics {
             this.currDoor = null;
         }
 
+        /**
+         * @private
+         * converts a used door to an locked door.
+         */
         private void closeUsedDoor() {
             Point p = this.currDoor.getPosition();
 
@@ -466,6 +505,11 @@ namespace TriviaMaze.com.teamrc.graphics {
                 this.gameOver();
         }
 
+        /**
+         * @private
+         * opens a new window with losing text and ends the game.
+         * called once the maze is no longer solvable.
+         */
         private void gameOver() {
             Form f = new Form();
             TextBox t = new TextBox();
@@ -488,6 +532,11 @@ namespace TriviaMaze.com.teamrc.graphics {
             this.Close();
         }
 
+        /**
+         * @private
+         * opens a new window with victory text.
+         * called when the player reaches the finish.
+         */
         private void gameWon() {
             Form f = new Form();
             TextBox t = new TextBox();
@@ -511,6 +560,7 @@ namespace TriviaMaze.com.teamrc.graphics {
         }
 
         /**
+         * @private
          * stops update from being called once the window is closed and resets the
          * CollisionManager singleton.
          */

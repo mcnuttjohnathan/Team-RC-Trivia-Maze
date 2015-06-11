@@ -7,13 +7,26 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+/**
+ * A Multiple Choice Box that contains one of
+ * four possible answers.
+ * 
+ * @author Johnathan McNutt
+ */
 namespace TriviaMaze.com.teamrc.TriviaUI {
     public partial class MultipleChoiceBox : A_AnswerBox {
         public enum Letter { A, B, C, D };
 
-        private String answer;
-        private Boolean correct;
+        private String _answer;
+        private Boolean _correct;
 
+        /**
+         * constructs the Multiple Choice Box Component
+         * @param answer - the answer text
+         * @param correct - if the answer is correct
+         * @param location - whether the box is Top or Bottom
+         * @param letter - the boxes respective letter (A, B, C, D)
+         */
         public MultipleChoiceBox(String answer, Boolean correct, TriviaController.Location location, Letter letter)
             : base(new Font(FontFamily.GenericSerif, 12)) {
             InitializeComponent();
@@ -21,6 +34,14 @@ namespace TriviaMaze.com.teamrc.TriviaUI {
             this.init(answer, correct, location, letter);
         }
 
+        /**
+         * constructs the Multiple Choice Box Component
+         * @param answer - the answer text
+         * @param correct - if the answer is correct
+         * @param location - whether the box is Top or Bottom
+         * @param letter - the boxes respective letter (A, B, C, D)
+         * @param container - a container for the component
+         */
         public MultipleChoiceBox(String answer, Boolean correct, TriviaController.Location location, Letter letter, IContainer container)
             : base(new Font(FontFamily.GenericSerif, 12)) {
             container.Add(this);
@@ -30,9 +51,13 @@ namespace TriviaMaze.com.teamrc.TriviaUI {
             this.init(answer, correct, location, letter);
         }
 
+        /**
+         * @private
+         * Initalizes the multiple choice box component.
+         */
         private void init(String answer, Boolean correct, TriviaController.Location location, Letter letter) {
-            this.answer = answer;
-            this.correct = correct;
+            this._answer = answer;
+            this._correct = correct;
 
             if (location == TriviaController.Location.TOP) {
                 if (letter == Letter.A) {
@@ -80,8 +105,12 @@ namespace TriviaMaze.com.teamrc.TriviaUI {
             }
         }// end init
 
+        /**
+         * Check is the answer is correct.
+         * @returns if the choice is correct
+         */
         public override Boolean submitAnswer() {
-            return correct;
+            return _correct;
         }
     }
 }

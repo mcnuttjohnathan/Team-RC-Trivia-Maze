@@ -7,28 +7,26 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 
 using Finisar.SQLite;
 
 using TriviaMaze.com.teamrc.gameobjects;
 using TriviaMaze.com.teamrc.graphics;
+using TriviaMaze.com.teamrc.savefiles;
+using TriviaMaze.com.teamrc.SaveUtil;
+
 using DatabaseSystem;
 using DatabaseSystem.Controls;
-using System.IO;
-using TriviaMaze.com.teamrc.savefiles;
+
 /**
  * Driver class for Team Rapidash Cachers Trivia Maze project for CSCD 350 in Spring 2015
  * 
- * Iteration 1: one section of code will be added by each team member. Each one is given
- * a button to show their effects
- * 
  * Code:
- * Johnathan McNutt - Graphics and Movement
- * Zoe Baker - Maze Generation
- * Ted Bickham - Database Management
+ * Johnathan McNutt - Gameplay and GUI
+ * Zoe Baker - Maze Generation and Saving
+ * Ted Bickham - Database Management and Manipulation
  */
-using TriviaMaze.com.teamrc.SaveUtil;
-
 namespace TriviaMaze {
     public partial class TriviaMazeDriver : Form {
         public TriviaMazeDriver() {
@@ -48,7 +46,6 @@ namespace TriviaMaze {
          * Loads a previously saved game for the player.
          */
         private void button4_Click(object sender, EventArgs e) {
-           //loading game code goes here.
            try{
                 SaveLoadDriver sld = new SaveLoadDriver();
                 Map m = sld.getMap();

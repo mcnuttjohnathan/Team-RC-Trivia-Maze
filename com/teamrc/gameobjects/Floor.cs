@@ -11,6 +11,8 @@ using TriviaMaze.com.teamrc.util;
 
 /**
  * Controls the floor objects in game.
+ * 
+ * @author Johnathan McNutt
  */
 namespace TriviaMaze.com.teamrc.gameobjects {
     public partial class Floor : Component, I_Collidable {

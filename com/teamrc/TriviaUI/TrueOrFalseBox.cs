@@ -7,12 +7,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+/**
+ * A True or False Answer Box for trivia GUI
+ * 
+ * @author Johnathan McNutt
+ */
 namespace TriviaMaze.com.teamrc.TriviaUI {
     public partial class TrueOrFalseBox : A_AnswerBox {
         public enum ToF { TRUE, FALSE };
 
-        private Boolean correct;
+        private Boolean _correct;
 
+        /**
+         * Constructs the True or False Box component
+         * @param correct - if the answer is correct
+         * @param location - whether the box is top or bottom screen
+         * @param tof - if this is a true or false box.
+         */
         public TrueOrFalseBox(Boolean correct, TriviaController.Location location, ToF tof)
             : base(new Font(FontFamily.GenericSerif, 24)) {
             InitializeComponent();
@@ -20,6 +31,13 @@ namespace TriviaMaze.com.teamrc.TriviaUI {
             this.init(correct, location, tof);
         }
 
+        /**
+         * Constructs the True or False Box component
+         * @param correct - if the answer is correct
+         * @param location - whether the box is top or bottom screen
+         * @param tof - if this is a true or false box.
+         * @param container - becomes parent of this component
+         */
         public TrueOrFalseBox(Boolean correct, TriviaController.Location location, ToF tof, IContainer container)
             : base(new Font(FontFamily.GenericSerif, 24)) {
             container.Add(this);
@@ -29,8 +47,12 @@ namespace TriviaMaze.com.teamrc.TriviaUI {
             this.init(correct, location, tof);
         }
 
+        /**
+         * @private
+         * Initializes the component
+         */
         private void init(Boolean correct, TriviaController.Location location, ToF tof) {
-            this.correct = correct;
+            this._correct = correct;
 
             if (location == TriviaController.Location.TOP) {
                 if (tof == ToF.TRUE) {
@@ -58,8 +80,11 @@ namespace TriviaMaze.com.teamrc.TriviaUI {
             }
         }//end init
 
+        /**
+         * @returns of this answer is correct
+         */
         public override Boolean submitAnswer() {
-            return correct;
+            return _correct;
         }
     }
 }
